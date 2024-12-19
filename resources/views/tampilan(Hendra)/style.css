@@ -83,6 +83,91 @@ body {
 }
 
 
+.dropdown {
+    position: absolute;
+    top: 6.72rem;
+    right: 4.5rem;
+    background-color: #f8f0e3;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 2;
+}
+
+.dropdown.active {
+    display: flex;
+}
+
+/* User info section */
+.user-info {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #ddd;
+    justify-content: space-between;
+    
+}
+
+.user-info .user-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.user-info h4 {
+    margin: 0;
+    font-size: 0.8rem;
+    color: #4a3b32;
+}
+
+.user-info p {
+    margin: 10px 0 0 0;
+    font-size: 12px;
+    color: #a5724c;
+}
+
+.user-info i{
+    font-size: 1rem;
+    margin-right: 5px;
+    color: var(--bg3);
+}
+
+/* Menu options */
+.menu-options {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 10px 10px 0;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+.menu-item span {
+    font-size: 0.8rem;
+}
+
+.menu-item:hover {
+    background-color: #f0f4f8;
+}
+
+.menu-item i {
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.logout {
+    color: red;
+}
+
 .banner {
     margin-top: 6rem;
     position: relative;
