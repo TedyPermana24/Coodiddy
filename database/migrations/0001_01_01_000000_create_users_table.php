@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('phone_number')->nullable();
             $table->text('address')->nullable();
-            $table->enum('role', ['pemilik_hewan', 'pengelola_penginapan', 'admin']);
+            $table->enum('role', ['user', 'vendor', 'admin']);
             $table->timestamps();
         });
 
