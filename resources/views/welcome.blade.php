@@ -22,17 +22,17 @@
   </nav>
 
   <!-- Hero Section -->
-  <section class="bg-neutral-50 h-screen mt-0 bg-cover bg-center transition-all duration-300 ease-in-out">
-    <div class="container mx-auto flex flex-col md:flex-row items-center h-full px-4 relative">
-      <img src="{{ asset('svg/hero-square.svg') }}" alt="Hero Square" class="absolute inset-0 w-200 h-200 object-cover z-0 mt-40 -ml-8" />
+  <section class="bg-[#F8F0E3] h-screen mt-0 bg-cover bg-center transition-all duration-300 ease-in-out" style="background-image: url('{{ asset('img/hero-bg.png') }}'); background-size: 100%;">
+    <div class="container mx-auto flex flex-col md:flex-row items-center h-full px-4 relative transition-all duration-300 ease-in-out">
+      {{-- <img src="{{ asset('svg/hero-square.svg') }}" alt="Hero Square" class="absolute inset-0 w-[700px] h-[700px] object-cover z-0 mt-40 -ml-8" /> --}}
     {{-- text container --}}
       <div class="md:w-1/2 mb-8 md:mb-0 text-center md:text-left mx-auto z-10">
-        <div class="text-4xl font-bold text-[#4A3B32] mb-4 space-y-1">
+        <div class="text-5xl font-bold text-[#4A3B32] mb-4 space-y-1">
           <h1>CARE OF OUR &nbsp;<img src="{{ asset('svg/paw-black.svg') }}" alt="Paw Print" class="w-8 h-8 inline-block" style="transform: translateY(-10px);"></h1>
           <h1 class="text-[#6B4423]">DEAREST, <span class="text-[#8B5E3C]">IN DAILY</span></h1> 
           <h1 class="text-[#8B5E3C]">DEVOTION TO YOU</h1>
         </div>
-        <p class="mt-4 text-gray-600 max-w-2xl mx-auto md:ml-0">
+        <p class="mt-4 text-gray-600 max-w-2xl mx-auto md:ml-0 text-lg">
             "We understand that your pets are family. That's why we're committed to providing exceptional care services with genuine love and attention to detail. Our certified vendors ensure your beloved companions receive the best possible care, making every day special for them while you're away."
         </p>
         <button class="mt-6 bg-[#2E2C2C] text-white py-2 px-6 rounded-3xl hover:bg-[#6B4423] font-poppins font-normal text-base">
@@ -42,39 +42,74 @@
       <!-- Image Container -->
       <div class="md:w-1/2 flex justify-center mx-8">
         <div class="relative w-150 h-150">
-          <img src="{{ asset('svg/hero-animal.svg') }}" alt="Cat Hero" class="object-cover w-full h-full">
+          {{-- <img src="{{ asset('svg/hero-animal.svg') }}" alt="Cat Hero" class="object-cover w-full h-full"> --}}
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Services Section -->
-  <section class="py-16 bg-white transition-all duration-300 ease-in-out">
-    <div class="container mx-auto px-4 text-center">
-      <h2 class="text-3xl font-bold text-gray-800 mb-8">Our Services</h2>
-      <div class="grid grid-cols-3 gap-8">
-        <!-- Service Card -->
-        <div class="bg-neutral-100 p-6 rounded-lg shadow-md">
-          <h3 class="text-xl font-semibold text-gray-700">Pet Care Search</h3>
-          <p class="mt-2 text-gray-600">Search for services, animal sitting by location, reviews, prices, and types of services offered.</p>
+<!-- ... existing code ... -->
+<!-- Services Section -->
+<section class="py-16 bg-white transition-all duration-300 ease-in-out">
+ <div class="container mx-auto px-4 text-center transition-all duration-300 ease-in-out">
+   <h1 class="text-5xl font-bold text-[#4A3B32] mb-8">Our Services</h1>
+   <p class="text-gray-600 mb-20 text-lg">"Your One-Stop Solution for Professional Pet Care Services and Booking Management"</p>
+   
+   <!-- Top Row Services -->
+   <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+     <div class="bg-[#F8F0E3] hover:bg-gradient-to-br from-[#8B5E3C] to-[#4A3B32] p-8 rounded-lg shadow-xl transition-all duration-300 group">
+        <div class="w-16 h-16 bg-white rounded-full mx-auto mb-4 flex items-center justify-center overflow-hidden border-2 border-[#6B4423]">
+            <img src="{{ asset('img/pet-search.jpg') }}" alt="Pet Care Search" class="w-full h-full object-cover">
         </div>
-        <!-- Service Card -->
-        <div class="bg-neutral-100 p-6 rounded-lg shadow-md">
-          <h3 class="text-xl font-semibold text-gray-700">Service and Pricing Information</h3>
-          <p class="mt-2 text-gray-600">Provides complete information about facilities, service quality, and custody fees.</p>
+       <h3 class="text-xl font-semibold mb-4 text-gray-800 transition-colors duration-300 group-hover:text-white">Pet Care Search</h3>
+       <p class="text-lg text-gray-600 transition-colors duration-300 group-hover:text-white">This website allows users to search for services, animal sitting by Location, Reviews users, prices, and types of services offered.</p>
+     </div>
+      <div class="bg-[#F8F0E3] hover:bg-gradient-to-br from-[#8B5E3C] to-[#4A3B32] p-8 rounded-lg shadow-xl transition-all duration-300 group">
+        <div class="w-16 h-16 bg-white rounded-full mx-auto mb-4 flex items-center justify-center overflow-hidden border-2 border-[#6B4423]">
+            <img src="{{ asset('img/vendor-information.jpg') }}" alt="Service and Pricing Information" class="w-full h-full object-cover">
         </div>
-        <!-- Service Card -->
-        <div class="bg-neutral-100 p-6 rounded-lg shadow-md">
-          <h3 class="text-xl font-semibold text-gray-700">Online Booking and Payment</h3>
-          <p class="mt-2 text-gray-600">Simplify the process of ordering daycare services through secure online booking.</p>
+       <h3 class="text-xl font-semibold mb-4 text-gray-800 transition-colors duration-300 group-hover:text-white">Service and Pricing Information</h3>
+       <p class="text-lg text-gray-600 transition-colors duration-300 group-hover:text-white">Provides complete information about facilities, service quality, and custody fees, so pet owners can make informed decisions.</p>
+     </div>
+      <div class="bg-[#F8F0E3] hover:bg-gradient-to-br from-[#8B5E3C] to-[#4A3B32] p-8 rounded-lg shadow-xl transition-all duration-300 group">
+        <div class="w-16 h-16 bg-white rounded-full mx-auto mb-4 flex items-center justify-center overflow-hidden border-2 border-[#6B4423]">
+            <img src="{{ asset('img/online-book.jpg') }}" alt="Online Booking and Payment" class="w-full h-full object-cover">
         </div>
-      </div>
-    </div>
-  </section>
+       <h3 class="text-xl font-semibold mb-4 text-gray-800 transition-colors duration-300 group-hover:text-white">Online Booking and Payment</h3>
+       <p class="text-lg text-gray-600 transition-colors duration-300 group-hover:text-white">Simplify the process of ordering daycare services through online booking features and secure and convenient digital payments.</p>
+     </div>
+   </div>
+    <!-- Bottom Row Services -->
+   <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+     <div class="bg-[#F8F0E3] hover:bg-gradient-to-br from-[#8B5E3C] to-[#4A3B32] p-8 rounded-lg shadow-xl transition-all duration-300 group">
+        <div class="w-16 h-16 bg-white rounded-full mx-auto mb-4 flex items-center justify-center overflow-hidden border-2 border-[#6B4423]">
+            <img src="{{ asset('img/vendor-profile.jpg') }}" alt="Vendor Profile and Reviews" class="w-full h-full object-cover">
+        </div>
+       <h3 class="text-xl font-semibold mb-4 text-gray-800 transition-colors duration-300 group-hover:text-white">Vendor Profile and Reviews</h3>
+       <p class="text-lg text-gray-600 transition-colors duration-300 group-hover:text-white">Displays a complete vendors profile with reviews and ratings from previous users, helping pet owners choose a place they trust.</p>
+     </div>
+      <div class="bg-[#F8F0E3] hover:bg-gradient-to-br from-[#8B5E3C] to-[#4A3B32] p-8 rounded-lg shadow-xl transition-all duration-300 group">
+        <div class="w-16 h-16 bg-white rounded-full mx-auto mb-4 flex items-center justify-center overflow-hidden border-2 border-[#6B4423]">
+            <img src="{{ asset('img/scheduling.jpg') }}" alt="Scheduling and Reminders" class="w-full h-full object-cover">
+        </div>
+       <h3 class="text-xl font-semibold mb-4 text-gray-800 transition-colors duration-300 group-hover:text-white">Scheduling and Reminders</h3>
+       <p class="text-lg text-gray-600 transition-colors duration-300 group-hover:text-white">Allows users to schedule animal daycare within a specific period of time, with automatic reminders to prepare for daycare or pick up animals.</p>
+     </div>
+      <div class="bg-[#F8F0E3] hover:bg-gradient-to-br from-[#8B5E3C] to-[#4A3B32] p-8 rounded-lg shadow-xl transition-all duration-300 group">
+        <div class="w-16 h-16 bg-white rounded-full mx-auto mb-4 flex items-center justify-center overflow-hidden border-2 border-[#6B4423]">
+            <img src="{{ asset('img/communication.jpg') }}" alt="Communication with Providers Service" class="w-full h-full object-cover">
+        </div>
+       <h3 class="text-xl font-semibold mb-4 text-gray-800 transition-colors duration-300 group-hover:text-white">Communication with Providers Service</h3>
+       <p class="text-lg text-gray-600 transition-colors duration-300 group-hover:text-white">Facilitates direct communication between owners and service providers via messages or calls</p>
+     </div>
+   </div>
+ </div>
+</section>
+<!-- ... existing code ... -->
 
   <!-- Vendor Section -->
   <section class="py-16 bg-neutral-50 transition-all duration-300 ease-in-out">
-    <div class="container mx-auto px-4">
+    <div class="container mx-auto px-4 transition-all duration-300 ease-in-out">
       <h2 class="text-center text-gray-800 text-xl font-bold mb-8">Recommendations for Trusted Vendors</h2>
       <div class="grid grid-cols-4 gap-x-6 gap-y-8">
         <!-- Vendor Card -->
