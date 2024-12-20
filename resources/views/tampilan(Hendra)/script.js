@@ -11,3 +11,13 @@ window.addEventListener("click", function (e) {
         dropdown.classList.remove("active");
     }
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const heart = document.querySelector(".heart");
+
+    heart.addEventListener("click", () => {
+        heart.classList.toggle("far");
+        heart.classList.toggle("fas");
+        heart.classList.toggle("text-red-500");
+    });
+});
