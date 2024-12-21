@@ -113,25 +113,66 @@
        class="w-full object-cover">
 </section>
 
-  <!-- Vendor Section -->
-  <section class="py-16 bg-neutral-50 transition-all duration-300 ease-in-out">
-    <div class="container mx-auto px-4 transition-all duration-300 ease-in-out">
-      <h2 class="text-center text-gray-800 text-xl font-bold mb-8">Recommendations for Trusted Vendors</h2>
-      <div class="grid grid-cols-4 gap-x-6 gap-y-8">
-        <!-- Vendor Card -->
-        <div class="bg-white p-4 rounded-lg shadow-md flex flex-col items-center">
-          <img src="/pet-shop.png" alt="" class="w-full h-auto mb-4 rounded-lg object-cover">
-          <h3 class="font-semibold text-gray-700">DayPet Care</h3>
-          <p class="text-sm text-gray-500">Bandung</p>
-          <p class="text-yellow font-bold mt-auto">Rp.200.000/day</p>
-          <button
-            class="mt-auto bg-yellow py px hover:bg-darkyellow"
-            >Contact
-          </button>
-        </div>
+<!-- Vendor Section -->
+<div class="w-full">
+  <div class="container mx-auto px-4">
+      <!-- Title Section -->
+      <div class="text-center mb-8">
+          <h2 class="text-5xl font-bold text-[#4A3B32] pt-12 mb-8">Vendor</h2>
+          <p class="text-gray-600 mb-20 text-lg">"Recommendations for trusted vendors"</p>
       </div>
-    </div>
-  </section>
+      <!-- Card Section -->
+      <div class="flex flex-row flex-wrap gap-4 mb-16">
+          <!-- Card 1 -->
+          <div class="w-[calc(25%-18px)] bg-white rounded-xl shadow-[0_3px_10px_rgb(0,0,0,0.2)] mb-2">
+              <!-- Image Container -->
+              <div class="w-full relative" style="padding-bottom: 75%;">
+                  <img src="{{ asset('img/communication.jpg') }}" alt="Pet Shop" class="absolute top-0 left-0 w-full h-full object-cover rounded-t-xl">
+              </div>
+              
+              <!-- Content Container -->
+              <div class="p-4">
+                  <div class="relative w-full">
+                      <h3 class="text-2xl font-bold text-center">DayPet Care</h3>
+                      <button class="text-gray-400 absolute right-0 top-1/2 -translate-y-1/2">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                          </svg>
+                      </button>
+                  </div>
+                  <div class="flex items-start mt-7 mb-1">
+                      <div>
+                          <p class="text-xl font-bold">Bandung</p>
+                          <p class="text-xl">
+                              <span class="font-bold">Rp.200.000/</span>
+                              <span class="text-gray-400">day</span>
+                          </p>
+                      </div>
+                      <button class="ml-auto mt-2 bg-[#B17F5B] text-white px-8 py-2 rounded-md font-bold text-lg">
+                          Contact
+                      </button>
+                  </div>
+              </div>
+          </div>
+
+          <!-- Card 2-8 (Copy card 1 sebanyak 7 kali) -->
+          
+      </div>
+  </div>
+</div>
+
+
+
+
+
+          <!-- Card 2-8 (Copy card 1 sebanyak 7 kali) -->
+          
+      </div>
+  </div>
+</div>
+
+
+
 
 </body>
 </html>
