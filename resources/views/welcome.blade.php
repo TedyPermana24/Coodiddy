@@ -7,10 +7,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-neutral-50 font-poppins">
+<body class="bg-neutral-50 font-poppins overscroll-none">
 
   <!-- Navbar -->
-  <nav class="bg-transparent absolute w-full z-20 top-0 left-0 flex justify-between items-center p-4 font-poppins transition-all duration-300 ease-in-out">
+  <nav class="bg-transparent absolute w-full z-20 top-0 left-0 flex justify-between items-center py-7 px-16 font-poppins transition-all duration-300 ease-in-out">
     <div class="text-2xl font-bold text-gray-800 ml-16">
       <a href="#" class="hover:text-[#6B4423] text-3xl font-bold">Coodiddy</a>
     </div>
@@ -32,12 +32,12 @@
           <h1 class="text-[#6B4423]">DEAREST, <span class="text-[#8B5E3C]">IN DAILY</span></h1> 
           <h1 class="text-[#8B5E3C]">DEVOTION TO YOU</h1>
         </div>
-        <p class="mt-4 text-gray-600 max-w-2xl mx-auto md:ml-0 text-lg">
+        <p class="mt-4 mb-12 text-gray-600 max-w-2xl mx-auto md:ml-0 text-lg">
             "We understand that your pets are family. That's why we're committed to providing exceptional care services with genuine love and attention to detail. Our certified vendors ensure your beloved companions receive the best possible care, making every day special for them while you're away."
         </p>
-        <button class="mt-6 bg-[#2E2C2C] text-white py-2 px-6 rounded-3xl hover:bg-[#6B4423] font-poppins font-normal text-base">
+        <a href="#" class="text-xl bg-[#2E2C2C] text-white py-4 px-16 rounded-3xl hover:bg-[#6B4423] font-poppins font-semibold">
           Search For Vendors
-        </button>
+        </a>
       </div>
       <!-- Image Container -->
       <div class="md:w-1/2 flex justify-center mx-8">
@@ -122,9 +122,9 @@
           <p class="text-gray-600 mb-20 text-lg">"Recommendations for trusted vendors"</p>
       </div>
       <!-- Card Section -->
-      <div class="flex flex-row flex-wrap gap-4 mb-16">
+      <div class="flex flex-row flex-wrap gap-6 mb-16">
           <!-- Card 1 -->
-          <div class="w-[calc(25%-18px)] bg-white rounded-xl shadow-[0_3px_10px_rgb(0,0,0,0.2)] mb-2">
+          <div class="w-[calc(25%-18px)] bg-white rounded-2xl shadow-[0_3px_10px_rgb(0,0,0,0.2)] mb-8">
               <!-- Image Container -->
               <div class="w-full relative" style="padding-bottom: 75%;">
                   <img src="{{ asset('img/communication.jpg') }}" alt="Pet Shop" class="absolute top-0 left-0 w-full h-full object-cover rounded-t-xl">
@@ -134,11 +134,9 @@
               <div class="p-4">
                   <div class="relative w-full">
                       <h3 class="text-2xl font-bold text-center">DayPet Care</h3>
-                      <button class="text-gray-400 absolute right-0 top-1/2 -translate-y-1/2">
-                          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                          </svg>
-                      </button>
+                      <a class="text-gray-400 absolute right-0 top-1/2 -translate-y-1/2">
+                        <img src="{{ asset('svg/heart-icon.svg') }}" alt="Heart Icon" class="h-8 w-8">
+                      </a>
                   </div>
                   <div class="flex items-start mt-7 mb-1">
                       <div>
@@ -148,28 +146,71 @@
                               <span class="text-gray-400">day</span>
                           </p>
                       </div>
-                      <button class="ml-auto mt-2 bg-[#B17F5B] text-white px-8 py-2 rounded-md font-bold text-lg">
+                      <a href="#" class="ml-auto mt-2 bg-[#B17F5B] text-white px-8 py-2 rounded-md font-bold text-lg">
                           Contact
-                      </button>
+                      </a>
                   </div>
               </div>
           </div>
 
           <!-- Card 2-8 (Copy card 1 sebanyak 7 kali) -->
           
+
       </div>
   </div>
 </div>
 
+<!-- Footer -->
+<footer class="bg-[#FFF5E0] w-full pt-20 pb-4">
+  <div class="container mx-auto px-4">
+      <!-- Footer Content -->
+      <div class="flex justify-between mb-8">
+          <!-- Brand Section -->
+          <div class="w-1/3">
+              <h2 class="text-4xl font-bold text-[#4A3B32] mb-8">Coodiddy</h2>
+              <p class="text-gray-600 mb-20 text-lg">Our mission is to connect pet owners with trusted caregivers, making pet care services accessible, convenient, and reliable for everyone.</p>
+          </div>
 
+          <!-- Navigation Sections -->
+          <div class="flex gap-20">
+              <!-- Pages Section -->
+              <div>
+                  <h3 class="text-2xl font-semibold text-[#4A3B32] mb-8">Page</h3>
+                  <ul class="space-y-2">
+                      <li><a href="#" class="text-gray-600 mb-20 text-lg">Register as a vendor?</a></li>
+                      <li><a href="#" class="text-gray-600 mb-20 text-lg">Vendor</a></li>
+                  </ul>
+              </div>
 
+              <!-- Community Section -->
+              <div>
+                  <h3 class="text-2xl font-semibold text-[#4A3B32] mb-8">Community</h3>
+                  <ul class="space-y-2">
+                      <li><a href="#" class="text-gray-600 mb-20 text-lg">Events</a></li>
+                      <li><a href="#" class="text-gray-600 mb-20 text-lg">Blog</a></li>
+                      <li><a href="#" class="text-gray-600 mb-20 text-lg">Article</a></li>
+                  </ul>
+              </div>
 
+              <!-- Socials Section -->
+              <div>
+                  <h3 class="text-2xl font-semibold text-[#4A3B32] mb-8">Socials</h3>
+                  <ul class="space-y-2">
+                      <li><a href="#" class="text-gray-600 mb-20 text-lg">Discord</a></li>
+                      <li><a href="#" class="text-gray-600 mb-20 text-lg">Instagram</a></li>
+                      <li><a href="#" class="text-gray-600 mb-20 text-lg">Twitter</a></li>
+                      <li><a href="#" class="text-gray-600 mb-20 text-lg">Facebook</a></li>
+                  </ul>
+              </div>
+          </div>
+      </div>
 
-          <!-- Card 2-8 (Copy card 1 sebanyak 7 kali) -->
-          
+      <!-- Copyright -->
+      <div class="border-t-2 border-gray-300 pt-4">
+          <p class="text-xl font-semibold text-[#4A3B32]">&copy;2024 Coodiddy, All rights reserved</p>
       </div>
   </div>
-</div>
+</footer>
 
 
 

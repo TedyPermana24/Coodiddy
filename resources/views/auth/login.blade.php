@@ -6,7 +6,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="flex items-center justify-center min-h-screen bg-gradient-to-r from-[#c8a279] to-[#6b4423] via-[#c8a279] font-poppins" style="font-family: 'Poppins', sans-serif;">
+<body class="flex items-center justify-center min-h-screen bg-gradient-to-r from-[#c8a279] to-[#6b4423] via-[#c8a279] font-poppins overscroll-none" style="font-family: 'Poppins', sans-serif;">
     <div class="flex w-full max-w-4xl bg-white rounded-3xl shadow-lg overflow-hidden">
         <!-- Left Section -->
         <div class="w-1/2 p-8 flex flex-col justify-between">
