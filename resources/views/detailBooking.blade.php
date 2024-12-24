@@ -14,7 +14,7 @@
             rel="stylesheet"
         />
 
-        <link rel="stylesheet" href="style.css">
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="bg-gray-100">
         <header class="header">

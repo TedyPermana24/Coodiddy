@@ -41,14 +41,14 @@
                     <div class="relative shadow-lg mx-auto w-80">
                         <input id="email" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" placeholder="E-mail" class="w-full px-4 py-3 bg-gray-100 border border-gray-300 rounded-lg focus:ring focus:ring-[#d4a573] focus:outline-none">
                         <img src="{{ asset('svg/envelope-regular.svg') }}" alt="Toggle Email" class="absolute right-3 top-3 w-6 h-6 cursor-pointer">
-                        <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                        <!-- <x-input-error :messages="$errors->get('email')" class="mt-2" /> -->
                     </div>
 
                     <!-- Password -->
                     <div class="relative shadow-lg mx-auto w-80">
                         <input id="password" type="password" name="password" required autocomplete="current-password" placeholder="Password" class="w-full px-4 py-3 bg-gray-100 border border-gray-300 rounded-lg focus:ring focus:ring-[#d4a573] focus:outline-none">
                         <img src="{{ asset('svg/eye-solid.svg') }}" alt="Toggle Password" class="absolute right-3 top-3 w-6 h-6 cursor-pointer" onclick="togglePasswordVisibility()">
-                        <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                        <!-- <x-input-error :messages="$errors->get('password')" class="mt-2" /> -->
                     </div>
 
                     <!-- Remember Me -->
