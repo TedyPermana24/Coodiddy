@@ -7,6 +7,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/test', function () {
+    return view('detailBooking');
+});
 // Route::get('/user-page', function () {
 //     return view('user');
 // })->middleware(['auth', 'role:admin']);

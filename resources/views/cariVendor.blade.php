@@ -11,7 +11,7 @@
             rel="stylesheet"
             href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"
         />
-        <link rel="stylesheet" href="../css/style.css">
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
         <script src="https://unpkg.com/feather-icons"></script>
         
     </head>
