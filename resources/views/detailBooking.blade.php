@@ -3,7 +3,7 @@
         <meta charset="utf-8" />
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
         <title>Coodiddy</title>
-        <script src="https://cdn.tailwindcss.com"></script>
+        
         <link
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
             rel="stylesheet"
@@ -13,6 +13,8 @@
             href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;700&display=swap"
             rel="stylesheet"
         />
+
+        <link rel="stylesheet" href="style.css">
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
@@ -24,7 +26,7 @@
                 <p><a href="">Vendor</a></p>
 
                 <div class="user-dropdown">
-b                        alt="User profile picture"
+b                       alt="User profile picture"
                         height="40"
                         src="https://storage.googleapis.com/a1aa/image/XzyUF3YlmbYpLJDsfOguCXNDhKETrZXVR6ysBqzF8rQjQJeTA.jpg"
                         width="40"
