@@ -10,42 +10,77 @@
 <body class="bg-neutral-50 font-poppins overscroll-none">
 
   <!-- Navbar -->
-  <nav class="bg-[#F8F0E3] absolute w-full z-20 top-0 left-0 flex justify-between items-center py-7 px-16 font-poppins transition-all duration-300 ease-in-out">
-    <div class="text-2xl font-bold text-gray-800 ml-16">
-      <a href="/" class="hover:text-[#6B4423] text-3xl font-bold">Coodiddy</a>
+  <header class="header">
+    <div class="logo">Coodiddy</div>
+    <div class="user-menu">
+        <p><a href="">Register as a Vendor</a></p>
+        <p><a href="{{ route('vendor') }}">Vendor</a></p>
+
+        @auth
+        <!-- User is logged in -->
+        <div class="user-dropdown">
+            <img
+                alt="User profile picture"
+                height="40"
+                src="https://storage.googleapis.com/a1aa/image/XzyUF3YlmbYpLJDsfOguCXNDhKETrZXVR6ysBqzF8rQjQJeTA.jpg"
+                width="40"
+                class="profile-pic"
+                onclick="toggleDropdown()" 
+            />
+            <div class="dropdown" id="dropdown-menu">
+                <div class="user-info">
+                    <div>
+                        <h4>{{ Auth::user()->name }}</h4>
+                        <p><i class="uil uil-store"></i> {{ Auth::user()->vendor_name ?? 'No Vendor' }}</p>
+                    </div>
+                    <img src="{{ asset('img/IMG_1142-e1490899405898 1.png') }}" alt="Profile Picture" class="user-pic" />
+                </div>
+                <div class="menu-options">
+                    <!-- Settings Menu Item -->
+                    <div class="menu-item">
+                        <a href="{{ route('profile.edit') }}">
+                            <i class="uil uil-cog"></i>
+                            <span>Settings</span>
+                        </a>
+                    </div>
+                
+                    <!-- Logout Menu Item -->
+                    <div class="menu-item logout">
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="logout-btn">
+                                <i class="uil uil-signout"></i>
+                                <span>Logout</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @else
+        <!-- User is not logged in -->
+        <p><a href="{{ route('login') }}">Login</a></p>
+        @endauth
     </div>
-    <div class="flex items-center space-x-8 mr-16">
-      <a href="#" class="text-gray-800 hover:text-[#6B4423] font-poppins font-normal text-base">Register as Vendor?</a>
-      <a href="#" class="text-gray-800 hover:text-[#6B4423] font-poppins font-normal text-base">Vendor</a>
-      @auth
-      <!-- Jika User Login -->
-      <div class="relative">
-          <img 
-              alt="User profile picture"
-              class="h-10 w-10 rounded-full cursor-pointer border border-gray-300"
-              src="https://storage.googleapis.com/a1aa/image/XzyUF3YlmbYpLJDsfOguCXNDhKETrZXVR6ysBqzF8rQjQJeTA.jpg"
-              onclick="toggleDropdown()"
-          />
-          <!-- Dropdown menu -->
-          <div id="userDropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-md z-30">
-              {{-- <a href="{{ route('profile') }}" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Profile</a> --}}
-              <form method="POST" action="{{ route('logout') }}">
-                  @csrf
-                  <button 
-                      type="submit" 
-                      class="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-100"
-                  >
-                      Logout
-                  </button>
-              </form>
-          </div>
-      </div>
-      @else
-      <!-- Jika User Belum Login -->
-      <a href="{{ route('login') }}" class="bg-[#A5724C] text-white py-1 px-6 rounded-xl hover:bg-[#4A3B32] font-poppins font-normal text-base">Login</a>
-      @endauth
-    </div>
-</nav>
+</header>
+
+<script>
+    // Toggle the dropdown visibility
+    function toggleDropdown() {
+        const dropdown = document.getElementById('dropdown-menu');
+        dropdown.classList.toggle('hidden');
+    }
+
+    // Optional: Close the dropdown when clicking outside
+    document.addEventListener('click', function(event) {
+        const dropdown = document.getElementById('dropdown-menu');
+        const profileImg = event.target.closest('img');
+
+        if (!profileImg && !dropdown.contains(event.target)) {
+            dropdown.classList.add('hidden');
+        }
+    });
+</script>
 
 
   

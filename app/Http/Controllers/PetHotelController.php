@@ -11,7 +11,7 @@ class PetHotelController extends Controller
      */
     public function index()
     {
-        return view('cariVendor');
+        return view('dashboard');
     }
 
     public function detail()
