@@ -158,7 +158,7 @@
                 <span class="font-bold">Rp 200.000/</span>
                 <span class="font-bold text-gray-500">day</span>
               </p>
-              <a href="#" class="bg-[#B17F5B] text-white px-8 py-2 rounded-md font-bold text-lg -mt-8">
+              <a href="{{ route('detailVendor') }}" class="bg-[#B17F5B] text-white px-8 py-2 rounded-md font-bold text-lg -mt-8">
                 Contact
               </a>
             </div>
@@ -196,7 +196,7 @@
                 <span class="font-bold">Rp 200.000/</span>
                 <span class="font-bold text-gray-500">day</span>
               </p>
-              <a href="#" class="bg-[#B17F5B] text-white px-8 py-2 rounded-md font-bold text-lg -mt-8">
+              <a href="{{ route('detailVendor') }}" class="bg-[#B17F5B] text-white px-8 py-2 rounded-md font-bold text-lg -mt-8">
                 Contact
               </a>
             </div>
@@ -234,7 +234,7 @@
                 <span class="font-bold">Rp 200.000/</span>
                 <span class="font-bold text-gray-500">day</span>
               </p>
-              <a href="#" class="bg-[#B17F5B] text-white px-8 py-2 rounded-md font-bold text-lg -mt-8">
+              <a href="{{ route('detailVendor') }}" class="bg-[#B17F5B] text-white px-8 py-2 rounded-md font-bold text-lg -mt-8">
                 Contact
               </a>
             </div>
@@ -272,7 +272,7 @@
                 <span class="font-bold">Rp 200.000/</span>
                 <span class="font-bold text-gray-500">day</span>
               </p>
-              <a href="#" class="bg-[#B17F5B] text-white px-8 py-2 rounded-md font-bold text-lg -mt-8">
+              <a href="{{ route('detailVendor') }}" class="bg-[#B17F5B] text-white px-8 py-2 rounded-md font-bold text-lg -mt-8">
                 Contact
               </a>
             </div>
