@@ -3,6 +3,7 @@
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PetHotelController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -13,6 +14,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/test', function () {
+    return view('detailBooking');
+});
 // Route::get('/user-page', function () {
 //     return view('user');
 // })->middleware(['auth', 'role:admin']);
@@ -31,9 +35,11 @@ Route::middleware('auth')->group(function () {
 
     
     Route::get('/vendors', [PetHotelController::class, 'index'])->name('vendor');
-    Route::get('/vendors/1', [PetHotelController::class, 'detail'])->name('vendor.details');
-
+    Route::get('/vendors/detail', [PetHotelController::class, 'detail'])->name('vendor.detail');
     Route::get('/booking', [PaymentController::class, 'index'])->name('booking');
+
+    Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+
 
 });
 
