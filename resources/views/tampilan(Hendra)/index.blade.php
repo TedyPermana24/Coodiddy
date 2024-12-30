@@ -11,7 +11,7 @@
             rel="stylesheet"
             href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"
         />
-        @vite(['resources/css/style.css'])
+        <link rel="stylesheet" href="style.css">
         <script src="https://unpkg.com/feather-icons"></script>
         
     </head>
@@ -19,7 +19,7 @@
         <header class="header">
             <div class="logo">Coodiddy</div>
             <div class="user-menu">
-                <p><a href="">Register as a Vendor </a></p> 
+                <p><a href="">Register as a Vendor ?</a></p> 
                 <p><a href="">Vendor</a></p> 
                 
                 <div class="user-dropdown">
@@ -28,27 +28,7 @@
                         height="40"
                         src="https://storage.googleapis.com/a1aa/image/XzyUF3YlmbYpLJDsfOguCXNDhKETrZXVR6ysBqzF8rQjQJeTA.jpg"
                         width="40"
-                        onclick="toggleDropdown()"
                     />
-                    <div class="dropdown" id="dropdown-menu">
-                        <div class="user-info">
-                            <div>
-                                <h4>Tedy Sukma Permana</h4>
-                                <p><i class="uil uil-store"></i>DaysPet Care</p>
-                            </div>
-                            <img src="img/IMG_1142-e1490899405898 1.png" alt="Profile Picture" class="user-pic" />
-                        </div>
-                        <div class="menu-options">
-                            <div class="menu-item">
-                                <i class="uil uil-cog"></i>
-                                <span>Settings</span>
-                            </div>
-                            <div class="menu-item logout">
-                                <i class="uil uil-signout"></i>
-                                <span>Logout</span>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </header>
@@ -61,8 +41,8 @@
             />
             <div class="banner-text">
                 <h1>Vendor</h1>
-                <p><a href="">Home</a>&gt;</p>
-                <p><a href="">Vendor</a></p>
+                <p>Home &gt;</p>
+                <p>Vendor</p>
             </div>
         </div>
         <div class="content">
@@ -253,7 +233,7 @@
                 <div class="footer-section-list">
                     <div class="footer-section">
                         <h3>Page</h3>
-                        <p><a href="">Register as a vendor</a></p>
+                        <p><a href="">Register as a vendor?</a></p>
                         <p><a href="">vendor</a></p>
                         
                     </div>
@@ -277,6 +257,5 @@
                 <p>&copy; 2024 Coodiddy. All rights reserved</p>
             </div>
         </footer>
-    <script src="script.js"></script>
     </body>
 </html>

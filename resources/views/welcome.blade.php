@@ -17,7 +17,33 @@
     <div class="flex items-center space-x-8 mr-16">
       <a href="#" class="text-gray-800 hover:text-[#6B4423] font-poppins font-normal text-base">Register as Vendor?</a>
       <a href="#" class="text-gray-800 hover:text-[#6B4423] font-poppins font-normal text-base">Vendor</a>
+      @auth
+      <!-- Jika User Login -->
+      <div class="relative">
+          <img 
+              alt="User profile picture"
+              class="h-10 w-10 rounded-full cursor-pointer border border-gray-300"
+              src="https://storage.googleapis.com/a1aa/image/XzyUF3YlmbYpLJDsfOguCXNDhKETrZXVR6ysBqzF8rQjQJeTA.jpg"
+              onclick="toggleDropdown()"
+          />
+          <!-- Dropdown menu -->
+          <div id="userDropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-md z-30">
+              {{-- <a href="{{ route('profile') }}" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Profile</a> --}}
+              <form method="POST" action="{{ route('logout') }}">
+                  @csrf
+                  <button 
+                      type="submit" 
+                      class="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-100"
+                  >
+                      Logout
+                  </button>
+              </form>
+          </div>
+      </div>
+      @else
+      <!-- Jika User Belum Login -->
       <a href="{{ route('login') }}" class="bg-[#A5724C] text-white py-1 px-6 rounded-xl hover:bg-[#4A3B32] font-poppins font-normal text-base">Sign In</a>
+      @endauth
     </div>
   </nav>
 
@@ -217,3 +243,19 @@
 
 </body>
 </html>
+<script>
+   function toggleDropdown() {
+        const dropdown = document.getElementById('userDropdown');
+        dropdown.classList.toggle('hidden');
+    }
+
+    // Optional: Close the dropdown when clicking outside
+    document.addEventListener('click', function(event) {
+        const dropdown = document.getElementById('userDropdown');
+        const profileImg = event.target.closest('img');
+        
+        if (!profileImg && !dropdown.contains(event.target)) {
+            dropdown.classList.add('hidden');
+        }
+    });
+</script>

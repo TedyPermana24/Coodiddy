@@ -13,7 +13,7 @@
             rel="stylesheet"
         />
 
-        <link rel="stylesheet" href="../css/style.css" />
+        @vite(['resources/css/style.css'])
     </head>
     <body>
         <header class="header">

@@ -14,7 +14,7 @@
             rel="stylesheet"
         />
 
-        <link rel="stylesheet" href="style.css">
+        @vite(['resources/css/style.css'])
     </head>
     <body class="bg-gray-100">
         <header class="header">
@@ -23,13 +23,13 @@
                 <p><a href="">Register as a Vendor </a></p>
                 <p><a href="">Vendor</a></p>
 
-                <div class="user-dropdown">
-b                        alt="User profile picture"
+                <div class="user-dropdown"
+b                       alt="User profile picture"
                         height="40"
                         src="https://storage.googleapis.com/a1aa/image/XzyUF3YlmbYpLJDsfOguCXNDhKETrZXVR6ysBqzF8rQjQJeTA.jpg"
                         width="40"
                         onclick="toggleDropdown()"
-                    />
+                    >
                     <div class="dropdown" id="dropdown-menu">
                         <div class="user-info">
                             <div>
