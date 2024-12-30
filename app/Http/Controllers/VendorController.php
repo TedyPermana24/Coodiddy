@@ -11,7 +11,7 @@ class VendorController extends Controller
      */
     public function index()
     {
-        //
+        // Logic untuk menampilkan daftar vendor jika diperlukan
     }
 
     /**
@@ -19,7 +19,7 @@ class VendorController extends Controller
      */
     public function create()
     {
-        //
+        // Logic untuk menampilkan form tambah vendor jika diperlukan
     }
 
     /**
@@ -27,7 +27,7 @@ class VendorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Logic untuk menyimpan data vendor jika diperlukan
     }
 
     /**
@@ -35,7 +35,7 @@ class VendorController extends Controller
      */
     public function show(string $id)
     {
-        //
+        // Logic untuk menampilkan vendor tertentu berdasarkan ID
     }
 
     /**
@@ -43,7 +43,7 @@ class VendorController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        // Logic untuk menampilkan form edit vendor jika diperlukan
     }
 
     /**
@@ -51,7 +51,7 @@ class VendorController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // Logic untuk memperbarui data vendor jika diperlukan
     }
 
     /**
@@ -59,6 +59,21 @@ class VendorController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        // Logic untuk menghapus data vendor jika diperlukan
+    }
+
+    /**
+     * Display the vendor detail page.
+     */
+    public function showDetail(Request $request)
+    {
+        // Anda bisa menambahkan logic tambahan di sini, seperti mengambil data vendor
+        // atau memeriksa request tertentu jika perlu
+
+        // Contoh: Mengambil data vendor berdasarkan id dari request (jika ada)
+        // $vendorId = $request->input('vendor_id');
+
+        // Kemudian tampilkan view untuk detail vendor
+        return view('detailVendor'); // Pastikan view ini sudah ada di resources/views/vendor/detail.blade.php
     }
 }

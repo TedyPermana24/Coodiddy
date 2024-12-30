@@ -3,7 +3,6 @@
         <meta charset="utf-8" />
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
         <title>Coodiddy</title>
-        <script src="https://cdn.tailwindcss.com"></script>
         <link
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
             rel="stylesheet"
@@ -13,7 +12,7 @@
             rel="stylesheet"
         />
 
-        <link rel="stylesheet" href="../css/style.css" />
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body>
         <header class="header">
@@ -28,7 +27,7 @@
                         height="40"
                         src="https://storage.googleapis.com/a1aa/image/XzyUF3YlmbYpLJDsfOguCXNDhKETrZXVR6ysBqzF8rQjQJeTA.jpg"
                         width="40"
-                        onclick="toggleDropdown()"
+                        class="profile-pic" 
                     />
                     <div class="dropdown" id="dropdown-menu">
                         <div class="user-info">
@@ -37,21 +36,32 @@
                                 <p><i class="uil uil-store"></i>DaysPet Care</p>
                             </div>
                             <img
-                                src="img/IMG_1142-e1490899405898 1.png"
+                                src="{{ asset('img/IMG_1142-e1490899405898 1.png') }}"
                                 alt="Profile Picture"
                                 class="user-pic"
                             />
                         </div>
                         <div class="menu-options">
+                            <!-- Settings Menu Item -->
                             <div class="menu-item">
-                                <i class="uil uil-cog"></i>
-                                <span>Settings</span>
+                                <a href="{{ route('profile.edit') }}">
+                                    <i class="uil uil-cog"></i>
+                                    <span>Settings</span>
+                                </a>
                             </div>
+                        
+                            <!-- Logout Menu Item -->
                             <div class="menu-item logout">
-                                <i class="uil uil-signout"></i>
-                                <span>Logout</span>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit" class="logout-btn">
+                                        <i class="uil uil-signout"></i>
+                                        <span>Logout</span>
+                                    </button>
+                                </form>
                             </div>
                         </div>
+                        
                     </div>
                 </div>
             </div>
@@ -67,24 +77,24 @@
                         alt="Pet shop front view"
                         class="w-full rounded-lg h-64 "
                         height="150"
-                        src="img/IMG_1142-e1490899405898 2 (2).png"
+                        src="{{ asset('img/IMG_1142-e1490899405898 2 (2).png') }}"
                         width="600"
                     />
                     <div class="mt-4 flex space-x-4">
                         <img
                             alt="Pet shop interior view 1"
                             class="w-1/3 h-24 object-cover rounded-lg"
-                            src="img/kandang kucing 1.png"
+                            src="{{ asset('img/kandang kucing 1.png') }}"
                         />
                         <img
                             alt="Pet shop interior view 2"
                             class="w-1/3 h-24 object-cover rounded-lg"
-                            src="img/kandang kucing2 1.png"
+                            src="{{ asset('img/kandang kucing2 1.png') }}"
                         />
                         <img
                             alt="Pet shop interior view 3"
                             class="w-1/3 h-24 object-cover rounded-lg"
-                            src="img/kandang kucing 1.png"
+                            src="{{ asset('img/kandang kucing 1.png') }}"
                         />
                     </div>
                 </div>
@@ -240,6 +250,5 @@
                 <p>&copy; 2024 Coodiddy. All rights reserved</p>
             </div>
         </footer>
-        <script src="script.js"></script>
     </body>
 </html>
