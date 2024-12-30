@@ -1,17 +1,48 @@
-@extends('components.layout')
-
-@section('content')
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <title>Coodiddy</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;700&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"
+        />
+        <link rel="stylesheet" href="style.css">
+        <script src="https://unpkg.com/feather-icons"></script>
+        
+    </head>
+    <body>
+        <header class="header">
+            <div class="logo">Coodiddy</div>
+            <div class="user-menu">
+                <p><a href="">Register as a Vendor ?</a></p> 
+                <p><a href="">Vendor</a></p> 
+                
+                <div class="user-dropdown">
+                    <img
+                        alt="User profile picture"
+                        height="40"
+                        src="https://storage.googleapis.com/a1aa/image/XzyUF3YlmbYpLJDsfOguCXNDhKETrZXVR6ysBqzF8rQjQJeTA.jpg"
+                        width="40"
+                    />
+                </div>
+            </div>
+        </header>
         <div class="banner">
             <img
                 alt="Banner image with a dog"
                 height="300"
-                src="{{ asset('img/doggy3 2.png') }}"
+                src="img/doggy3 2.png"
                 width="1200"
             />
             <div class="banner-text">
                 <h1>Vendor</h1>
-                <p><a href="">Home</a>&gt;</p>
-                <p><a href="">Vendor</a></p>
+                <p>Home &gt;</p>
+                <p>Vendor</p>
             </div>
         </div>
         <div class="content">
@@ -38,7 +69,7 @@
                     <img
                         alt="Pet shop image"
                         height="200"
-                        src="{{ asset('img/IMG_1142-e1490899405898 1.png') }}"
+                        src="img/IMG_1142-e1490899405898 1.png"
                         width="250"
                     />
                     <div class="card-content">
@@ -48,10 +79,7 @@
                         </div>
                         <div class="card-content-main"> 
                             <p class="price">Bandung <br> Rp.200.000/<span>day</span></p>
-                            <form action="{{ route('vendor.detail') }}" method="POST">
-                                @csrf
-                                <button type="submit" class="contact-btn">Contact</button>
-                            </form>
+                            <button class="contact-btn">Contact</button>
                         </div>
                     </div>
                 </div>
@@ -59,7 +87,7 @@
                     <img
                         alt="Pet shop image"
                         height="200"
-                        src="{{ asset('img/IMG_1142-e1490899405898 1.png') }}"
+                        src="img/IMG_1142-e1490899405898 1.png"
                         width="250"
                     />
                     <div class="card-content">
@@ -69,10 +97,7 @@
                         </div>
                         <div class="card-content-main"> 
                             <p class="price">Bandung <br> Rp.200.000/<span>day</span></p>
-                            <form action="{{ route('vendor.detail') }}" method="POST">
-                                @csrf
-                                <button type="submit" class="contact-btn">Contact</button>
-                            </form>
+                            <button class="contact-btn">Contact</button>
                         </div>
                     </div>
                 </div>
@@ -80,7 +105,7 @@
                     <img
                         alt="Pet shop image"
                         height="200"
-                        src="{{ asset('img/IMG_1142-e1490899405898 1.png') }}"
+                        src="img/IMG_1142-e1490899405898 1.png"
                         width="250"
                     />
                     <div class="card-content">
@@ -90,10 +115,7 @@
                         </div>
                         <div class="card-content-main"> 
                             <p class="price">Bandung <br> Rp.200.000/<span>day</span></p>
-                            <form action="{{ route('vendor.detail') }}" method="POST">
-                                @csrf
-                                <button type="submit" class="contact-btn">Contact</button>
-                            </form>
+                            <button class="contact-btn">Contact</button>
                         </div>
                     </div>
                 </div>
@@ -101,7 +123,7 @@
                     <img
                         alt="Pet shop image"
                         height="200"
-                        src="{{ asset('img/IMG_1142-e1490899405898 1.png') }}"
+                        src="img/IMG_1142-e1490899405898 1.png"
                         width="250"
                     />
                     <div class="card-content">
@@ -111,10 +133,7 @@
                         </div>
                         <div class="card-content-main"> 
                             <p class="price">Bandung <br> Rp.200.000/<span>day</span></p>
-                            <form action="{{ route('vendor.detail') }}" method="POST">
-                                @csrf
-                                <button type="submit" class="contact-btn">Contact</button>
-                            </form>
+                            <button class="contact-btn">Contact</button>
                         </div>
                     </div>
                 </div>
@@ -122,7 +141,7 @@
                     <img
                         alt="Pet shop image"
                         height="200"
-                        src="{{ asset('img/IMG_1142-e1490899405898 1.png') }}"
+                        src="img/IMG_1142-e1490899405898 1.png"
                         width="250"
                     />
                     <div class="card-content">
@@ -132,10 +151,7 @@
                         </div>
                         <div class="card-content-main"> 
                             <p class="price">Bandung <br> Rp.200.000/<span>day</span></p>
-                            <form action="{{ route('vendor.detail') }}" method="POST">
-                                @csrf
-                                <button type="submit" class="contact-btn">Contact</button>
-                            </form>
+                            <button class="contact-btn">Contact</button>
                         </div>
                     </div>
                 </div>
@@ -143,7 +159,7 @@
                     <img
                         alt="Pet shop image"
                         height="200"
-                        src="{{ asset('img/IMG_1142-e1490899405898 1.png') }}"
+                        src="img/IMG_1142-e1490899405898 1.png"
                         width="250"
                     />
                     <div class="card-content">
@@ -153,10 +169,7 @@
                         </div>
                         <div class="card-content-main"> 
                             <p class="price">Bandung <br> Rp.200.000/<span>day</span></p>
-                            <form action="{{ route('vendor.detail') }}" method="POST">
-                                @csrf
-                                <button type="submit" class="contact-btn">Contact</button>
-                            </form>
+                            <button class="contact-btn">Contact</button>
                         </div>
                     </div>
                 </div>
@@ -164,7 +177,7 @@
                     <img
                         alt="Pet shop image"
                         height="200"
-                        src="{{ asset('img/IMG_1142-e1490899405898 1.png') }}"
+                        src="img/IMG_1142-e1490899405898 1.png"
                         width="250"
                     />
                     <div class="card-content">
@@ -174,10 +187,7 @@
                         </div>
                         <div class="card-content-main"> 
                             <p class="price">Bandung <br> Rp.200.000/<span>day</span></p>
-                            <form action="{{ route('vendor.detail') }}" method="POST">
-                                @csrf
-                                <button type="submit" class="contact-btn">Contact</button>
-                            </form>
+                            <button class="contact-btn">Contact</button>
                         </div>
                     </div>
                 </div>
@@ -185,7 +195,7 @@
                     <img
                         alt="Pet shop image"
                         height="200"
-                        src="{{ asset('img/IMG_1142-e1490899405898 1.png') }}"
+                        src="img/IMG_1142-e1490899405898 1.png"
                         width="250"
                     />
                     <div class="card-content">
@@ -195,10 +205,7 @@
                         </div>
                         <div class="card-content-main"> 
                             <p class="price">Bandung <br> Rp.200.000/<span>day</span></p>
-                            <form action="{{ route('vendor.detail') }}" method="POST">
-                                @csrf
-                                <button type="submit" class="contact-btn">Contact</button>
-                            </form>
+                            <button class="contact-btn">Contact</button>
                         </div>
                     </div>
                 </div>
@@ -213,9 +220,42 @@
                 </button>
             </div>
         </div>
-@endsection
-
-@section('script')
-<script src="script.js"></script>
-@endsection
-   
+        <footer>
+            <div class="footer">
+                <div class="footer-section-head">
+                    <p><span>Coodiddy</span></p>
+                    <p>
+                        Our vision is to connect pet owners with trusted<br> caregivers,
+                        making pet care services accessible,<br> convenient, and
+                        reliable for everyone.
+                    </p>
+                </div>
+                <div class="footer-section-list">
+                    <div class="footer-section">
+                        <h3>Page</h3>
+                        <p><a href="">Register as a vendor?</a></p>
+                        <p><a href="">vendor</a></p>
+                        
+                    </div>
+                    <div class="footer-section">
+                        <h3>Community</h3>
+                        <p><a href="">Events</a></p>
+                        <p><a href="">Blog</a></p>
+                        <p><a href="">Article</a></p>
+                    </div>
+                    <div class="footer-section">
+                        <h3>Socials</h3>
+                        <p><a href="">Discord</a></p>
+                        <p><a href="">Instagram</a></p>
+                        <p><a href="">Twitter</a></p>
+                        <p><a href="">Facebook</a></p>
+                    </div>
+                </div>
+            </div>
+            <span class="footer-line"></span>
+            <div class="footer-copyright">
+                <p>&copy; 2024 Coodiddy. All rights reserved</p>
+            </div>
+        </footer>
+    </body>
+</html>
