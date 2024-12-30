@@ -1,26 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coodiddy</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-<body class="bg-neutral-50 font-poppins overscroll-none">
+@extends('components.layout')
 
-  <!-- Navbar -->
-  <nav class="bg-transparent absolute w-full z-20 top-0 left-0 flex justify-between items-center py-7 px-16 font-poppins transition-all duration-300 ease-in-out">
-    <div class="text-2xl font-bold text-gray-800 ml-16">
-      <a href="#" class="hover:text-[#6B4423] text-3xl font-bold">Coodiddy</a>
-    </div>
-    <div class="flex items-center space-x-8 mr-16">
-      <a href="#" class="text-gray-800 hover:text-[#6B4423] font-poppins font-normal text-base">Register as Vendor?</a>
-      <a href="#" class="text-gray-800 hover:text-[#6B4423] font-poppins font-normal text-base">Vendor</a>
-      <a href="{{ route('login') }}" class="bg-[#A5724C] text-white py-2 px-8 rounded-xl hover:bg-[#4A3B32] font-poppins font-normal text-base">Login</a>
-    </div>
-  </nav>
-
+@section('content')
   <!-- Hero Section -->
   <section class="bg-[#F8F0E3] h-screen mt-0 bg-cover bg-center transition-all duration-300 ease-in-out" style="background-image: url('{{ asset('img/hero-bg.png') }}'); background-size: 100%;">
     <div class="container mx-auto flex flex-col md:flex-row items-center h-full px-4 relative transition-all duration-300 ease-in-out">
@@ -48,70 +28,70 @@
     </div>
   </section>
 
-<!-- ... existing code ... -->
-<!-- Services Section -->
-<section class="h-screen bg-white transition-all duration-300 ease-in-out">
- <div class="container mx-auto px-4 text-center transition-all duration-300 ease-in-out">
-   <h1 class="text-5xl font-bold text-[#4A3B32] pt-12 mb-8">Our Services</h1>
-   <p class="text-gray-600 mb-20 text-lg">"Your One-Stop Solution for Professional Pet Care Services and Booking Management"</p>
-   
-   <!-- Top Row Services -->
-   <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-     <div class="bg-[#F8F0E3] hover:bg-gradient-to-br from-[#8B5E3C] to-[#4A3B32] p-8 rounded-xl shadow-xl transition-all duration-300 group">
-        <div class="w-16 h-16 bg-white rounded-full mx-auto mb-4 flex items-center justify-center overflow-hidden border-2 border-[#6B4423]">
-            <img src="{{ asset('img/pet-search.jpg') }}" alt="Pet Care Search" class="w-full h-full object-cover">
-        </div>
-       <h3 class="text-xl font-semibold mb-4 text-gray-800 transition-colors duration-300 group-hover:text-white">Pet Care Search</h3>
-       <p class="text-lg text-gray-600 transition-colors duration-300 group-hover:text-white">This website allows users to search for services, animal sitting by Location, Reviews users, prices, and types of services offered.</p>
-     </div>
+  <!-- ... existing code ... -->
+  <!-- Services Section -->
+  <section class="h-screen bg-white transition-all duration-300 ease-in-out">
+  <div class="container mx-auto px-4 text-center transition-all duration-300 ease-in-out">
+    <h1 class="text-5xl font-bold text-[#4A3B32] pt-12 mb-8">Our Services</h1>
+    <p class="text-gray-600 mb-20 text-lg">"Your One-Stop Solution for Professional Pet Care Services and Booking Management"</p>
+    
+    <!-- Top Row Services -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
       <div class="bg-[#F8F0E3] hover:bg-gradient-to-br from-[#8B5E3C] to-[#4A3B32] p-8 rounded-xl shadow-xl transition-all duration-300 group">
-        <div class="w-16 h-16 bg-white rounded-full mx-auto mb-4 flex items-center justify-center overflow-hidden border-2 border-[#6B4423]">
-            <img src="{{ asset('img/vendor-information.jpg') }}" alt="Service and Pricing Information" class="w-full h-full object-cover">
-        </div>
-       <h3 class="text-xl font-semibold mb-4 text-gray-800 transition-colors duration-300 group-hover:text-white">Service and Pricing Information</h3>
-       <p class="text-lg text-gray-600 transition-colors duration-300 group-hover:text-white">Provides complete information about facilities, service quality, and custody fees, so pet owners can make informed decisions.</p>
-     </div>
+          <div class="w-16 h-16 bg-white rounded-full mx-auto mb-4 flex items-center justify-center overflow-hidden border-2 border-[#6B4423]">
+              <img src="{{ asset('img/pet-search.jpg') }}" alt="Pet Care Search" class="w-full h-full object-cover">
+          </div>
+        <h3 class="text-xl font-semibold mb-4 text-gray-800 transition-colors duration-300 group-hover:text-white">Pet Care Search</h3>
+        <p class="text-lg text-gray-600 transition-colors duration-300 group-hover:text-white">This website allows users to search for services, animal sitting by Location, Reviews users, prices, and types of services offered.</p>
+      </div>
+        <div class="bg-[#F8F0E3] hover:bg-gradient-to-br from-[#8B5E3C] to-[#4A3B32] p-8 rounded-xl shadow-xl transition-all duration-300 group">
+          <div class="w-16 h-16 bg-white rounded-full mx-auto mb-4 flex items-center justify-center overflow-hidden border-2 border-[#6B4423]">
+              <img src="{{ asset('img/vendor-information.jpg') }}" alt="Service and Pricing Information" class="w-full h-full object-cover">
+          </div>
+        <h3 class="text-xl font-semibold mb-4 text-gray-800 transition-colors duration-300 group-hover:text-white">Service and Pricing Information</h3>
+        <p class="text-lg text-gray-600 transition-colors duration-300 group-hover:text-white">Provides complete information about facilities, service quality, and custody fees, so pet owners can make informed decisions.</p>
+      </div>
+        <div class="bg-[#F8F0E3] hover:bg-gradient-to-br from-[#8B5E3C] to-[#4A3B32] p-8 rounded-xl shadow-xl transition-all duration-300 group">
+          <div class="w-16 h-16 bg-white rounded-full mx-auto mb-4 flex items-center justify-center overflow-hidden border-2 border-[#6B4423]">
+              <img src="{{ asset('img/online-book.jpg') }}" alt="Online Booking and Payment" class="w-full h-full object-cover">
+          </div>
+        <h3 class="text-xl font-semibold mb-4 text-gray-800 transition-colors duration-300 group-hover:text-white">Online Booking and Payment</h3>
+        <p class="text-lg text-gray-600 transition-colors duration-300 group-hover:text-white">Simplify the process of ordering daycare services through online booking features and secure and convenient digital payments.</p>
+      </div>
+    </div>
+      <!-- Bottom Row Services -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
       <div class="bg-[#F8F0E3] hover:bg-gradient-to-br from-[#8B5E3C] to-[#4A3B32] p-8 rounded-xl shadow-xl transition-all duration-300 group">
-        <div class="w-16 h-16 bg-white rounded-full mx-auto mb-4 flex items-center justify-center overflow-hidden border-2 border-[#6B4423]">
-            <img src="{{ asset('img/online-book.jpg') }}" alt="Online Booking and Payment" class="w-full h-full object-cover">
-        </div>
-       <h3 class="text-xl font-semibold mb-4 text-gray-800 transition-colors duration-300 group-hover:text-white">Online Booking and Payment</h3>
-       <p class="text-lg text-gray-600 transition-colors duration-300 group-hover:text-white">Simplify the process of ordering daycare services through online booking features and secure and convenient digital payments.</p>
-     </div>
-   </div>
-    <!-- Bottom Row Services -->
-   <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-     <div class="bg-[#F8F0E3] hover:bg-gradient-to-br from-[#8B5E3C] to-[#4A3B32] p-8 rounded-xl shadow-xl transition-all duration-300 group">
-        <div class="w-16 h-16 bg-white rounded-full mx-auto mb-4 flex items-center justify-center overflow-hidden border-2 border-[#6B4423]">
-            <img src="{{ asset('img/vendor-profile.jpg') }}" alt="Vendor Profile and Reviews" class="w-full h-full object-cover">
-        </div>
-       <h3 class="text-xl font-semibold mb-4 text-gray-800 transition-colors duration-300 group-hover:text-white">Vendor Profile and Reviews</h3>
-       <p class="text-lg text-gray-600 transition-colors duration-300 group-hover:text-white">Displays a complete vendors profile with reviews and ratings from previous users, helping pet owners choose a place they trust.</p>
-     </div>
-      <div class="bg-[#F8F0E3] hover:bg-gradient-to-br from-[#8B5E3C] to-[#4A3B32] p-8 rounded-xl shadow-xl transition-all duration-300 group">
-        <div class="w-16 h-16 bg-white rounded-full mx-auto mb-4 flex items-center justify-center overflow-hidden border-2 border-[#6B4423]">
-            <img src="{{ asset('img/scheduling.jpg') }}" alt="Scheduling and Reminders" class="w-full h-full object-cover">
-        </div>
-       <h3 class="text-xl font-semibold mb-4 text-gray-800 transition-colors duration-300 group-hover:text-white">Scheduling and Reminders</h3>
-       <p class="text-lg text-gray-600 transition-colors duration-300 group-hover:text-white">Allows users to schedule animal daycare within a specific period of time, with automatic reminders to prepare for daycare or pick up animals.</p>
-     </div>
-      <div class="bg-[#F8F0E3] hover:bg-gradient-to-br from-[#8B5E3C] to-[#4A3B32] p-8 rounded-xl shadow-xl transition-all duration-300 group">
-        <div class="w-16 h-16 bg-white rounded-full mx-auto mb-4 flex items-center justify-center overflow-hidden border-2 border-[#6B4423]">
-            <img src="{{ asset('img/communication.jpg') }}" alt="Communication with Providers Service" class="w-full h-full object-cover">
-        </div>
-       <h3 class="text-xl font-semibold mb-4 text-gray-800 transition-colors duration-300 group-hover:text-white">Communication with Providers Service</h3>
-       <p class="text-lg text-gray-600 transition-colors duration-300 group-hover:text-white">Facilitates direct communication between owners and service providers via messages or calls</p>
-     </div>
-   </div>
- </div>
-</section>
+          <div class="w-16 h-16 bg-white rounded-full mx-auto mb-4 flex items-center justify-center overflow-hidden border-2 border-[#6B4423]">
+              <img src="{{ asset('img/vendor-profile.jpg') }}" alt="Vendor Profile and Reviews" class="w-full h-full object-cover">
+          </div>
+        <h3 class="text-xl font-semibold mb-4 text-gray-800 transition-colors duration-300 group-hover:text-white">Vendor Profile and Reviews</h3>
+        <p class="text-lg text-gray-600 transition-colors duration-300 group-hover:text-white">Displays a complete vendors profile with reviews and ratings from previous users, helping pet owners choose a place they trust.</p>
+      </div>
+        <div class="bg-[#F8F0E3] hover:bg-gradient-to-br from-[#8B5E3C] to-[#4A3B32] p-8 rounded-xl shadow-xl transition-all duration-300 group">
+          <div class="w-16 h-16 bg-white rounded-full mx-auto mb-4 flex items-center justify-center overflow-hidden border-2 border-[#6B4423]">
+              <img src="{{ asset('img/scheduling.jpg') }}" alt="Scheduling and Reminders" class="w-full h-full object-cover">
+          </div>
+        <h3 class="text-xl font-semibold mb-4 text-gray-800 transition-colors duration-300 group-hover:text-white">Scheduling and Reminders</h3>
+        <p class="text-lg text-gray-600 transition-colors duration-300 group-hover:text-white">Allows users to schedule animal daycare within a specific period of time, with automatic reminders to prepare for daycare or pick up animals.</p>
+      </div>
+        <div class="bg-[#F8F0E3] hover:bg-gradient-to-br from-[#8B5E3C] to-[#4A3B32] p-8 rounded-xl shadow-xl transition-all duration-300 group">
+          <div class="w-16 h-16 bg-white rounded-full mx-auto mb-4 flex items-center justify-center overflow-hidden border-2 border-[#6B4423]">
+              <img src="{{ asset('img/communication.jpg') }}" alt="Communication with Providers Service" class="w-full h-full object-cover">
+          </div>
+        <h3 class="text-xl font-semibold mb-4 text-gray-800 transition-colors duration-300 group-hover:text-white">Communication with Providers Service</h3>
+        <p class="text-lg text-gray-600 transition-colors duration-300 group-hover:text-white">Facilitates direct communication between owners and service providers via messages or calls</p>
+      </div>
+    </div>
+  </div>
+  </section>
 
 
-<!-- Image Section -->
-<section class="w-full h-auto">
-   <img src="{{ asset('img/img-section.png') }}" alt="Pet Care" 
-       class="w-full object-cover">
-</section>
+  <!-- Image Section -->
+  <section class="w-full h-auto">
+    <img src="{{ asset('img/img-section.png') }}" alt="Pet Care" 
+        class="w-full object-cover">
+  </section>
 
 <!-- Vendor Section -->
 <div class="w-full overflow-hidden relative h-auto">
@@ -158,7 +138,7 @@
                 <span class="font-bold">Rp 200.000/</span>
                 <span class="font-bold text-gray-500">day</span>
               </p>
-              <a href="{{ route('detailVendor') }}" class="bg-[#B17F5B] text-white px-8 py-2 rounded-md font-bold text-lg -mt-8">
+              <a href="{{ route('vendor.detail') }}" class="bg-[#B17F5B] text-white px-8 py-2 rounded-md font-bold text-lg -mt-8">
                 Contact
               </a>
             </div>
@@ -196,7 +176,7 @@
                 <span class="font-bold">Rp 200.000/</span>
                 <span class="font-bold text-gray-500">day</span>
               </p>
-              <a href="{{ route('detailVendor') }}" class="bg-[#B17F5B] text-white px-8 py-2 rounded-md font-bold text-lg -mt-8">
+              <a href="{{ route('vendor.detail') }}" class="bg-[#B17F5B] text-white px-8 py-2 rounded-md font-bold text-lg -mt-8">
                 Contact
               </a>
             </div>
@@ -234,7 +214,7 @@
                 <span class="font-bold">Rp 200.000/</span>
                 <span class="font-bold text-gray-500">day</span>
               </p>
-              <a href="{{ route('detailVendor') }}" class="bg-[#B17F5B] text-white px-8 py-2 rounded-md font-bold text-lg -mt-8">
+              <a href="{{ route('vendor.detail') }}" class="bg-[#B17F5B] text-white px-8 py-2 rounded-md font-bold text-lg -mt-8">
                 Contact
               </a>
             </div>
@@ -272,7 +252,7 @@
                 <span class="font-bold">Rp 200.000/</span>
                 <span class="font-bold text-gray-500">day</span>
               </p>
-              <a href="{{ route('detailVendor') }}" class="bg-[#B17F5B] text-white px-8 py-2 rounded-md font-bold text-lg -mt-8">
+              <a href="{{ route('vendor.detail') }}" class="bg-[#B17F5B] text-white px-8 py-2 rounded-md font-bold text-lg -mt-8">
                 Contact
               </a>
             </div>
@@ -300,62 +280,12 @@
   </div>
 </div>
 
+@endsection
 
-<!-- Footer -->
-<footer class="bg-[#FFF5E0] w-full pt-20 pb-4">
-  <div class="container mx-auto px-4">
-      <!-- Footer Content -->
-      <div class="flex justify-between mb-8">
-          <!-- Brand Section -->
-          <div class="w-1/3">
-              <h2 class="text-4xl font-bold text-[#4A3B32] mb-8">Coodiddy</h2>
-              <p class="text-gray-600 mb-20 text-lg">Our mission is to connect pet owners with trusted caregivers, making pet care services accessible, convenient, and reliable for everyone.</p>
-          </div>
-
-          <!-- Navigation Sections -->
-          <div class="flex gap-20">
-              <!-- Pages Section -->
-              <div>
-                  <h3 class="text-2xl font-semibold text-[#4A3B32] mb-8">Page</h3>
-                  <ul class="space-y-2">
-                      <li><a href="#" class="text-gray-600 mb-20 text-lg">Register as a vendor?</a></li>
-                      <li><a href="#" class="text-gray-600 mb-20 text-lg">Vendor</a></li>
-                  </ul>
-              </div>
-
-              <!-- Community Section -->
-              <div>
-                  <h3 class="text-2xl font-semibold text-[#4A3B32] mb-8">Community</h3>
-                  <ul class="space-y-2">
-                      <li><a href="#" class="text-gray-600 mb-20 text-lg">Events</a></li>
-                      <li><a href="#" class="text-gray-600 mb-20 text-lg">Blog</a></li>
-                      <li><a href="#" class="text-gray-600 mb-20 text-lg">Article</a></li>
-                  </ul>
-              </div>
-
-              <!-- Socials Section -->
-              <div>
-                  <h3 class="text-2xl font-semibold text-[#4A3B32] mb-8">Socials</h3>
-                  <ul class="space-y-2">
-                      <li><a href="#" class="text-gray-600 mb-20 text-lg">Discord</a></li>
-                      <li><a href="#" class="text-gray-600 mb-20 text-lg">Instagram</a></li>
-                      <li><a href="#" class="text-gray-600 mb-20 text-lg">Twitter</a></li>
-                      <li><a href="#" class="text-gray-600 mb-20 text-lg">Facebook</a></li>
-                  </ul>
-              </div>
-          </div>
-      </div>
-
-      <!-- Copyright -->
-      <div class="border-t-2 border-gray-300 pt-4">
-          <p class="text-xl font-semibold text-[#4A3B32]">&copy;2024 Coodiddy, All rights reserved</p>
-      </div>
-  </div>
-</footer>
-
+@section('script')
 
 <script>
-  const slider = document.getElementById('slider');
+    const slider = document.getElementById('slider');
   const prevBtn = document.getElementById('prevBtn');
   const nextBtn = document.getElementById('nextBtn');
   const dots = Array.from(document.querySelectorAll('[id^="dot-"]'));
@@ -411,11 +341,13 @@
   });
 
   updateSlider();
+
 </script>
 
 
-  
 
-</body>
-</html>
+  
+@endsection
+
+
 

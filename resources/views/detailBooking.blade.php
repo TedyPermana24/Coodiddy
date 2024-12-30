@@ -1,73 +1,7 @@
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-        <title>Coodiddy</title>
-        
-        <link
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-            rel="stylesheet"
-        />
 
-        <link
-            href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;700&display=swap"
-            rel="stylesheet"
-        />
+@extends('components.layout')
 
-        @vite(['resources/css/style.css', 'resources/js/app.js'])
-    </head>
-    <body class="bg-gray-100">
-        <header class="header">
-            <div class="logo">Coodiddy</div>
-            <div class="user-menu">
-                <p><a href="">Register as a Vendor </a></p>
-                <p><a href="">Vendor</a></p>
-
-                <div class="user-dropdown">
-                   <img
-                        alt="User profile picture"
-                        height="40"
-                        src="https://storage.googleapis.com/a1aa/image/XzyUF3YlmbYpLJDsfOguCXNDhKETrZXVR6ysBqzF8rQjQJeTA.jpg"
-                        width="40"
-                        class="profile-pic" 
-                    />
-                    <div class="dropdown" id="dropdown-menu">
-                        <div class="user-info">
-                            <div>
-                                <h4>Tedy Sukma Permana</h4>
-                                <p><i class="uil uil-store"></i>DaysPet Care</p>
-                            </div>
-                            <img
-                                src="{{ asset('img/IMG_1142-e1490899405898 1.png') }}"
-                                alt="Profile Picture"
-                                class="user-pic"
-                            />
-                        </div>
-                        <div class="menu-options">
-                            <!-- Settings Menu Item -->
-                            <div class="menu-item">
-                                <a href="{{ route('profile.edit') }}">
-                                    <i class="uil uil-cog"></i>
-                                    <span>Settings</span>
-                                </a>
-                            </div>
-                        
-                            <!-- Logout Menu Item -->
-                            <div class="menu-item logout">
-                                <form method="POST" action="{{ route('logout') }}">
-                                    @csrf
-                                    <button type="submit" class="logout-btn">
-                                        <i class="uil uil-signout"></i>
-                                        <span>Logout</span>
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                        
-                    </div>
-                </div>
-            </div>
-        </header>
+@section('content')
         <main class="max-w-5xl mx-auto p-4">
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div class="lg:col-span-2">
@@ -174,43 +108,9 @@
                 </div>
             </div>
         </main>
-        <footer>
-            <div class="footer mt-2">
-                <div class="footer-section-head">
-                    <p class="mb-2"><span>Coodiddy</span></p>
-                    <p>
-                        Our vision is to connect pet owners with trusted<br> caregivers,
-                        making pet care services accessible,<br> convenient, and
-                        reliable for everyone.
-                    </p>
-                </div>
-                <div class="footer-section-list">
-                    <div class="footer-section">
-                        <h3 class="text-xl font-bold">Page</h3>
-                        <p><a href="">Register as a vendor</a></p>
-                        <p><a href="">vendor</a></p>
-                        
-                    </div>
-                    <div class="footer-section">
-                        <h3 class="text-xl font-bold">Community</h3>
-                        <p><a href="">Events</a></p>
-                        <p><a href="">Blog</a></p>
-                        <p><a href="">Article</a></p>
-                    </div>
-                    <div class="footer-section">
-                        <h3 class="text-xl font-bold">Socials</h3>
-                        <p><a href="">Discord</a></p>
-                        <p><a href="">Instagram</a></p>
-                        <p><a href="">Twitter</a></p>
-                        <p><a href="">Facebook</a></p>
-                    </div>
-                </div>
-            </div>
-            <span class="footer-line"></span>
-            <div class="footer-copyright">
-                <p>&copy; 2024 Coodiddy. All rights reserved</p>
-            </div>
-        </footer>
+@endsection
+
+@section('script')
     <script src="script.js"></script>
-    </body>
-</html>
+@endsection
+
