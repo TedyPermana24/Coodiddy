@@ -24,11 +24,12 @@
                 <p><a href="">Vendor</a></p>
 
                 <div class="user-dropdown">
-b                        alt="User profile picture"
+b                    <img
+                        alt="User profile picture"
                         height="40"
                         src="https://storage.googleapis.com/a1aa/image/XzyUF3YlmbYpLJDsfOguCXNDhKETrZXVR6ysBqzF8rQjQJeTA.jpg"
                         width="40"
-                        onclick="toggleDropdown()"
+                        class="profile-pic" 
                     />
                     <div class="dropdown" id="dropdown-menu">
                         <div class="user-info">
@@ -37,21 +38,32 @@ b                        alt="User profile picture"
                                 <p><i class="uil uil-store"></i>DaysPet Care</p>
                             </div>
                             <img
-                                src="img/IMG_1142-e1490899405898 1.png"
+                                src="{{ asset('img/IMG_1142-e1490899405898 1.png') }}"
                                 alt="Profile Picture"
                                 class="user-pic"
                             />
                         </div>
                         <div class="menu-options">
+                            <!-- Settings Menu Item -->
                             <div class="menu-item">
-                                <i class="uil uil-cog"></i>
-                                <span>Settings</span>
+                                <a href="{{ route('profile.edit') }}">
+                                    <i class="uil uil-cog"></i>
+                                    <span>Settings</span>
+                                </a>
                             </div>
+                        
+                            <!-- Logout Menu Item -->
                             <div class="menu-item logout">
-                                <i class="uil uil-signout"></i>
-                                <span>Logout</span>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit" class="logout-btn">
+                                        <i class="uil uil-signout"></i>
+                                        <span>Logout</span>
+                                    </button>
+                                </form>
                             </div>
                         </div>
+                        
                     </div>
                 </div>
             </div>
