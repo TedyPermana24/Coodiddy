@@ -10,7 +10,7 @@
             />
             <div class="banner-text">
                 <h1>Vendor</h1>
-                <p><a href="">Home</a>&gt;</p>
+                <p><a href="welcome.php">Home</a>&gt;</p>
                 <p><a href="">Vendor</a></p>
             </div>
         </div>
@@ -215,7 +215,5 @@
         </div>
 @endsection
 
-@section('script')
-<script src="script.js"></script>
-@endsection
+
    

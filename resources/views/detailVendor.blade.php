@@ -1,7 +1,7 @@
 @extends('components.layout')
 
 @section('content')
-        <main class="max-w-6xl mx-auto p-4 mt-20">
+        <main class="max-w-6xl mx-auto p-4 mt-28">
             <div
                 class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4"
             >

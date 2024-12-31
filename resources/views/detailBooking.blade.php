@@ -110,7 +110,5 @@
         </main>
 @endsection
 
-@section('script')
-    <script src="script.js"></script>
-@endsection
+
 

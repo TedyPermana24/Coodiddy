@@ -10,7 +10,7 @@
 <body class="bg-neutral-50 font-poppins overscroll-none">
 
 <!-- Navbar -->
-<nav class="bg-[#F8F0E3] absolute w-full z-20 top-0 left-0 flex justify-between items-center py-7 px-16 font-poppins transition-all duration-300 ease-in-out">
+<nav class="bg-[#F8F0E3] absolute w-full z-20 top-0 left-0 flex justify-between items-center py-7 px-16 font-poppins transition-all duration-300 ease-in-out mb-20">
     <div class="text-2xl font-bold text-gray-800 ml-16">
         <a href="{{ route('home') }}" class="hover:text-[#6B4423] text-3xl font-bold">Coodiddy</a>
     </div>
@@ -175,18 +175,18 @@
                 <div>
                     <h3 class="text-2xl font-semibold text-[#4A3B32] mb-8">Page</h3>
                     <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-600 mb-20 text-lg">Register as a vendor?</a></li>
-                        <li><a href="#" class="text-gray-600 mb-20 text-lg">Vendor</a></li>
+                        <li><a href="#" class="text-gray-600 mb-20 text-lg footer-nav hover:footer-nav">Register as a vendor?</a></li>
+                        <li><a href="#" class="text-gray-600 mb-20 text-lg footer-nav hover:footer-nav">Vendor</a></li>
                     </ul>
                 </div>
   
                 <!-- Community Section -->
                 <div>
-                    <h3 class="text-2xl font-semibold text-[#4A3B32] mb-8">Community</h3>
+                    <h3 class="text-2xl font-semibold text-[#4A3B32] mb-8 footer-nav hover:footer-nav">Community</h3>
                     <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-600 mb-20 text-lg">Events</a></li>
-                        <li><a href="#" class="text-gray-600 mb-20 text-lg">Blog</a></li>
-                        <li><a href="#" class="text-gray-600 mb-20 text-lg">Article</a></li>
+                        <li><a href="#" class="text-gray-600 mb-20 text-lg footer-nav hover:footer-nav">Events</a></li>
+                        <li><a href="#" class="text-gray-600 mb-20 text-lg footer-nav hover:footer-nav">Blog</a></li>
+                        <li><a href="#" class="text-gray-600 mb-20 text-lg footer-nav hover:footer-nav">Article</a></li>
                     </ul>
                 </div>
   
@@ -194,10 +194,10 @@
                 <div>
                     <h3 class="text-2xl font-semibold text-[#4A3B32] mb-8">Socials</h3>
                     <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-600 mb-20 text-lg">Discord</a></li>
-                        <li><a href="#" class="text-gray-600 mb-20 text-lg">Instagram</a></li>
-                        <li><a href="#" class="text-gray-600 mb-20 text-lg">Twitter</a></li>
-                        <li><a href="#" class="text-gray-600 mb-20 text-lg">Facebook</a></li>
+                        <li><a href="#" class="text-gray-600 mb-20 text-lg footer-nav hover:footer-nav">Discord</a></li>
+                        <li><a href="#" class="text-gray-600 mb-20 text-lg footer-nav hover:footer-nav">Instagram</a></li>
+                        <li><a href="#" class="text-gray-600 mb-20 text-lg footer-nav hover:footer-nav">Twitter</a></li>
+                        <li><a href="#" class="text-gray-600 mb-20 text-lg footer-nav hover:footer-nav">Facebook</a></li>
                     </ul>
                 </div>
             </div>

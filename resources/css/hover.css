@@ -1,6 +1,7 @@
 
+
 /*hover navbar */
-.nav-hover a::after {
+.nav-hover::after {
     content: "";
     display: block;
     padding-bottom: 0.1rem;
@@ -9,18 +10,18 @@
     transition: 0.175s linear;
 }
 
-.nav-hover a:hover::after {
-    transform: scaleX(80%);
+.nav-hover:hover::after {
+    transform: scaleX(90%);
 }
 /*-------------------------------*/
 
 /* hover nav footer */
-.footer-nav a{
+.footer-nav {
     color: var(--bg3);
     transition: 0.175s linear;  
 }
 
-.footer-nav a:hover{
+.footer-nav:hover{
     color: var(--bg2);
 }
 /*-------------------------------*/
