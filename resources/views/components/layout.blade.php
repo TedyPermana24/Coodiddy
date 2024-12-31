@@ -12,18 +12,18 @@
 <!-- Navbar -->
 <nav class="bg-[#F8F0E3] absolute w-full z-20 top-0 left-0 flex justify-between items-center py-7 px-16 font-poppins transition-all duration-300 ease-in-out mb-20">
     <div class="text-2xl font-bold text-gray-800 ml-16">
-        <a href="#" class="hover:text-[#6B4423] text-3xl font-bold">Coodiddy</a>
+        <a href="{{ route('home') }}" class="hover:text-[#6B4423] text-3xl font-bold">Coodiddy</a>
     </div>
     <div class="flex items-center space-x-8 mr-16">
-        <p><a href="" class="text-gray-800 nav-hover hover:nav-hover hover:text-[#6B4423] font-poppins font-normal text-base">Register as Vendor?</a></p>
-        <p><a href="{{ route('vendor') }}" class="text-gray-800 nav-hover hover:nav-hover hover:text-[#6B4423] font-poppins font-normal text-base">Vendor</a></p>
+        <p><a href="{{ route('registerVendor') }}" class="text-gray-800 hover:text-[#6B4423] font-poppins font-normal text-base">Register as Vendor?</a></p>
+        <p><a href="{{ route('vendor') }}" class="text-gray-800 hover:text-[#6B4423] font-poppins font-normal text-base">Vendor</a></p>
 
         @auth
         <!-- User is logged in -->
         <div class="user-dropdown flex items-center">
             <img
                 alt="User profile picture"
-                src="{{ asset('img/IMG_1142-e1490899405898 1.png') }}"
+                src="{{ asset('img/kucing-kosan-hendra.jpg') }}"
                 class="w-10 h-10 object-cover rounded-full cursor-pointer"
                 id="profile-img" onclick="toggleDropdown()"
             />

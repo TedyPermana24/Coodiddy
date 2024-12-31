@@ -19,6 +19,11 @@ class PetHotelController extends Controller
         return view('detailVendor');
     }
 
+    public function registerVendor()
+    {
+        return view('registerVendor');
+    }
+
     /**
      * Show the form for creating a new resource.
      */
