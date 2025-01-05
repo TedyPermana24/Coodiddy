@@ -1,3 +1,4 @@
+
 @extends('components.layout')
 
 @section('content')
@@ -17,9 +18,6 @@
                                 <p>082934123431</p>
                             </div>
                         </div>
-                        <button class="mt-4 px-4 py-2 bg-gray-200 rounded">
-                            Change Address
-                        </button>
                     </div>
                     <div class="bg-white p-6 rounded-lg shadow-md mb-6">
                         <h2 class="text-lg font-bold mb-4">Booking</h2>
@@ -109,7 +107,5 @@
         </main>
 @endsection
 
-@section('script')
-    <script src="script.js"></script>
-@endsection
+
 

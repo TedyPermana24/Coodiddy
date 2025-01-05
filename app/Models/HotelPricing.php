@@ -9,14 +9,7 @@ class HotelPricing extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'booking_id',
-        'transaction_id',
-        'gateway_name',
-        'payment_url',
-        'payment_status',
-        'total_amount',
-    ];
+    
 
     public function PetHotel()
     {

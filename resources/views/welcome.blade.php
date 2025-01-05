@@ -133,46 +133,58 @@
         <div id="slider" class="flex gap-6 transition-transform duration-500 ease-in-out">
             <!-- Cards -->
             @foreach ($pethotels as $p)
-                @foreach ($p->hotelPricings as $pr)
-                    <div class="w-1/4 flex-shrink-0 bg-white rounded-2xl shadow-md">
-                        <div class="relative w-full h-0" style="padding-bottom: 75%;">
-                            <img src="{{ asset('img/communication.jpg') }}" alt="Pet Shop"
-                                class="absolute inset-0 w-full h-full object-cover rounded-t-2xl">
+                <div class="w-1/4 flex-shrink-0 bg-white rounded-2xl shadow-md">
+                    <div class="relative w-full h-0" style="padding-bottom: 75%;">
+                        <img src="{{ asset('img/communication.jpg') }}" alt="Pet Shop"
+                            class="absolute inset-0 w-full h-full object-cover rounded-t-2xl">
+                    </div>
+                    <div class="p-4">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-2xl font-bold">{{ $p->name }}</h3>
+                            <div class="flex gap-1">
+                              @for ($i = 0; $i < floor($p->reviews_avg_rating); $i++)
+                              <img src="{{ asset('svg/star-filled.svg') }}" alt="Filled star" class="w-6 h-6">
+                              @endfor
+                          
+                              @if ($p->reviews_avg_rating - floor($p->reviews_avg_rating) >= 0.5)
+                                  <img src="{{ asset('svg/star-half.svg') }}" alt="Half star" class="w-6 h-6">
+                              @endif
+                          
+                              @for ($i = 0; $i < (5 - ceil($p->reviews_avg_rating)); $i++)
+                                  <img src="{{ asset('svg/star-empty.svg') }}" alt="Empty star" class="w-6 h-6">
+                              @endfor
+                            </div>
                         </div>
-                        <div class="p-4">
-                            <div class="flex items-center justify-between mb-6">
-                                <h3 class="text-2xl font-bold">{{ $p->name }}</h3>
-                                <div class="flex gap-1">
-                                    @for ($i = 0; $i < floor($p->ratings); $i++)
-                                        <img src="{{ asset('svg/star-filled.svg') }}" alt="Filled star" class="w-6 h-6">
-                                    @endfor
-                                    @for ($i = 0; $i < (5 - ceil($p->ratings)); $i++)
-                                        <img src="{{ asset('svg/star-empty.svg') }}" alt="Empty star" class="w-6 h-6">
-                                    @endfor
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-2 mb-2">
-                                <img src="{{ asset('svg/pet-icon.svg') }}" alt="Pet icon" class="w-5 h-5">
-                                <span class="text-xl font-medium text-[#8B5E3C]">{{ $pr->species }}</span>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <img src="{{ asset('svg/location-icon.svg') }}" alt="Location icon" class="w-5 h-5">
-                                <span class="text-xl font-medium text-[#0071FF]">{{ $p->location }}</span>
-                            </div>
-                            <div class="flex items-center justify-between mt-2">
-                                <p class="text-xl">
-                                    <span class="font-bold">Rp{{ number_format($pr->price_per_day, 0, ',', '.') }}/</span>
-                                    <span class="font-bold text-gray-500">day</span>
-                                </p>
-                                <a href="{{ route('vendor.detail', ['id' => $p->id]) }}" 
-                                  class="bg-[#B17F5B] text-white px-4 py-2 rounded-md font-bold text-lg">
-                                  Contact
-                              </a>
-                            </div>
+                        @php
+                            $species = $p->hotelPricings->pluck('species')->unique();
+                            $displaySpecies = $species->implode(', ');
+                        @endphp
+                        <div class="flex items-center gap-2 mb-2">
+                            <img src="{{ asset('svg/pet-icon.svg') }}" alt="Pet icon" class="w-5 h-5">
+                            <span class="text-xl font-medium text-[#8B5E3C]">{{ $displaySpecies }}</span>
+                        </div>
+                        <div class="flex items-center gap-2 mb-2">
+                            <img src="{{ asset('svg/location-icon.svg') }}" alt="Location icon" class="w-5 h-5">
+                            <span class="text-xl font-medium text-[#0071FF]">{{ $p->location }}</span>
+                        </div>
+                        <div class="flex items-center justify-between mt-2">
+                            @php
+                                $minPrice = $p->hotelPricings->min('price_per_day');
+                            @endphp
+                            <p class="text-xl">
+                                <span class="font-bold">Rp{{ number_format($minPrice, 0, ',', '.') }}/</span>
+                                <span class="font-bold text-gray-500">day</span>
+                            </p>
+                            <a href="{{ route('vendor.detail', ['id' => $p->id]) }}" 
+                              class="bg-[#B17F5B] text-white px-4 py-2 rounded-md font-bold text-lg">
+                              Contact
+                            </a>
                         </div>
                     </div>
-                @endforeach
+                </div>
             @endforeach
+
+           
         </div>
     
         <!-- Navigation Buttons -->

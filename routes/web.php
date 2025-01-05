@@ -36,11 +36,12 @@ Route::middleware('auth')->group(function () {
 
     
     Route::get('/vendors', [PetHotelController::class, 'index'])->name('vendor');
-    Route::get('/vendors/detail', [PetHotelController::class, 'detail'])->name('vendor.detail');
+    Route::get('/vendors/{id}', [PetHotelController::class, 'detail'])->name('vendor.detail');
     Route::get('/booking', [PaymentController::class, 'index'])->name('booking');
 
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
+    Route::get('/registerVendor', [PetHotelController::class, 'registerVendor'])->name('registerVendor');
 
 });
 
