@@ -27,16 +27,13 @@
             <div class="w-[3px] h-8 bg-[#4A3B32]"></div>
             <p class="text-lg">1-16 of 32 results</p>
         </div>
-        <div class="flex items-center border border-[#4A3B32] p-1 bg-gray-100 w-96">
-            
+        <div class="flex items-center border border-[#4A3B32] p-1 rounded-2xl bg-gray-100 w-96">
             <input class="flex-grow border-none outline-none text-base text-[#4A3B32] pl-2 bg-gray-100 placeholder-[#4A3B32] placeholder:font-bold border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-100" placeholder="Search" type="text" />
             <span class="text-lg text-gray-700">&#128269;</span>
         </div>
     </div>
 </div>
-<div
-    class="flex flex-wrap gap-y-8 px-28"
->
+<div class="p-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
     <!-- Card 1 -->
     <div class="bg-white rounded-lg shadow-md h-[27rem] mx-auto">
         <div class="w-full flex justify-center items-center">
@@ -65,10 +62,10 @@
               <img src="{{ asset('svg/location-icon.svg') }}" alt="Location icon" class="h-5 w-5">
               <span class="text-xl font-medium text-[#0071FF]">Bandung</span>
             </div>
-            <div class="flex items-center justify-between mt-1">
+            <div class="flex items-center justify-between mt-1 gap-2">
               <p class="text-xl">
                 <span class="font-bold">Rp 200.000/</span>
-                <span class="font-bold text-gray-500">day</span>
+                <span class="font-bold text-gray-500 text-base" >day</span>
               </p>
               <a href="{{ route('vendor.detail') }}" class="bg-[#B17F5B] text-white px-8 py-2 rounded-md font-bold text-lg -mt-8">
                 Contact
@@ -76,7 +73,6 @@
             </div>
           </div>
     </div>
-    <!-- Card 1 -->
     <div class="bg-white rounded-lg shadow-md h-[27rem] mx-auto">
         <div class="w-full flex justify-center items-center">
             <img
@@ -104,10 +100,10 @@
               <img src="{{ asset('svg/location-icon.svg') }}" alt="Location icon" class="h-5 w-5">
               <span class="text-xl font-medium text-[#0071FF]">Bandung</span>
             </div>
-            <div class="flex items-center justify-between mt-1">
+            <div class="flex items-center justify-between mt-1 gap-2">
               <p class="text-xl">
                 <span class="font-bold">Rp 200.000/</span>
-                <span class="font-bold text-gray-500">day</span>
+                <span class="font-bold text-gray-500 text-base" >day</span>
               </p>
               <a href="{{ route('vendor.detail') }}" class="bg-[#B17F5B] text-white px-8 py-2 rounded-md font-bold text-lg -mt-8">
                 Contact
@@ -115,7 +111,6 @@
             </div>
           </div>
     </div>
-    <!-- Card 1 -->
     <div class="bg-white rounded-lg shadow-md h-[27rem] mx-auto">
         <div class="w-full flex justify-center items-center">
             <img
@@ -143,10 +138,10 @@
               <img src="{{ asset('svg/location-icon.svg') }}" alt="Location icon" class="h-5 w-5">
               <span class="text-xl font-medium text-[#0071FF]">Bandung</span>
             </div>
-            <div class="flex items-center justify-between mt-1">
+            <div class="flex items-center justify-between mt-1 gap-2">
               <p class="text-xl">
                 <span class="font-bold">Rp 200.000/</span>
-                <span class="font-bold text-gray-500">day</span>
+                <span class="font-bold text-gray-500 text-base" >day</span>
               </p>
               <a href="{{ route('vendor.detail') }}" class="bg-[#B17F5B] text-white px-8 py-2 rounded-md font-bold text-lg -mt-8">
                 Contact
@@ -154,7 +149,6 @@
             </div>
           </div>
     </div>
-    <!-- Card 1 -->
     <div class="bg-white rounded-lg shadow-md h-[27rem] mx-auto">
         <div class="w-full flex justify-center items-center">
             <img
@@ -182,10 +176,10 @@
               <img src="{{ asset('svg/location-icon.svg') }}" alt="Location icon" class="h-5 w-5">
               <span class="text-xl font-medium text-[#0071FF]">Bandung</span>
             </div>
-            <div class="flex items-center justify-between mt-1">
+            <div class="flex items-center justify-between mt-1 gap-2">
               <p class="text-xl">
                 <span class="font-bold">Rp 200.000/</span>
-                <span class="font-bold text-gray-500">day</span>
+                <span class="font-bold text-gray-500 text-base" >day</span>
               </p>
               <a href="{{ route('vendor.detail') }}" class="bg-[#B17F5B] text-white px-8 py-2 rounded-md font-bold text-lg -mt-8">
                 Contact
@@ -193,21 +187,20 @@
             </div>
           </div>
     </div>
+    <!-- Card 1 -->
+    
     <!-- Tambahkan card lainnya dengan struktur yang sama -->
 </div>
 
 
 
 
-<div class="flex justify-center mt-8 mb-12">
-    <button class="bg-[#B17F5B] text-white px-4 py-2 mx-1 rounded-md cursor-pointer">1</button>
-    <button class="bg-gray-300 px-4 py-2 mx-1 rounded-md cursor-pointer text-[#B17F5B]">2</button>
-    <button class="bg-gray-300 px-4 py-2 mx-1 rounded-md cursor-pointer text-[#B17F5B]">3</button>
-    <button class="bg-gray-300 px-4 py-2 mx-1 rounded-md cursor-pointer text-[#B17F5B]">4</button>
-    <button class="px-4 py-2 mx-1 rounded-md cursor-pointer text-[#B17F5B]">
-        &#9654;
-    </button>
-</div>
+<div class="flex justify-center mt-4 mb-12">
+            <button class="bg-[#B17F5B] text-white py-2 px-4 rounded-full">
+                Show more vendor
+                <i class="fas fa-chevron-down"> </i>
+            </button>
+        </div>
 
 @endsection
 
