@@ -6,6 +6,7 @@
   <title>Coodiddy</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   @vite(['resources/css/app.css', 'resources/js/app.js'])
+  @yield('style')
 </head>
 <body class="bg-neutral-50 font-poppins overscroll-none">
 
@@ -77,7 +78,7 @@
         
         @else
         <!-- User is not logged in -->
-        <a href="{{ route('login') }}" class="bg-[#A5724C] text-white py-2 px-8 rounded-xl hover:bg-[#4A3B32] font-poppins font-normal text-base">Login</a>
+        <a href="{{ route('login') }}" class="bg-[#A5724C] text-white py-1 px-6 rounded-xl hover:bg-[#4A3B32] font-poppins font-normal text-base">Login</a>
         @endauth
     </div>
 </nav>

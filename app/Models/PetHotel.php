@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class PetHotel extends Model
 {
     use HasFactory;
-
+    
+    protected $table = 'pet_hotels';
     protected $fillable = [
         'name',
         'location',
@@ -20,9 +21,9 @@ class PetHotel extends Model
      * Relasi ke tabel HotelPricing
      * Satu hotel memiliki banyak harga layanan
      */
-    public function pricings()
+    public function hotelPricings()
     {
-        return $this->hasMany(HotelPricing::class);
+        return $this->hasMany(HotelPricing::class, 'hotel_id', 'id');
     }
 
     /**
@@ -40,6 +41,11 @@ class PetHotel extends Model
      */
     public function reviews()
     {
-        return $this->hasMany(Review::class);
+        return $this->hasMany(Review::class, 'hotel_id', 'id');
+    }
+
+    public function additionalServices()
+    {
+        return $this->hasMany(AdditionalService::class, 'hotel_id');
     }
 }

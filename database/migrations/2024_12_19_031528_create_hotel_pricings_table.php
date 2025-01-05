@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('hotel_pricing', function (Blueprint $table) {
+        Schema::create('hotel_pricings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('hotel_id')->constrained('pet_hotels')->onDelete('cascade');
-            $table->enum('species', ['anjing', 'kucing', 'kelinci', 'burung', 'lainnya']);
-            $table->decimal('price_per_day', 10, 2);
-            $table->string('additional_service')->nullable();
-            $table->decimal('service_price', 10, 2)->nullable();
+            $table->enum('species', ['Cat', 'Dogs']);
+            $table->integer('price_per_day');
             $table->timestamps();
         });
     }
