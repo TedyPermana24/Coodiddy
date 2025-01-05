@@ -20,9 +20,9 @@ class PetHotel extends Model
      * Relasi ke tabel HotelPricing
      * Satu hotel memiliki banyak harga layanan
      */
-    public function pricings()
+    public function hotelPricings()
     {
-        return $this->hasMany(HotelPricing::class);
+        return $this->hasMany(HotelPricing::class, 'hotel_id', 'id');
     }
 
     /**

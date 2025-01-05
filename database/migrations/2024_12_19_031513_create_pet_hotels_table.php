@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->text('facilities')->nullable();
             $table->string('image')->nullable();
+            $table->integer('ratings')->nullable();
             $table->timestamps();
         });
     }

@@ -10,12 +10,13 @@ class Payment extends Model
     use HasFactory;
 
     protected $fillable = [
-        'booking_id',
-        'transaction_id',
-        'gateway_name',
-        'payment_url',
-        'payment_status',
-        'total_amount',
+        'hotel_id',
+        'species',
+        'price_per_day',
+        'additional_service',
+        'service_price',
+        'created_at',
+        'updated_at',
     ];
 
     /**
