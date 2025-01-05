@@ -27,7 +27,7 @@
                             @endforeach
                         </select>
                 
-                        <select name="species" class="border border-gray-300 rounded-md pr-8 py-2">
+                        <select name="species" class="border-2 border-gray-300 rounded-md pr-8 py-2 focus:border-[#B17F5B] focus:ring-0">
                             <option value="">Select Species</option>
                             @foreach ($speciesList as $sp)
                                 <option value="{{ $sp }}" {{ old('species', $species) === $sp ? 'selected' : '' }}>
@@ -36,13 +36,13 @@
                             @endforeach
                         </select>
                 >
-                        <select name="price" class="border border-gray-300 rounded-md pr-8 py-2">
+                        <select name="price" class="border-2 border-gray-300 rounded-md pr-8 py-2 focus:border-[#B17F5B] focus:ring-0">
                             <option value="">Select Price</option>
                             <option value="low" {{ old('price', $price) === 'low' ? 'selected' : '' }}>Lowest Price</option>
                             <option value="high" {{ old('price', $price) === 'high' ? 'selected' : '' }}>Highest Price</option>
                         </select>
                 
-                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md">
+                        <button type="submit" class="bg-[#B17F5B] hover:bg-[#96684A] text-white px-4 py-2 rounded-md font-medium text-sm">
                             Apply Filters
                         </button>
                     </div>
@@ -53,10 +53,10 @@
                             name="search"
                             placeholder="Search by name"
                             value="{{ old('search', $search ?? '') }}"
-                            class="border border-gray-300 rounded-md px-4 py-2"
+                            class="border-2 border-gray-300 rounded-md pr-8 py-2 focus:border-[#B17F5B] focus:ring-0"
                         />
                 
-                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md">
+                        <button type="submit" class="bg-[#B17F5B] hover:bg-[#96684A] text-white px-4 py-2 rounded-md font-medium text-sm">
                             Search
                         </button>
                     </div>
