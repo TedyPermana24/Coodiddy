@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Care Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-[#f3f5f7] min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="w-full h-20 px-16 bg-[#f8f0e3] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] flex justify-between items-center">
+        <div class="flex items-center gap-0">
+            <h1 class="text-3xl font-bold text-black">Coodiddy</h1>
+            <span class="text-2xl font-bold text-[#5e4f4f]">Vendor</span>
+        </div>
+        <div class="flex items-center gap-11">
+            <img src="/api/placeholder/40/40" alt="Profile" class="w-10 h-10 rounded-3xl">
+            <span class="text-black">|</span>
+            <span class="text-black">Tedy Sukma Permana</span>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="flex flex-1">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-[#f8f0e3] py-6 px-4 flex flex-col h-screen">
+            <div class="flex-1">
+                <!-- Vendor Name -->
+                <div class="text-center mb-6">
+                    <h2 class="text-xl font-bold">Daypet Care</h2>
+                    <!-- <div class="flex gap-1 items-center justify-center">
+                        @for ($i = 0; $i < floor($p->reviews_avg_rating); $i++)
+                        <img src="{{ asset('svg/star-filled.svg') }}" alt="Filled star" class="w-4 h-4">
+                        @endfor
+                    
+                        @if ($p->reviews_avg_rating - floor($p->reviews_avg_rating) >= 0.5)
+                            <img src="{{ asset('svg/star-half.svg') }}" alt="Half star" class="w-4 h-4">
+                        @endif
+                    
+                        @for ($i = 0; $i < (5 - ceil($p->reviews_avg_rating)); $i++)
+                            <img src="{{ asset('svg/star-empty.svg') }}" alt="Empty star" class="w-4 h-4">
+                        @endfor
+                    </div>    -->
+                </div>
+
+                <!-- Balance Info -->
+                <div class="border-y border-gray-400 py-4 mb-6 space-y-2">
+                    <div class="flex justify-between text-sm">
+                        <span>Balance:</span>
+                        <span>Rp. 1,234,000</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span>Total Transaction:</span>
+                        <span>20</span>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <nav class="space-y-4">
+                    <div class="flex items-center gap-2">
+                        <img src="{{ asset('svg/home.svg') }}" alt="Home" class="w-4 h-4">
+                        <a href="#" class="text-black">Home</a>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <img src="{{ asset('svg/order.svg') }}" alt="Order" class="w-4 h-4">
+                        <a href="#" class="text-black">Order</a>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <img src="{{ asset('svg/settings.svg') }}" alt="Settings" class="w-4 h-4">
+                        <a href="#" class="text-black">Settings</a>
+                    </div>
+                </nav>
+            </div>
+
+            <!-- Back Link -->
+            <div class="flex items-center gap-2 pt-4">
+                <img src="{{ asset('svg/back.svg') }}" alt="Back" class="w-4 h-4">
+                <a href="#" class="text-black">Back to Coodiddy</a>
+            </div>
+        </aside>
+
+        <!-- Main Dashboard -->
+        <main class="flex-1 p-16">
+            <!-- Welcome Section -->
+            <div class="mb-6">
+                <h1 class="text-3xl font-bold text-black mb-2">Welcome to Coodiddy</h1>
+                <p class="text-xl font-normal text-black">Make the most comfortable home for the animals we all love.</p>
+            </div>
+
+            <!-- Orders Section -->
+            <div class="p-8 bg-white rounded-2xl shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
+                <h2 class="text-2xl font-bold text-[#a4724c] mb-6">Order</h2>
+
+                 <!-- order table -->
+                <div class="flex flex-col justify-between items-start mb-6 w-full"></div>
+                    <!-- order header -->
+                    <div class="flex justify-between items-center  bg-[#a4724c] w-full gap-7 mb-4">
+                        <div class="flex items-center gap-2 w-1/7 text-white">
+                            <h1 class="py-3 px-4 text-left text-sm">Name Pet</h1>
+                        </div>
+                        <div class="flex items-center gap-2 w-1/7 text-white">
+                            <h1 class="py-3 px-4 text-left text-sm">Pet Type</h1>
+                        </div>
+                        <div class="flex items-center gap-2 w-1/7 text-white">
+                            <h1 class="py-3 px-4 text-left text-sm">Day Sitting</h1>
+                        </div>
+                        <div class="flex items-center gap-2 w-1/7 text-white">
+                            <h1 class="py-3 px-4 text-left text-sm">Add. Services</h1>
+                        </div>
+                        <div class="flex items-center gap-2 w-1/7 text-white">
+                            <h1 class="py-3 px-4 text-left text-sm">Pick Up/Drop Off</h1>
+                        </div>
+                        <div class="flex items-center gap-2 w-1/7 text-white">
+                            <h1 class="py-3 px-4 text-left text-sm">Status</h1>
+                        </div>
+                        <div class="flex items-center gap-2 w-1/7 text-white">
+                            <h1 class="py-3 px-4 text-left text-sm">Action</h1>
+                        </div>
+                    </div>
+                    <!-- card body -->
+                    <div>
+                        <h1>sssss</h1>
+                    <div></div>
+                    </div>
+
+                 </div>
+                <div class="overflow-x-auto">
+                    <div class="card w-full mb-4">
+                        <div class="card-header bg-[#a4724c] text-white">
+                            <table class="w-full mb-9">
+                                <thead>
+                                    <tr>
+                                        <th class="py-3 px-4 text-left text-sm">Name Pet</th>
+                                        <th class="py-3 px-4 text-left text-sm">Pet Type</th>
+                                        <th class="py-3 px-4 text-left text-sm">Day Sitting</th>
+                                        <th class="py-3 px-4 text-left text-sm">Add. Services</th>
+                                        <th class="py-3 px-4 text-left text-sm">Pick Up/Drop Off</th>
+                                        <th class="py-3 px-4 text-left text-sm">Status</th>
+                                        <th class="py-3 px-4 text-left text-sm">Action</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="card w-full">
+                        <div class="card-body bg-white text-black">
+                            <table class="w-full">
+                                <tbody>
+                                    <tr class="border-b border-gray-300">
+                                        <td class="py-3 px-4 text-sm">
+                                            <div class="flex items-center">
+                                                <img src="path/to/avatar1.png" alt="Avatar" class="w-8 h-8 rounded-full mr-3">
+                                                <div>
+                                                    <p class="font-medium">Fathurrahman Pratama Putra</p>
+                                                    <p class="text-gray-500 text-xs">Khaleed Kashmiri</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="py-3 px-4 text-sm">Cat</td>
+                                        <td class="py-3 px-4 text-sm">2 Days</td>
+                                        <td class="py-3 px-4 text-sm">Grooming</td>
+                                        <td class="py-3 px-4 text-sm">Pick Up</td>
+                                        <td class="py-3 px-4 text-sm text-yellow-500">On Progress</td>
+                                        <td class="py-3 px-4 text-sm text-blue-500 cursor-pointer">See Details</td>
+                                    </tr>
+                                    <tr class="border-b border-gray-300">
+                                        <td class="py-3 px-4 text-sm">
+                                            <div class="flex items-center">
+                                                <img src="path/to/avatar2.png" alt="Avatar" class="w-8 h-8 rounded-full mr-3">
+                                                <div>
+                                                    <p class="font-medium">Hendra Darmawan</p>
+                                                    <p class="text-gray-500 text-xs">Khidir Karawita</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="py-3 px-4 text-sm">Cat</td>
+                                        <td class="py-3 px-4 text-sm">3 Days</td>
+                                        <td class="py-3 px-4 text-sm">Grooming, Pedicure</td>
+                                        <td class="py-3 px-4 text-sm">Drop Off</td>
+                                        <td class="py-3 px-4 text-sm text-green-500">Completed</td>
+                                        <td class="py-3 px-4 text-sm text-blue-500 cursor-pointer">See Details</td>
+                                    </tr>
+                                    <!-- Add more rows here as needed -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+
+        </main>
+    </div>
+</body>
+</html>
