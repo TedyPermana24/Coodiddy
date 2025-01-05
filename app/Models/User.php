@@ -88,4 +88,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Review::class);
     }
+
+    public function contacts()
+    {
+        return $this->hasMany(Contact::class); // Relasi hasMany ke tabel kontak
+    }
 }
