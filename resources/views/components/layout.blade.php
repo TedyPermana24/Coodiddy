@@ -6,7 +6,6 @@
   <title>Coodiddy</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   @vite(['resources/css/app.css', 'resources/js/app.js'])
-  @yield('style')
 </head>
 <body class="bg-neutral-50 font-poppins overscroll-none">
 
@@ -37,7 +36,7 @@
             />
         </div>
 
-        <div class="w-52 h-36 bg-white rounded-lg border border-[#d9d9d9] flex-col justify-start items-start gap-1 inline-flex dropdown hidden w-[181px] rounded-[10px] border-solid border-[#D09D9D] bg-[#FFF]" id="dropdown-menu">
+        <div class="w-52 h-36 bg-white rounded-lg border border-[#d9d9d9] flex-col justify-start items-start gap-1 dropdown hidden border-solid" id="dropdown-menu">
             <!-- User Info Section -->
             <div class="self-stretch h-16 p-2.5 border-b border-black flex-col justify-start items-start gap-2.5 flex">
                 <div class="self-stretch justify-center items-center gap-2.5 inline-flex">
@@ -78,7 +77,7 @@
         
         @else
         <!-- User is not logged in -->
-        <a href="{{ route('login') }}" class="bg-[#A5724C] text-white py-1 px-6 rounded-xl hover:bg-[#4A3B32] font-poppins font-normal text-base">Login</a>
+        <a href="{{ route('login') }}" class="bg-[#A5724C] text-white py-2 px-8 rounded-xl hover:bg-[#4A3B32] font-poppins font-normal text-base">Login</a>
         @endauth
     </div>
 </nav>
