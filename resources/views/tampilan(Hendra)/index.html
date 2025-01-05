@@ -1,33 +1,173 @@
-<div class="p-4">
-    <div class="flex items-center justify-between mb-8">
-      <h3 class="text-2xl font-bold">DayPet Care</h3>
-      <div class="flex items-center gap-1">
-        <!-- Rating stars -->
-        @for ($i = 0; $i < 4; $i++)
-          <img src="{{ asset('svg/star-filled.svg') }}" alt="Filled star" class="h-6 w-6">
-        @endfor
-        <img src="{{ asset('svg/star-empty.svg') }}" alt="Empty star" class="h-6 w-6">
-      </div>
+<div class="p-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <!-- Card 1 -->
+    <div class="bg-white rounded-lg shadow-md h-[27rem] mx-auto">
+        <div class="w-full flex justify-center items-center">
+            <img
+                src="{{ asset('img/communication.jpg') }}"
+                alt="Pet Shop"
+                class="w-full h-auto max-h-60 object-cover rounded-t-xl"
+            />
+        </div>
+        <div class="p-4">
+            <div class="flex items-center justify-between mb-8">
+              <h3 class="text-2xl font-bold">DayPet Care</h3>
+              <div class="flex items-center gap-1">
+                <!-- Rating stars -->
+                @for ($i = 0; $i < 4; $i++)
+                  <img src="{{ asset('svg/star-filled.svg') }}" alt="Filled star" class="h-6 w-6">
+                @endfor
+                <img src="{{ asset('svg/star-empty.svg') }}" alt="Empty star" class="h-6 w-6">
+              </div>
+            </div>
+            <div class="flex items-center gap-2 mb-1">
+              <img src="{{ asset('svg/pet-icon.svg') }}" alt="Pet icon" class="h-5 w-5">
+              <span class="text-xl font-medium text-[#8B5E3C]">All Pets</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <img src="{{ asset('svg/location-icon.svg') }}" alt="Location icon" class="h-5 w-5">
+              <span class="text-xl font-medium text-[#0071FF]">Bandung</span>
+            </div>
+            <div class="flex items-center justify-between mt-1 gap-2">
+              <p class="text-xl">
+                <span class="font-bold">Rp 200.000/</span>
+                <span class="font-bold text-gray-500 text-base" >day</span>
+              </p>
+              <a href="{{ route('vendor.detail') }}" class="bg-[#B17F5B] text-white px-8 py-2 rounded-md font-bold text-lg -mt-8">
+                Contact
+              </a>
+            </div>
+          </div>
     </div>
-    <div class="flex items-center gap-2 mb-1">
-      <img src="{{ asset('svg/pet-icon.svg') }}" alt="Pet icon" class="h-5 w-5">
-      <span class="text-xl font-medium text-[#8B5E3C]">All Pets</span>
+    <div class="bg-white rounded-lg shadow-md h-[27rem] mx-auto">
+        <div class="w-full flex justify-center items-center">
+            <img
+                src="{{ asset('img/communication.jpg') }}"
+                alt="Pet Shop"
+                class="w-full h-auto max-h-60 object-cover rounded-t-xl"
+            />
+        </div>
+        <div class="p-4">
+            <div class="flex items-center justify-between mb-8">
+              <h3 class="text-2xl font-bold">DayPet Care</h3>
+              <div class="flex items-center gap-1">
+                <!-- Rating stars -->
+                @for ($i = 0; $i < 4; $i++)
+                  <img src="{{ asset('svg/star-filled.svg') }}" alt="Filled star" class="h-6 w-6">
+                @endfor
+                <img src="{{ asset('svg/star-empty.svg') }}" alt="Empty star" class="h-6 w-6">
+              </div>
+            </div>
+            <div class="flex items-center gap-2 mb-1">
+              <img src="{{ asset('svg/pet-icon.svg') }}" alt="Pet icon" class="h-5 w-5">
+              <span class="text-xl font-medium text-[#8B5E3C]">All Pets</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <img src="{{ asset('svg/location-icon.svg') }}" alt="Location icon" class="h-5 w-5">
+              <span class="text-xl font-medium text-[#0071FF]">Bandung</span>
+            </div>
+            <div class="flex items-center justify-between mt-1 gap-2">
+              <p class="text-xl">
+                <span class="font-bold">Rp 200.000/</span>
+                <span class="font-bold text-gray-500 text-base" >day</span>
+              </p>
+              <a href="{{ route('vendor.detail') }}" class="bg-[#B17F5B] text-white px-8 py-2 rounded-md font-bold text-lg -mt-8">
+                Contact
+              </a>
+            </div>
+          </div>
     </div>
-    <div class="flex items-center gap-2">
-      <img src="{{ asset('svg/location-icon.svg') }}" alt="Location icon" class="h-5 w-5">
-      <span class="text-xl font-medium text-[#0071FF]">Bandung</span>
+    <div class="bg-white rounded-lg shadow-md h-[27rem] mx-auto">
+        <div class="w-full flex justify-center items-center">
+            <img
+                src="{{ asset('img/communication.jpg') }}"
+                alt="Pet Shop"
+                class="w-full h-auto max-h-60 object-cover rounded-t-xl"
+            />
+        </div>
+        <div class="p-4">
+            <div class="flex items-center justify-between mb-8">
+              <h3 class="text-2xl font-bold">DayPet Care</h3>
+              <div class="flex items-center gap-1">
+                <!-- Rating stars -->
+                @for ($i = 0; $i < 4; $i++)
+                  <img src="{{ asset('svg/star-filled.svg') }}" alt="Filled star" class="h-6 w-6">
+                @endfor
+                <img src="{{ asset('svg/star-empty.svg') }}" alt="Empty star" class="h-6 w-6">
+              </div>
+            </div>
+            <div class="flex items-center gap-2 mb-1">
+              <img src="{{ asset('svg/pet-icon.svg') }}" alt="Pet icon" class="h-5 w-5">
+              <span class="text-xl font-medium text-[#8B5E3C]">All Pets</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <img src="{{ asset('svg/location-icon.svg') }}" alt="Location icon" class="h-5 w-5">
+              <span class="text-xl font-medium text-[#0071FF]">Bandung</span>
+            </div>
+            <div class="flex items-center justify-between mt-1 gap-2">
+              <p class="text-xl">
+                <span class="font-bold">Rp 200.000/</span>
+                <span class="font-bold text-gray-500 text-base" >day</span>
+              </p>
+              <a href="{{ route('vendor.detail') }}" class="bg-[#B17F5B] text-white px-8 py-2 rounded-md font-bold text-lg -mt-8">
+                Contact
+              </a>
+            </div>
+          </div>
     </div>
-    <div class="flex items-center justify-between mt-1 gap-2">
-      <p class="text-xl">
-        <span class="font-bold">Rp 200.000/</span>
-        <span class="font-bold text-gray-500 text-base" >day</span>
-      </p>
-      <a href="{{ route('vendor.detail') }}" class="bg-[#B17F5B] text-white px-8 py-2 rounded-md font-bold text-lg -mt-8">
-        Contact
-      </a>
+    <div class="bg-white rounded-lg shadow-md h-[27rem] mx-auto">
+        <div class="w-full flex justify-center items-center">
+            <img
+                src="{{ asset('img/communication.jpg') }}"
+                alt="Pet Shop"
+                class="w-full h-auto max-h-60 object-cover rounded-t-xl"
+            />
+        </div>
+        <div class="p-4">
+            <div class="flex items-center justify-between mb-8">
+              <h3 class="text-2xl font-bold">DayPet Care</h3>
+              <div class="flex items-center gap-1">
+                <!-- Rating stars -->
+                @for ($i = 0; $i < 4; $i++)
+                  <img src="{{ asset('svg/star-filled.svg') }}" alt="Filled star" class="h-6 w-6">
+                @endfor
+                <img src="{{ asset('svg/star-empty.svg') }}" alt="Empty star" class="h-6 w-6">
+              </div>
+            </div>
+            <div class="flex items-center gap-2 mb-1">
+              <img src="{{ asset('svg/pet-icon.svg') }}" alt="Pet icon" class="h-5 w-5">
+              <span class="text-xl font-medium text-[#8B5E3C]">All Pets</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <img src="{{ asset('svg/location-icon.svg') }}" alt="Location icon" class="h-5 w-5">
+              <span class="text-xl font-medium text-[#0071FF]">Bandung</span>
+            </div>
+            <div class="flex items-center justify-between mt-1 gap-2">
+              <p class="text-xl">
+                <span class="font-bold">Rp 200.000/</span>
+                <span class="font-bold text-gray-500 text-base" >day</span>
+              </p>
+              <a href="{{ route('vendor.detail') }}" class="bg-[#B17F5B] text-white px-8 py-2 rounded-md font-bold text-lg -mt-8">
+                Contact
+              </a>
+            </div>
+          </div>
     </div>
-  </div>
+    <!-- Card 1 -->
+    
+    <!-- Tambahkan card lainnya dengan struktur yang sama -->
 </div>
+
+
+
+
+<div class="flex justify-center mt-4 mb-12">
+            <button class="bg-[#B17F5B] text-white py-2 px-4 rounded-full">
+                Show more vendor
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8" fill="none" class="inline-block">
+                  <path d="M6 7.6998L0 1.6998L1.4 0.299805L6 4.8998L10.6 0.299805L12 1.6998L6 7.6998Z" fill="white"/>
+                </svg>
+            </button>
+        </div>
 <div class="bg-white rounded-lg shadow-md h-[27rem] mx-auto">
 <div class="w-full flex justify-center items-center">
     <img
