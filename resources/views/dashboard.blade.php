@@ -81,7 +81,6 @@
                 class="w-full h-auto max-h-60 object-cover rounded-t-xl"
             />
         </div>
-        
     </div>
     <!-- Card 1 -->
     
