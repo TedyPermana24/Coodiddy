@@ -7,7 +7,7 @@
         class="w-full h-[400px] object-cover mt-[-1rem]"
         src="{{ asset('img/doggy3 2.png') }}"
     />
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-gray-800">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[#4A3B32]">
         <h1 class="text-4xl font-bold text-[#4A3B32]">Vendor</h1>
         <p class="inline text-lg">
             <a href="welcome.php" class="font-normal hover:text-[#A5724C]">Home</a>&gt;
@@ -21,7 +21,7 @@
     <div class="flex justify-between items-center">
         <div class="flex items-center gap-4 w-1/4">
             <div class="flex gap-1 cursor-pointer">
-                <span class="text-xl">&#x2699;</span>
+                <img src="{{ asset('svg/filter.svg') }}" alt="Empty star" class="h-8 w-6 mr-2">
                 <p class="text-lg hover:text-[#A5724C]">Filter</p>
             </div>
             <div class="w-[3px] h-8 bg-[#4A3B32]"></div>
@@ -29,7 +29,7 @@
         </div>
         <div class="flex items-center border border-[#4A3B32] p-1 rounded-2xl bg-gray-100 w-96">
             <input class="flex-grow border-none outline-none text-base text-[#4A3B32] pl-2 bg-gray-100 placeholder-[#4A3B32] placeholder:font-bold border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-100" placeholder="Search" type="text" />
-            <span class="text-lg text-gray-700">&#128269;</span>
+            <img src="{{ asset('svg/search.svg') }}" alt="Empty star" class="h-8 w-6 mr-2">
         </div>
     </div>
 </div>
@@ -198,7 +198,9 @@
 <div class="flex justify-center mt-4 mb-12">
             <button class="bg-[#B17F5B] text-white py-2 px-4 rounded-full">
                 Show more vendor
-                <i class="fas fa-chevron-down"> </i>
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8" fill="none" class="inline-block">
+                  <path d="M6 7.6998L0 1.6998L1.4 0.299805L6 4.8998L10.6 0.299805L12 1.6998L6 7.6998Z" fill="white"/>
+                </svg>
             </button>
         </div>
 
