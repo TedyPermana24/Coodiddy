@@ -189,11 +189,11 @@
     
         <!-- Navigation Buttons -->
         <button id="prevBtn"
-        class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-[#B17F5B] text-white w-12 h-12 rounded-full shadow-lg z-50 flex items-center justify-center">
+        class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-[#B17F5B] text-white w-12 h-12 rounded-full shadow-lg z-50 flex items-center justify-center cursor-pointer">
         <img src="{{ asset('svg/arrow-left.svg') }}" alt="Previous" class="w-6 h-6">
         </button>
         <button id="nextBtn"
-            class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-[#B17F5B] text-white w-12 h-12 rounded-full shadow-lg z-50 flex items-center justify-center">
+            class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-[#B17F5B] text-white w-12 h-12 rounded-full shadow-lg z-50 flex items-center justify-center cursor-pointer">
             <img src="{{ asset('svg/arrow-right.svg') }}" alt="Next" class="w-6 h-6">
         </button>
     
