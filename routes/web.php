@@ -41,6 +41,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/vendors/{id}', [PetHotelController::class, 'detail'])->name('vendor.detail');
     Route::get('/vendors/{id}/booking', [BookingController::class, 'index'])->name('booking');
     Route::post('/vendors/{id}/booking/store', [BookingController::class, 'store'])->name('booking.store');
+    // web.php
+    Route::post('/vendors/{id}/booking/cancel', [BookingController::class, 'cancel'])->name('booking.cancel');
 
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 

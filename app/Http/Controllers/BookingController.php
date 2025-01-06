@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\UpdateBookingStatus;
+use App\Models\Booking;
 use App\Models\Contact;
 use App\Models\HotelPricing;
 use App\Models\Pet;
 use App\Models\PetHotel;
-use Illuminate\Http\Request;
-use App\Models\Booking;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BookingController extends Controller
 {
@@ -20,9 +22,9 @@ class BookingController extends Controller
         // Ambil data PetHotel beserta relasi additionalServices
         $pethotels = PetHotel::with('hotelPricings', 'additionalServices')->findOrFail($id);
         
-        $contacts = Contact::where('user_id', auth()->id())->get();
+        $contacts = Contact::where('user_id', Auth::id())->get();
 
-        $pets = Pet::where('user_id', auth()->id())->get();
+        $pets = Pet::where('user_id', Auth::id())->get();
         // Kirim data ke view 'detailBooking'
         return view('detailBooking', compact('pethotels', 'contacts', 'pets'));
     }
@@ -62,13 +64,17 @@ class BookingController extends Controller
         // Hitung total harga
         $basePrice = $hotelPricing->price_per_day * $days;
         $additionalServicePrice = 0;
+        $selectedServices = [];
         
-        $servicePrices = [];
         if ($request->has('additional_services')) {
             foreach ($request->additional_services as $serviceName) {
                 $service = $petHotel->additionalServices->where('service_name', $serviceName)->first();
                 if ($service) {
-                    $servicePrices[$serviceName] = $service->price;
+                    $selectedServices[] = [
+                        'name' => $serviceName,
+                        'price' => $service->price
+                    ];
+                    $additionalServicePrice += $service->price;
                 }
             }
         }
@@ -76,18 +82,15 @@ class BookingController extends Controller
         // Menambahkan biaya pengantaran (pickup/dropoff)
         $deliveryPrice = ($request->pickup_dropoff == 'Pick Up') ? 10000 : 0;
 
-        // Total harga
         $totalPrice = $basePrice + $additionalServicePrice + $deliveryPrice;
 
-        $bookingDetails = [
-            'days' => $request->days,
-            'pickup_dropoff' => $request->pickup_dropoff,
-            'additional_services' => $request->additional_services,
-        ];
+        
+
+       
 
         // Membuat booking baru
         $booking = new Booking();
-        $booking->user_id = auth()->id();
+        $booking->user_id = Auth::id();
         $booking->pet_id = $pet->id;
         $booking->pet_hotel_id = $petHotel->id; // Pet hotel yang sedang diakses
         $booking->hotel_pricing_id = $hotelPricing->id;
@@ -97,13 +100,46 @@ class BookingController extends Controller
         $booking->check_in_date = now();
         $booking->check_out_date = now()->addDays($days);
         $booking->total_price = $totalPrice;
+        $booking->status = 'pending';
         $booking->save();
 
-        // Redirect atau tampilkan pesan sukses
+        $expiryTime = now()->addMinutes(10);
+
+        UpdateBookingStatus::dispatch($booking->id)->delay($expiryTime);
+
+        $bookingSummary = [
+            'booking_id' => $booking->id,
+            'pet_name' => $pet->pet_name,
+            'price_per_day' => $hotelPricing->price_per_day,
+            'days' => $days,
+            'base_price' => $basePrice,
+            'selected_services' => $selectedServices,
+            'delivery_type' => $request->pickup_dropoff,
+            'delivery_price' => $deliveryPrice,
+            'total_price' => $totalPrice,
+            'check_in_date' => $booking->check_in_date,
+            'check_out_date' => $booking->check_out_date,
+            'expiry_time' => $expiryTime->format('Y-m-d H:i:s'),  // Format the time
+            'expiry_timestamp' => $expiryTime->timestamp * 1000
+        ];
+
+        
+
         return redirect()->route('booking', ['id' => $petHotel->id])
-        ->with('bookingDetails', $bookingDetails)
-        ->with('servicePrices', $servicePrices)
-        ->with('success', 'Booking successfully created.');;
+            ->with('bookingSummary', $bookingSummary)
+            ->with('success', 'Booking successfully created.');
+    }
+
+    public function cancel($id)
+    {
+        $booking = Booking::findOrFail($id);
+        
+        if ($booking->status === 'pending') {
+            $booking->update(['status' => 'cancelled']);
+            return redirect()->back()->with('success', 'Booking cancelled successfully.');
+        }
+        
+        return redirect()->back()->with('error', 'Unable to cancel this booking.');
     }
 
 

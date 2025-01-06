@@ -41,18 +41,98 @@
                     <h2 class="text-sm font-bold uppercase mb-4 text-gray-600">
                         Payment Summary
                     </h2>
-                    <div class="border-t border-gray-300 py-4">
-                        <div class="flex justify-between text-sm text-gray-600">
-                            <span>Total</span>
-                            <span>Rp. 0</span>
+                    
+                    @if(session('bookingSummary'))
+                        <div class="space-y-3">
+                            <!-- Timer -->
+                            <div class="text-center mb-4" 
+                                x-data="timer({{ session('bookingSummary')['expiry_timestamp'] }})" 
+                                x-init="startTimer()">
+                                <p class="text-sm text-gray-600">Time remaining to pay:</p>
+                                <p class="font-bold text-xl" x-text="timeDisplay"></p>
+                            </div>
+
+                            <!-- Pet Information -->
+                            <div class="border-b pb-3">
+                                <p class="font-medium text-gray-700">{{ session('bookingSummary')['pet_name'] }}</p>
+                                <div class="text-sm text-gray-600">
+                                    <p>Check-in: {{ \Carbon\Carbon::parse(session('bookingSummary')['check_in_date'])->format('d M Y') }}</p>
+                                    <p>Check-out: {{ \Carbon\Carbon::parse(session('bookingSummary')['check_out_date'])->format('d M Y') }}</p>
+                                </div>
+                            </div>
+
+                            <!-- Base Price -->
+                            <div class="flex justify-between text-sm text-gray-600">
+                                <span>Base Price (per day)</span>
+                                <span>Rp. {{ number_format(session('bookingSummary')['price_per_day'], 0, ',', '.') }}</span>
+                            </div>
+                            <div class="flex justify-between text-sm text-gray-600">
+                                <span>Days</span>
+                                <span>{{ session('bookingSummary')['days'] }} days</span>
+                            </div>
+                            <div class="flex justify-between text-sm text-gray-600">
+                                <span>Subtotal</span>
+                                <span>Rp. {{ number_format(session('bookingSummary')['base_price'], 0, ',', '.') }}</span>
+                            </div>
+
+                            <!-- Additional Services -->
+                            @if(!empty(session('bookingSummary')['selected_services']))
+                                <div class="space-y-2">
+                                    <div class="text-sm font-medium text-gray-600">Additional Services:</div>
+                                    @foreach(session('bookingSummary')['selected_services'] as $service)
+                                        <div class="flex justify-between text-sm text-gray-600">
+                                            <span>{{ $service['name'] }}</span>
+                                            <span>Rp. {{ number_format($service['price'], 0, ',', '.') }}</span>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @endif
+
+                            <!-- Delivery Fee -->
+                            <div class="flex justify-between text-sm text-gray-600">
+                                <span>{{ session('bookingSummary')['delivery_type'] }}</span>
+                                <span>Rp. {{ number_format(session('bookingSummary')['delivery_price'], 0, ',', '.') }}</span>
+                            </div>
+
+                            <!-- Total -->
+                            <div class="border-t border-gray-300 pt-3 mt-3">
+                                <div class="flex justify-between font-semibold text-gray-700">
+                                    <span>Total</span>
+                                    <span>Rp. {{ number_format(session('bookingSummary')['total_price'], 0, ',', '.') }}</span>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <button
-                        class="mt-4 w-full px-4 py-2 bg-gray-200 text-sm text-gray-600 rounded-lg"
-                    >
-                        Pay
-                    </button>
+
+                        <button class="mt-4 w-full px-4 py-2 bg-amber-700 text-white rounded-lg hover:bg-amber-800">
+                            Pay Now
+                        </button>
+
+                        <form action="{{ route('booking.cancel', session('bookingSummary')['booking_id']) }}" 
+                                method="POST" 
+                                class=" border mt-4 w-full px-4 py-2 bg-gray-200 rounded-lg text-gray-600  text-center">
+                            @csrf
+                            @method('POST')
+                            <button type="submit" 
+                                    >
+                                Cancel Booking
+                            </button>
+                        </form>
+
+                    @else
+                        <div class="text-center text-gray-600 py-4">
+                            <p>No active booking</p>
+                        </div>
+                    @endif
                 </div>
+
+                @if(session('success'))
+                    <div class="fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg" 
+                        x-data="{ show: true }" 
+                        x-show="show" 
+                        x-init="setTimeout(() => show = false, 3000)">
+                        {{ session('success') }}
+                    </div>
+                @endif
             </div>
         </main>
 
@@ -217,6 +297,133 @@
             closeModal();
         }
     });
+</script>
+
+<script>
+    function formatPrice(price) {
+        return 'Rp. ' + price.toLocaleString('id-ID');
+    }
+    
+    function updatePaymentSummary() {
+        // Get selected pricing
+        const pricingSelect = document.querySelector('[name="hotel_pricing_id"]');
+        const selectedOption = pricingSelect?.options[pricingSelect.selectedIndex];
+        let pricePerDay = 0;
+        
+        if (selectedOption?.value) {
+            const priceText = selectedOption.text.split('Rp.')[1].trim();
+            pricePerDay = parseInt(priceText.replace(/\./g, '')) || 0;
+        }
+    
+        // Get number of days
+        const daysInput = document.querySelector('[name="days"]');
+        const days = parseInt(daysInput?.value) || 0;
+    
+        // Calculate base price
+        const basePrice = pricePerDay * days;
+    
+        // Get additional services
+        const serviceCheckboxes = document.querySelectorAll('[name="additional_services[]"]:checked');
+        const additionalServices = Array.from(serviceCheckboxes).map(checkbox => {
+            const priceText = checkbox.parentElement.querySelector('span').textContent;
+            const price = parseInt(priceText.match(/Rp ([\d,\.]+)/)[1].replace(/\./g, '')) || 0;
+            return {
+                name: checkbox.value,
+                price: price
+            };
+        });
+    
+        // Calculate delivery fee
+        const pickupDropoff = document.querySelector('[name="pickup_dropoff"]');
+        const deliveryFee = pickupDropoff?.value === 'Pick Up' ? 10000 : 0;
+    
+        // Update the display
+        document.getElementById('basePricePerDay').textContent = formatPrice(pricePerDay);
+        document.getElementById('numberOfDays').textContent = `${days} days`;
+        document.getElementById('subtotal').textContent = formatPrice(basePrice);
+        document.getElementById('deliveryFee').textContent = formatPrice(deliveryFee);
+    
+        // Update additional services
+        const additionalServicesContainer = document.getElementById('additionalServicesContainer');
+        const additionalServicesList = document.getElementById('additionalServicesList');
+        
+        if (additionalServices.length > 0) {
+            additionalServicesContainer.classList.remove('hidden');
+            additionalServicesList.innerHTML = additionalServices.map(service => `
+                <div class="flex justify-between text-sm text-gray-600">
+                    <span>${service.name}</span>
+                    <span>${formatPrice(service.price)}</span>
+                </div>
+            `).join('');
+        } else {
+            additionalServicesContainer.classList.add('hidden');
+            additionalServicesList.innerHTML = '';
+        }
+    
+        // Calculate and update total
+        const servicesTotal = additionalServices.reduce((sum, service) => sum + service.price, 0);
+        const total = basePrice + servicesTotal + deliveryFee;
+        document.getElementById('totalPrice').textContent = formatPrice(total);
+    }
+    
+    // Add event listeners
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('form');
+        if (form) {
+            const inputs = form.querySelectorAll('select, input');
+            inputs.forEach(input => {
+                input.addEventListener('change', updatePaymentSummary);
+            });
+    
+            // Initial calculation
+            updatePaymentSummary();
+        }
+    });
+    
+    // Add event listeners for modal
+    function openModal() {
+        const modal = document.getElementById('petModal');
+        if (modal) {
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+    }
+    
+    function closeModal() {
+        const modal = document.getElementById('petModal');
+        if (modal) {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+    }
+    </script>
+
+<script>
+    function timer(expiryTimestamp) {
+        return {
+            expiryTime: expiryTimestamp,
+            timeDisplay: '',
+            startTimer() {
+                const updateTimer = () => {
+                    const now = new Date().getTime();
+                    const distance = this.expiryTime - now;
+
+                    if (distance <= 0) {
+                        this.timeDisplay = 'Expired';
+                        location.reload();
+                        return;
+                    }
+
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                    this.timeDisplay = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                };
+
+                updateTimer();
+                setInterval(updateTimer, 1000);
+            }
+        }
+    }
 </script>
 
 {{-- <script>
