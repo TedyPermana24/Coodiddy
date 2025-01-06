@@ -23,7 +23,7 @@ class Payment extends Model
      * Relasi ke tabel Bookings
      * Satu pembayaran terhubung dengan satu booking
      */
-    public function booking()
+    public function bookings()
     {
         return $this->belongsTo(Booking::class);
     }

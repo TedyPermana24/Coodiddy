@@ -88,6 +88,7 @@
                             </div>
                         </div>
                         
+                        
                     </div>
                     @else
                         {{-- Tampilkan span jika hanya satu spesies --}}
@@ -105,15 +106,16 @@
                     </div>
                     <div class="mt-2">
                         <p class="text-xl">
-                            <span class="font-bold">Price: Rp</span>
-                            <span id="priceDisplay" class="font-bold text-gray-500">
+                            <span class="font-bold">Rp</span>
+                            <span id="priceDisplay" class="font-bold">
                                 {{ number_format($pethotels->hotelPricings->first()->price_per_day ?? 0, 0, ',', '.') }}
-                            </span>/day
+                            </span>
+                            <span class="text-gray-500">/day</span>
                         </p>
                     </div>
                 </div>
                 <div class="flex items-center">
-                    <button class="bg-[#B17F5B] text-white px-4 py-2 rounded-md font-bold text-lg">Book Now</button>
+                    <a href="{{ route('booking', ['id' => $pethotels->id]) }}"" class="bg-[#B17F5B] text-white px-4 py-2 rounded-md font-bold text-lg">Book Now</a>
                 </div>
             </div>
         </div>

@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PetHotelController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+
 
 
 
@@ -37,7 +39,10 @@ Route::middleware('auth')->group(function () {
     
     Route::get('/vendors', [PetHotelController::class, 'index'])->name('vendor');
     Route::get('/vendors/{id}', [PetHotelController::class, 'detail'])->name('vendor.detail');
-    Route::get('/booking', [PaymentController::class, 'index'])->name('booking');
+    Route::get('/vendors/{id}/booking', [BookingController::class, 'index'])->name('booking');
+    Route::post('/vendors/{id}/booking/store', [BookingController::class, 'store'])->name('booking.store');
+    // web.php
+    Route::post('/vendors/{id}/booking/cancel', [BookingController::class, 'cancel'])->name('booking.cancel');
 
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 

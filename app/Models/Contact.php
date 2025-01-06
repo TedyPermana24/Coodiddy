@@ -5,15 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class HotelPricing extends Model
+class Contact extends Model
 {
     use HasFactory;
 
-    
+    protected $fillable = [
+        'user_id', 
+        'phone_number', 
+        'address', 
+        'email'
+    ];
 
-    public function PetHotel()
+    public function user()
     {
-        return $this->belongsTo(PetHotel::class, 'hotel_id', 'id');
+        return $this->belongsTo(User::class); // Relasi belongsTo ke tabel users
     }
 
     public function bookings()
@@ -21,4 +26,3 @@ class HotelPricing extends Model
         return $this->hasMany(Booking::class);
     }
 }
-

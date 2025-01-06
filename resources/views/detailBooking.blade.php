@@ -2,109 +2,485 @@
 @extends('components.layout')
 
 @section('content')
-        <main class="max-w-5xl mx-auto p-4">
+        <main class="max-w-5xl mx-auto p-4 pt-40 pb-20">
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Bagian Vendor Address -->
                 <div class="lg:col-span-2">
-                    <div class="bg-white p-6 rounded-lg shadow-md mb-6 mt-20">
-                        <h2 class="text-lg font-bold mb-4">Vendor Address</h2>
-                        <div class="flex items-start space-x-4">
-                            <i class="fas fa-home text-xl"></i>
-                            <div>
-                                <p class="font-semibold">DaysPet Care</p>
-                                <p>
-                                    Jl. Muararajeun No 23 Kelurahan Cibeunying
-                                    Kecamatan Neglasari, 40195, Kota Bandung
-                                </p>
-                                <p>082934123431</p>
-                            </div>
-                        </div>
-                    </div>
                     <div class="bg-white p-6 rounded-lg shadow-md mb-6">
-                        <h2 class="text-lg font-bold mb-4">Booking</h2>
+                        <h2 class="text-sm font-bold uppercase mb-4 text-gray-600">
+                            Vendor Address
+                        </h2>
                         <div class="flex items-start space-x-4">
-                            <img
-                                alt="Pet image"
-                                class="w-20 h-20 rounded-full"
-                                height="80"
-                                src="https://storage.googleapis.com/a1aa/image/sLLDmQ3SRGbWORjRUf79ZPhnl62wpdgZ3Ommf5cq5Kiv9c9TA.jpg"
-                                width="80"
-                            />
+                            <i class="fas fa-home text-gray-800 text-xl"></i>
                             <div>
-                                <p>
-                                    Entrust your pet cat with a service for pet
-                                    sitting, grooming and pedicure.
+                                <p class="font-semibold text-gray-800">{{ $pethotels->name }}</p>
+                                <p class="text-sm text-gray-600">
+                                    {{ $pethotels->address }}
                                 </p>
-                                <p>Phone: 0873-0956-4743</p>
-                                <p>Name: Ambalingham</p>
+                                <p class="text-sm text-gray-600">{{ $pethotels->phone }}</p>
                             </div>
                         </div>
-                        <button class="mt-4 px-4 py-2 bg-gray-200 rounded">
-                            Change your plan
+                    </div>
+
+                    <!-- Bagian Booking -->
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h2 class="text-sm font-bold uppercase mb-4 text-gray-600">
+                            Booking
+                        </h2>
+                        <p class="text-sm text-gray-600 mb-4">
+                            {{ $pethotels->description }}
+                        </p>
+                        <button onclick="openModal()" class="px-4 py-2 bg-gray-100 text-sm text-gray-600 rounded-lg">
+                            Insert your plan
                         </button>
-                        <div class="mt-4">
-                            <label class="block mb-2" for="status">
-                                Picked up
-                            </label>
-                            <select
-                                class="w-full px-4 py-2 border rounded"
-                                id="status"
-                            >
-                                <option>
-                                    Jl. P.H.H Mustafa No 241 Gg Aluminium RT 03
-                                    RW 20, Kota Bandung Kelurahan Sukasuka,
-                                    Kecamatan Adadeh 08779812334
-                                </option>
-                            </select>
-                        </div>
                     </div>
                 </div>
-                <div
-                    class="bg-white p-6 rounded-lg shadow-md mb-6 flex flex-col items-center mt-20"
-                >
-                    <h2 class="text-lg font-bold mb-4">Payment Summary</h2>
-                    <div class="space-y-2 w-full">
-                        <div class="flex justify-between">
-                            <span> Pet sitting (3 Hari) </span>
-                            <span> Rp. 600.000 </span>
+
+                <!-- Bagian Payment Summary -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-sm font-bold uppercase mb-4 text-gray-600">
+                        Payment Summary
+                    </h2>
+                    
+                    @if(session('bookingSummary'))
+                        <div class="space-y-3">
+                            <!-- Timer -->
+                            <div class="text-center mb-4" 
+                                x-data="timer({{ session('bookingSummary')['expiry_timestamp'] }})" 
+                                x-init="startTimer()">
+                                <p class="text-sm text-gray-600">Time remaining to pay:</p>
+                                <p class="font-bold text-xl" x-text="timeDisplay"></p>
+                            </div>
+
+                            <!-- Pet Information -->
+                            <div class="border-b pb-3">
+                                <p class="font-medium text-gray-700">{{ session('bookingSummary')['pet_name'] }}</p>
+                                <div class="text-sm text-gray-600">
+                                    <p>Check-in: {{ \Carbon\Carbon::parse(session('bookingSummary')['check_in_date'])->format('d M Y') }}</p>
+                                    <p>Check-out: {{ \Carbon\Carbon::parse(session('bookingSummary')['check_out_date'])->format('d M Y') }}</p>
+                                </div>
+                            </div>
+
+                            <!-- Base Price -->
+                            <div class="flex justify-between text-sm text-gray-600">
+                                <span>Base Price (per day)</span>
+                                <span>Rp. {{ number_format(session('bookingSummary')['price_per_day'], 0, ',', '.') }}</span>
+                            </div>
+                            <div class="flex justify-between text-sm text-gray-600">
+                                <span>Days</span>
+                                <span>{{ session('bookingSummary')['days'] }} days</span>
+                            </div>
+                            <div class="flex justify-between text-sm text-gray-600">
+                                <span>Subtotal</span>
+                                <span>Rp. {{ number_format(session('bookingSummary')['base_price'], 0, ',', '.') }}</span>
+                            </div>
+
+                            <!-- Additional Services -->
+                            @if(!empty(session('bookingSummary')['selected_services']))
+                                <div class="space-y-2">
+                                    <div class="text-sm font-medium text-gray-600">Additional Services:</div>
+                                    @foreach(session('bookingSummary')['selected_services'] as $service)
+                                        <div class="flex justify-between text-sm text-gray-600">
+                                            <span>{{ $service['name'] }}</span>
+                                            <span>Rp. {{ number_format($service['price'], 0, ',', '.') }}</span>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @endif
+
+                            <!-- Delivery Fee -->
+                            <div class="flex justify-between text-sm text-gray-600">
+                                <span>{{ session('bookingSummary')['delivery_type'] }}</span>
+                                <span>Rp. {{ number_format(session('bookingSummary')['delivery_price'], 0, ',', '.') }}</span>
+                            </div>
+
+                            <!-- Total -->
+                            <div class="border-t border-gray-300 pt-3 mt-3">
+                                <div class="flex justify-between font-semibold text-gray-700">
+                                    <span>Total</span>
+                                    <span>Rp. {{ number_format(session('bookingSummary')['total_price'], 0, ',', '.') }}</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="flex justify-between">
-                            <span> Grooming </span>
-                            <span> Rp. 120.000 </span>
+
+                        <button class="mt-4 w-full px-4 py-2 bg-amber-700 text-white rounded-lg hover:bg-amber-800">
+                            Pay Now
+                        </button>
+
+                        <form action="{{ route('booking.cancel', session('bookingSummary')['booking_id']) }}" 
+                                method="POST" 
+                                class=" border mt-4 w-full px-4 py-2 bg-gray-200 rounded-lg text-gray-600  text-center">
+                            @csrf
+                            @method('POST')
+                            <button type="submit" 
+                                    >
+                                Cancel Booking
+                            </button>
+                        </form>
+
+                    @else
+                        <div class="text-center text-gray-600 py-4">
+                            <p>No active booking</p>
                         </div>
-                        <div class="flex justify-between">
-                            <span> Pedicure </span>
-                            <span> Rp. 50.000 </span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span> Pickup </span>
-                            <span> Rp. 10.000 </span>
-                        </div>
-                        <div class="flex justify-between font-bold">
-                            <span> Total </span>
-                            <span> Rp. 780.000 </span>
-                        </div>
-                    </div>
-                    <div class="mt-4 w-full">
-                        <label class="block mb-2" for="payment">
-                            Select Payment
-                        </label>
-                        <select
-                            class="w-full px-4 py-2 border rounded"
-                            id="payment"
-                        >
-                            <option>Balance</option>
-                            <option>Gopay</option>
-                            <option>Bank Transfer</option>
-                        </select>
-                    </div>
-                    <button
-                        class="mt-4 w-full px-4 py-2 bg-[#A9714B] text-white rounded"
-                    >
-                        Pay
-                    </button>
+                    @endif
                 </div>
+
+                @if(session('success'))
+                    <div class="fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg" 
+                        x-data="{ show: true }" 
+                        x-show="show" 
+                        x-init="setTimeout(() => show = false, 3000)">
+                        {{ session('success') }}
+                    </div>
+                @endif
             </div>
         </main>
+
+        <div id="petModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-start justify-center p-4 overflow-y-auto" style="z-index: 9999;">
+            <div class="bg-white rounded-lg w-full max-w-4xl my-8 relative" style="max-height: 80vh;">
+                <!-- Fixed Header -->
+                <div class="sticky top-0 bg-white p-4 border-b">
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-xl font-semibold">Your plan</h2>
+                        <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+        
+                <!-- Scrollable Content -->
+                <div class="overflow-y-auto p-4" style="max-height: calc(80vh - 140px);">
+                    <form action="{{ route('booking.store', ['id' => $pethotels->id]) }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="space-y-6">
+                            <!-- Bagian Pet -->
+                            <h3 class="font-medium mb-4 text-lg">Pet</h3>
+                            <div class="space-y-4">
+                                <!-- Pet Type -->
+                                {{-- <div class="flex items-start mb-4">
+                                    <label class="block text-sm font-medium text-gray-700 w-32">Pet Image</label>
+                                    <div class="border-2 border-dashed rounded-lg p-10 w-40 max-w-sm flex items-center justify-center">
+                                        <div class="text-gray-400 text-center">
+                                            <input type="file" name="pet_image" class="hidden" id="pet_image" accept="image/*">
+                                            <label for="pet_image" class="cursor-pointer block">Upload Pet Image</label>
+                                        </div>
+                                    </div>
+                                </div> --}}
+
+                                
+                    
+                                <!-- Input Pet Name -->
+                                <div class="flex items-center gap-4 mb-4">
+                                    <label class="block text-sm font-medium text-gray-700 w-32">Pet Name</label>
+                                    <select name="pet_id" class="w-full p-2 border rounded-lg text-gray-500" required>
+                                        <option value="">Select your pet</option>
+                                        @foreach($pets as $pet)
+                                            <option value="{{ $pet->id }}">{{ $pet->pet_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="flex items-center gap-4 mb-4">
+                                    <label class="block text-sm font-medium text-gray-700 w-32">Pet Type</label>
+                                    <select name="hotel_pricing_id" class="w-full p-2 border rounded-lg text-gray-500" required>
+                                        <option value="">Select a pricing</option>
+                                        @foreach($pethotels->hotelPricings as $hotelPricing)
+                                            <option value="{{ $hotelPricing->id }}">
+                                                {{ $hotelPricing->species }} - Rp.{{ number_format($hotelPricing->price_per_day ?? 0, 0, ',', '.') }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                    
+                                <!-- Phone Number -->
+                                {{-- <div class="flex items-center gap-4">
+                                    <label class="block text-sm font-medium text-gray-700 w-32">Phone Number</label>
+                                    <input type="tel" name="phone_number" placeholder="Insert your phone number here" class="w-full p-2 border rounded-lg" required>
+                                </div>
+                     --}}
+                                <!-- Alamat (Dropdown dari Contact) -->
+                                <div class="flex items-center gap-4">
+                                    <label class="block text-sm font-medium text-gray-700 w-32">Address</label>
+                                    <select name="address_id" class="w-full p-2 border rounded-lg text-gray-500" required>
+                                        <option value="">Choose an address</option>
+                                        @foreach($contacts as $contact)
+                                            <option value="{{ $contact->id }}">{{ $contact->city }} | {{ $contact->phone_number }} | {{ $contact->address }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                    
+                            <!-- Bagian Services -->
+                            <div>
+                                <h3 class="font-medium mb-4 text-lg">Services</h3>
+                                <div class="space-y-4">
+                                    <!-- Day Sitting -->
+                                    <div class="flex items-center gap-4">
+                                        <label class="block text-sm font-medium text-gray-700 w-32">Day Sitting</label>
+                                        <input type="number" name="days" placeholder="Insert the number of days" class="w-full p-2 border rounded-lg" required>
+                                    </div>
+                    
+                                    <!-- Pick-Up/Drop-Off -->
+                                    <div class="flex items-center gap-4">
+                                        <label class="block text-sm font-medium text-gray-700 w-32">Pick-Up/Drop-Off</label>
+                                        <select name="pickup_dropoff" class="w-full p-2 border rounded-lg text-gray-500" required>
+                                            <option value="">Choose pick-up or drop-off</option>
+                                            <option value="Pick Up">Pick-up</option>
+                                            <option value="Drop Off">Drop-off</option>
+                                        </select>
+                                    </div>
+                    
+                                    <!-- Additional Services -->
+                                    <div>
+                                        @if($pethotels->additionalServices->isNotEmpty())
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Additional Services</label>
+                                        <div class="space-y-2 pl-4">
+                                            @foreach($pethotels->additionalServices as $service)
+                                                <label class="flex items-center space-x-2">
+                                                    <input type="checkbox" name="additional_services[]" value="{{ $service->service_name }}" class="rounded">
+                                                    <span>{{ $service->service_name }} (Rp {{ number_format($service->price, 0, ',', '.') }})</span>
+                                                </label>
+                                            @endforeach
+                                        </div>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                   
+                    
+                </div>
+        
+                <!-- Fixed Footer -->
+                <div class="sticky bottom-0 bg-white p-4 border-t">
+                    <div class="flex justify-end space-x-4">
+                        <button
+                            type="button"
+                            onclick="closeModal()"
+                            class="px-4 py-2 bg-gray-200 rounded-lg text-gray-600"
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            type="submit"
+                            class="px-4 py-2 bg-amber-700 text-white rounded-lg"
+                        >
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </form>
+            </div>
+        </div>
+        
+     
+@endsection
+
+
+@section('script')
+<script>
+    function openModal() {
+        document.getElementById('petModal').classList.remove('hidden');
+        document.getElementById('petModal').classList.add('flex');
+    }
+
+    function closeModal() {
+        document.getElementById('petModal').classList.remove('flex');
+        document.getElementById('petModal').classList.add('hidden');
+    }
+
+    // Close modal when clicking outside
+    document.getElementById('petModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeModal();
+        }
+    });
+</script>
+
+<script>
+    function formatPrice(price) {
+        return 'Rp. ' + price.toLocaleString('id-ID');
+    }
+    
+    function updatePaymentSummary() {
+        // Get selected pricing
+        const pricingSelect = document.querySelector('[name="hotel_pricing_id"]');
+        const selectedOption = pricingSelect?.options[pricingSelect.selectedIndex];
+        let pricePerDay = 0;
+        
+        if (selectedOption?.value) {
+            const priceText = selectedOption.text.split('Rp.')[1].trim();
+            pricePerDay = parseInt(priceText.replace(/\./g, '')) || 0;
+        }
+    
+        // Get number of days
+        const daysInput = document.querySelector('[name="days"]');
+        const days = parseInt(daysInput?.value) || 0;
+    
+        // Calculate base price
+        const basePrice = pricePerDay * days;
+    
+        // Get additional services
+        const serviceCheckboxes = document.querySelectorAll('[name="additional_services[]"]:checked');
+        const additionalServices = Array.from(serviceCheckboxes).map(checkbox => {
+            const priceText = checkbox.parentElement.querySelector('span').textContent;
+            const price = parseInt(priceText.match(/Rp ([\d,\.]+)/)[1].replace(/\./g, '')) || 0;
+            return {
+                name: checkbox.value,
+                price: price
+            };
+        });
+    
+        // Calculate delivery fee
+        const pickupDropoff = document.querySelector('[name="pickup_dropoff"]');
+        const deliveryFee = pickupDropoff?.value === 'Pick Up' ? 10000 : 0;
+    
+        // Update the display
+        document.getElementById('basePricePerDay').textContent = formatPrice(pricePerDay);
+        document.getElementById('numberOfDays').textContent = `${days} days`;
+        document.getElementById('subtotal').textContent = formatPrice(basePrice);
+        document.getElementById('deliveryFee').textContent = formatPrice(deliveryFee);
+    
+        // Update additional services
+        const additionalServicesContainer = document.getElementById('additionalServicesContainer');
+        const additionalServicesList = document.getElementById('additionalServicesList');
+        
+        if (additionalServices.length > 0) {
+            additionalServicesContainer.classList.remove('hidden');
+            additionalServicesList.innerHTML = additionalServices.map(service => `
+                <div class="flex justify-between text-sm text-gray-600">
+                    <span>${service.name}</span>
+                    <span>${formatPrice(service.price)}</span>
+                </div>
+            `).join('');
+        } else {
+            additionalServicesContainer.classList.add('hidden');
+            additionalServicesList.innerHTML = '';
+        }
+    
+        // Calculate and update total
+        const servicesTotal = additionalServices.reduce((sum, service) => sum + service.price, 0);
+        const total = basePrice + servicesTotal + deliveryFee;
+        document.getElementById('totalPrice').textContent = formatPrice(total);
+    }
+    
+    // Add event listeners
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('form');
+        if (form) {
+            const inputs = form.querySelectorAll('select, input');
+            inputs.forEach(input => {
+                input.addEventListener('change', updatePaymentSummary);
+            });
+    
+            // Initial calculation
+            updatePaymentSummary();
+        }
+    });
+    
+    // Add event listeners for modal
+    function openModal() {
+        const modal = document.getElementById('petModal');
+        if (modal) {
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+    }
+    
+    function closeModal() {
+        const modal = document.getElementById('petModal');
+        if (modal) {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+    }
+    </script>
+
+<script>
+    function timer(expiryTimestamp) {
+        return {
+            expiryTime: expiryTimestamp,
+            timeDisplay: '',
+            startTimer() {
+                const updateTimer = () => {
+                    const now = new Date().getTime();
+                    const distance = this.expiryTime - now;
+
+                    if (distance <= 0) {
+                        this.timeDisplay = 'Expired';
+                        location.reload();
+                        return;
+                    }
+
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                    this.timeDisplay = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                };
+
+                updateTimer();
+                setInterval(updateTimer, 1000);
+            }
+        }
+    }
+</script>
+
+{{-- <script>
+        function openAddAddressModal() {
+        document.getElementById('addAddressModal').classList.remove('hidden');
+    }
+
+    // Fungsi untuk menutup modal
+    function closeAddAddressModal() {
+        document.getElementById('addAddressModal').classList.add('hidden');
+    }
+</script> --}}
+
+{{-- <script>
+    // Menghitung harga total berdasarkan layanan yang dipilih
+    function calculateTotal() {
+        const services = document.querySelectorAll('input[name="services[]"]:checked');
+        let totalPrice = 0;
+        
+        services.forEach(service => {
+            const price = parseInt(service.getAttribute('data-price'), 10);
+            totalPrice += price;
+        });
+        
+        // Menampilkan total harga pada Payment Summary
+        document.getElementById('totalAmount').innerText = `Rp. ${totalPrice.toLocaleString()}`;
+        
+        // Menyimpan total harga dalam hidden field untuk dikirim ke backend
+        document.getElementById('total_price').value = totalPrice;
+    }
+
+    // Menangani submit form untuk memasukkan data Pet dan Services
+    function submitForm() {
+        const form = document.querySelector('form');
+        const formData = new FormData(form);
+        
+        // Mengirim data ke backend untuk diproses
+        fetch('{{ route("pet.save") }}', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Booking submitted successfully!');
+                closeModal();
+            } else {
+                alert('There was an error saving your data.');
+            }
+        });
+    }
+
+    // Menambahkan event listener untuk input checkbox
+    document.querySelectorAll('input[name="services[]"]').forEach(input => {
+        input.addEventListener('change', calculateTotal);
+    });
+</script> --}}
 @endsection
 
 

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('hotel_pricings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('hotel_id')->constrained('pet_hotels')->onDelete('cascade');
-            $table->enum('species', ['Cat', 'Dogs']);
+            $table->enum('species', ['Cat', 'Dog']);
             $table->integer('price_per_day');
             $table->timestamps();
         });
