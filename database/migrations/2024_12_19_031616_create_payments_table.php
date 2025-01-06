@@ -12,18 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('payments', function (Blueprint $table) {
-            $table->id(); 
+            $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('booking_id')->constrained('bookings')->onDelete('cascade'); 
             $table->string('transaction_id')->nullable();
-            $table->enum('gateway_name', ['midtrans', 'xendit', 'stripe', 'paypal', 'lainnya'])->default('lainnya');
-            $table->text('payment_url')->nullable();
-            $table->enum('callback_status', ['pending', 'success', 'failed'])->default('pending');
-            $table->string('currency', 10)->default('IDR');
-            $table->json('response_data')->nullable(); 
-            $table->dateTime('expired_at')->nullable(); 
-            $table->string('signature_key')->nullable(); 
-            $table->enum('payment_status', ['pending', 'berhasil', 'gagal'])->default('pending'); 
-            $table->decimal('total_amount', 10, 2); 
+            $table->enum('payment_status', ['pending', 'success', 'failed'])->default('pending');
+            $table->decimal('total_amount', 10, 2);
+            $table->dateTime('expired_at')->nullable();
             $table->timestamps();
         });
     }

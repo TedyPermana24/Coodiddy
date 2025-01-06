@@ -19,14 +19,14 @@ class BookingController extends Controller
      */
     public function index($id)
     {
-        // Ambil data PetHotel beserta relasi additionalServices
-        $pethotels = PetHotel::with('hotelPricings', 'additionalServices')->findOrFail($id);
-        
-        $contacts = Contact::where('user_id', Auth::id())->get();
-
+        $petHotel = PetHotel::with(['hotelPricings', 'additionalServices'])->findOrFail($id);
         $pets = Pet::where('user_id', Auth::id())->get();
-        // Kirim data ke view 'detailBooking'
-        return view('detailBooking', compact('pethotels', 'contacts', 'pets'));
+        $contacts = Contact::where('user_id', Auth::id())->get();
+        
+        // Get active booking if exists
+        $activeBooking = $this->getActiveBooking($id);
+
+        return view('detailBooking', compact('petHotel', 'pets', 'contacts', 'activeBooking'));
     }
 
     /**
@@ -84,10 +84,6 @@ class BookingController extends Controller
 
         $totalPrice = $basePrice + $additionalServicePrice + $deliveryPrice;
 
-        
-
-       
-
         // Membuat booking baru
         $booking = new Booking();
         $booking->user_id = Auth::id();
@@ -105,10 +101,7 @@ class BookingController extends Controller
 
         $expiryTime = now()->addMinutes(10);
 
-        UpdateBookingStatus::dispatch($booking->id)->delay($expiryTime);
-
         $bookingSummary = [
-            'booking_id' => $booking->id,
             'pet_name' => $pet->pet_name,
             'price_per_day' => $hotelPricing->price_per_day,
             'days' => $days,
@@ -117,11 +110,15 @@ class BookingController extends Controller
             'delivery_type' => $request->pickup_dropoff,
             'delivery_price' => $deliveryPrice,
             'total_price' => $totalPrice,
-            'check_in_date' => $booking->check_in_date,
-            'check_out_date' => $booking->check_out_date,
-            'expiry_time' => $expiryTime->format('Y-m-d H:i:s'),  // Format the time
-            'expiry_timestamp' => $expiryTime->timestamp * 1000
+            'booking_id' => $booking->id,
+            'expiry_time' => $expiryTime->format('Y-m-d H:i:s'),
+            'expiry_timestamp' => $expiryTime->timestamp * 1000,
+            'created_at' => now()->format('Y-m-d H:i:s')
         ];
+
+        $cacheKey = 'booking_summary_' . Auth::id() . '_' . $id;
+        cache()->put($cacheKey, $bookingSummary, $expiryTime);
+        dispatch(new UpdateBookingStatus($booking->id))->delay($expiryTime);
 
         
 
@@ -140,6 +137,25 @@ class BookingController extends Controller
         }
         
         return redirect()->back()->with('error', 'Unable to cancel this booking.');
+    }
+
+    private function getActiveBooking($petHotelId)
+    {
+        $cacheKey = 'booking_summary_' . Auth::id() . '_' . $petHotelId;
+        $bookingSummary = cache()->get($cacheKey);
+        
+        if ($bookingSummary) {
+            // Check if the booking is still valid
+            $booking = Booking::find($bookingSummary['booking_id']);
+            if ($booking && in_array($booking->status, ['pending'])) {
+                return $bookingSummary;
+            } else {
+                // Clear invalid booking from cache
+                cache()->forget($cacheKey);
+            }
+        }
+        
+        return null;
     }
 
 
