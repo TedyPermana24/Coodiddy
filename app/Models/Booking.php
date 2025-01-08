@@ -25,6 +25,8 @@ class Booking extends Model
     protected $casts = [
         'additional_services' => 'array', // Mengkonversi kolom JSON menjadi array
         'total_price' => 'decimal:2', // Menyimpan harga total dalam format desimal
+        'check_in_date' => 'datetime',
+        'check_out_date' => 'datetime',
     ];
 
     /**
@@ -102,4 +104,6 @@ class Booking extends Model
         // Total harga = harga dasar + harga layanan tambahan
         return $basePrice + $additionalServicesTotal;
     }
+
+    
 }
