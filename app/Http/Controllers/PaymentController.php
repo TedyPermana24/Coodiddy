@@ -126,17 +126,20 @@ class PaymentController extends Controller
                 $booking = Booking::findOrFail($bookingId);
 
                 // Update atau buat payment record
-                Payment::updateOrCreate(
-                    ['order_id' => $notification['order_id']],
-                    [
-                        'booking_id' => $booking->id,
-                        'amount' => $notification['gross_amount'],
-                        'status' => $notification['transaction_status'],
-                        'payment_type' => $notification['payment_type'] ?? null,
-                        'transaction_id' => $notification['transaction_id'] ?? null,
-                        'paid_at' => $notification['transaction_time'] ?? now(),
-                    ]
-                );
+                if (($notification['transaction_status'] === 'capture' || $notification['transaction_status'] === 'settlement') && 
+                $notification['fraud_status'] === 'accept') {
+                    Payment::updateOrCreate(
+                        ['order_id' => $notification['order_id']],
+                        [
+                            'booking_id' => $booking->id,
+                            'amount' => $notification['gross_amount'],
+                            'status' => $notification['transaction_status'],
+                            'payment_type' => $notification['payment_type'] ?? null,
+                            'transaction_id' => $notification['transaction_id'] ?? null,
+                            'paid_at' => $notification['transaction_time'] ?? now(),
+                        ]
+                    );
+                }
 
                 // Update status booking
                 if (in_array($notification['transaction_status'], ['settlement', 'capture']) &&
