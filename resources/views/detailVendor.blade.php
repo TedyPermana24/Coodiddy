@@ -119,9 +119,9 @@
             <div class="flex justify-end mt-4 w-full">
                 @if ($pethotels->owner_id === Auth::id())
                     <!-- Tombol Menuju Vendor -->
-                    <a href="{{ route('vendor.dashboard', ['id' => $pethotels->id]) }}" 
+                    <a href="{{ route('vendor', ['id' => $pethotels->id]) }}" 
                        class="bg-[#B17F5B] text-white px-4 py-2 rounded-md font-bold text-lg">
-                        Menuju Vendor
+                        Go Vendor
                     </a>
                 @else
                     <!-- Tombol Book Now -->

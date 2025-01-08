@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('pet_name');
             $table->string('pet_type');
             $table->string('breed')->nullable(); // Ras hewan (jika ada)
-            $table->string('image');
+            $table->string('image')->nullable();;
             $table->timestamps();
         });
     }

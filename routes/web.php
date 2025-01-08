@@ -6,7 +6,9 @@ use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PetHotelController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Middleware\DisableCsrfForCallback;
 use Illuminate\Support\Facades\Route;
+
 
 
 
@@ -47,6 +49,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
     Route::get('/registerVendor', [PetHotelController::class, 'registerVendor'])->name('registerVendor');
+
+    Route::post('/payments/pay/{booking}', [PaymentController::class, 'pay'])->name('payments.pay');
+    Route::post('/payments/callback', [PaymentController::class, 'callback'])->name('payments.callback');
 
 });
 

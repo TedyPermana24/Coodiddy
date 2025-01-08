@@ -114,7 +114,7 @@
                                 </button>
                             </form>
                             
-                            <button class="w-1/2 px-4 py-2 bg-amber-700 text-white rounded-lg hover:bg-amber-800">
+                            <button id="pay-button" class="w-1/2 px-4 py-2 bg-amber-700 text-white rounded-lg hover:bg-amber-800">
                                 Pay Now
                             </button>
                         </div>
@@ -282,7 +282,7 @@
     });
 </script>
 
-<script>
+{{-- <script>
     function formatPrice(price) {
         return 'Rp. ' + price.toLocaleString('id-ID');
     }
@@ -379,7 +379,7 @@
             modal.classList.remove('flex');
         }
     }
-    </script>
+</script> --}}
 
 <script>
     function timer(expiryTimestamp) {
@@ -409,61 +409,80 @@
     }
 </script>
 
-{{-- <script>
-        function openAddAddressModal() {
-        document.getElementById('addAddressModal').classList.remove('hidden');
-    }
+<script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ config('services.midtrans.client_key') }}"></script>
+@if($activeBooking && isset($activeBooking['booking_id']))
+<script>
+    const payButton = document.querySelector('#pay-button');
+    if (payButton) {
+        payButton.addEventListener('click', async function(e) {
+            e.preventDefault();
+            
+            try {
+                const response = await fetch(`/payments/pay/{{ $activeBooking['booking_id'] }}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    }
+                });
+                
+                const data = await response.json();
 
-    // Fungsi untuk menutup modal
-    function closeAddAddressModal() {
-        document.getElementById('addAddressModal').classList.add('hidden');
-    }
-</script> --}}
-
-{{-- <script>
-    // Menghitung harga total berdasarkan layanan yang dipilih
-    function calculateTotal() {
-        const services = document.querySelectorAll('input[name="services[]"]:checked');
-        let totalPrice = 0;
-        
-        services.forEach(service => {
-            const price = parseInt(service.getAttribute('data-price'), 10);
-            totalPrice += price;
-        });
-        
-        // Menampilkan total harga pada Payment Summary
-        document.getElementById('totalAmount').innerText = `Rp. ${totalPrice.toLocaleString()}`;
-        
-        // Menyimpan total harga dalam hidden field untuk dikirim ke backend
-        document.getElementById('total_price').value = totalPrice;
-    }
-
-    // Menangani submit form untuk memasukkan data Pet dan Services
-    function submitForm() {
-        const form = document.querySelector('form');
-        const formData = new FormData(form);
-        
-        // Mengirim data ke backend untuk diproses
-        fetch('{{ route("pet.save") }}', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert('Booking submitted successfully!');
-                closeModal();
-            } else {
-                alert('There was an error saving your data.');
+                if (data.status === 'success') {
+                    window.snap.pay(data.snap_token, {
+                        onSuccess: async function(result) {
+                            console.log('Payment successful:', result);
+                            await handleCallback(result);
+                        },
+                        onPending: async function(result) {
+                            console.log('Payment pending:', result);
+                            await handleCallback(result);
+                        },
+                        onError: function(result) {
+                            console.error('Payment error:', result);
+                            alert('Payment failed. Please try again.');
+                        },
+                        onClose: function() {
+                            console.log('Payment popup closed without completing transaction');
+                        }
+                    });
+                } else {
+                    console.error('Payment initialization failed:', data);
+                    alert(data.message || 'Payment initialization failed');
+                }
+            } catch (error) {
+                console.error('Payment initialization error:', error);
+                alert('An error occurred. Please try again.');
             }
         });
-    }
 
-    // Menambahkan event listener untuk input checkbox
-    document.querySelectorAll('input[name="services[]"]').forEach(input => {
-        input.addEventListener('change', calculateTotal);
-    });
-</script> --}}
+        async function handleCallback(result) {
+            try {
+                const callbackResponse = await fetch('/payments/callback', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify(result)
+                });
+
+                const callbackData = await callbackResponse.json();
+                if (callbackData.status === 'success') {
+                    window.location.reload();
+                } else {
+                    console.error('Callback failed:', callbackData);
+                    alert(callbackData.message || 'Error processing payment');
+                }
+            } catch (error) {
+                console.error('Callback processing error:', error);
+                alert('Error processing payment. Please contact support.');
+            }
+        }
+    }
+</script>
+@endif
+
 @endsection
 
 

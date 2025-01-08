@@ -21,8 +21,9 @@ return new class extends Migration
             $table->json('additional_services')->nullable(); // Layanan tambahan dalam format JSON
             $table->date('check_in_date');
             $table->date('check_out_date');
+            $table->enum('delivery', ['Pick Up', 'Drop Off']);
             $table->decimal('total_price', 10, 2); // Total harga (harga dasar + layanan tambahan)
-            $table->enum('status', ['pending', 'paid', 'failed', 'completed'])->default('pending'); // Status pemesanan
+            $table->enum('status', ['pending', 'paid', 'failed', 'completed', 'cancelled'])->default('pending'); // Status pemesanan
             $table->timestamps(); // Tanggal pembuatan dan pembaruan
         });
     }

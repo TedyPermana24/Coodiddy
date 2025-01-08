@@ -6,11 +6,14 @@ use App\Jobs\UpdateBookingStatus;
 use App\Models\Booking;
 use App\Models\Contact;
 use App\Models\HotelPricing;
+use App\Models\Payment;
 use App\Models\Pet;
 use App\Models\PetHotel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class BookingController extends Controller
 {
@@ -29,20 +32,10 @@ class BookingController extends Controller
         return view('detailBooking', compact('petHotel', 'pets', 'contacts', 'activeBooking'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
+    // BookingController
     public function store(Request $request, $id)
     {
-        // Validasi input dari form
+        // Validasi input
         $request->validate([
             'pet_id' => 'required|exists:pets,id',
             'hotel_pricing_id' => 'required|exists:hotel_pricings,id',
@@ -56,16 +49,15 @@ class BookingController extends Controller
         $pet = Pet::findOrFail($request->pet_id);
         $hotelPricing = HotelPricing::findOrFail($request->hotel_pricing_id);
         $contact = Contact::findOrFail($request->address_id);
-        $days = (int) $request->days; 
+        $days = (int) $request->days;
 
-        // Ambil PetHotel yang sesuai dengan ID
         $petHotel = PetHotel::with('additionalServices')->findOrFail($id);
 
         // Hitung total harga
         $basePrice = $hotelPricing->price_per_day * $days;
         $additionalServicePrice = 0;
         $selectedServices = [];
-        
+
         if ($request->has('additional_services')) {
             foreach ($request->additional_services as $serviceName) {
                 $service = $petHotel->additionalServices->where('service_name', $serviceName)->first();
@@ -78,17 +70,16 @@ class BookingController extends Controller
                 }
             }
         }
-        
-        // Menambahkan biaya pengantaran (pickup/dropoff)
-        $deliveryPrice = ($request->pickup_dropoff == 'Pick Up') ? 10000 : 0;
 
+        $deliveryPrice = ($request->pickup_dropoff == 'Pick Up') ? 10000 : 0;
         $totalPrice = $basePrice + $additionalServicePrice + $deliveryPrice;
+        
 
         // Membuat booking baru
         $booking = new Booking();
         $booking->user_id = Auth::id();
         $booking->pet_id = $pet->id;
-        $booking->pet_hotel_id = $petHotel->id; // Pet hotel yang sedang diakses
+        $booking->pet_hotel_id = $petHotel->id;
         $booking->hotel_pricing_id = $hotelPricing->id;
         $booking->contact_id = $contact->id;
         $booking->additional_services = json_encode($request->additional_services);
@@ -98,9 +89,9 @@ class BookingController extends Controller
         $booking->total_price = $totalPrice;
         $booking->status = 'pending';
         $booking->save();
-
+        
+        // Buat summary booking
         $expiryTime = now()->addMinutes(10);
-
         $bookingSummary = [
             'pet_name' => $pet->pet_name,
             'price_per_day' => $hotelPricing->price_per_day,
@@ -113,19 +104,20 @@ class BookingController extends Controller
             'booking_id' => $booking->id,
             'expiry_time' => $expiryTime->format('Y-m-d H:i:s'),
             'expiry_timestamp' => $expiryTime->timestamp * 1000,
-            'created_at' => now()->format('Y-m-d H:i:s')
+            'created_at' => now()->format('Y-m-d H:i:s'),
         ];
 
         $cacheKey = 'booking_summary_' . Auth::id() . '_' . $id;
         cache()->put($cacheKey, $bookingSummary, $expiryTime);
-        dispatch(new UpdateBookingStatus($booking->id))->delay($expiryTime);
 
-        
+        dispatch(new UpdateBookingStatus($booking->id))->delay($expiryTime);
 
         return redirect()->route('booking', ['id' => $petHotel->id])
             ->with('bookingSummary', $bookingSummary)
             ->with('success', 'Booking successfully created.');
     }
+
+
 
     public function cancel($id)
     {

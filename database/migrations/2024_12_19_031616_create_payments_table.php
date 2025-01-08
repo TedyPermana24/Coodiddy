@@ -13,13 +13,15 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('booking_id')->constrained('bookings')->onDelete('cascade'); 
-            $table->string('transaction_id')->nullable();
-            $table->enum('payment_status', ['pending', 'success', 'failed'])->default('pending');
-            $table->decimal('total_amount', 10, 2);
-            $table->dateTime('expired_at')->nullable();
+            $table->unsignedBigInteger('booking_id');
+            $table->string('order_id')->unique();
+            $table->string('transaction_id')->unique()->nullable();
+            $table->decimal('amount', 10, 2);
+            $table->enum('status', ['paid', 'failed', 'pending']);
+            $table->string('payment_type')->nullable();
+            $table->timestamp('paid_at')->nullable();
             $table->timestamps();
+            $table->foreign('booking_id')->references('id')->on('bookings')->onDelete('cascade');
         });
     }
 
