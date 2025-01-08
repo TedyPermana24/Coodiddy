@@ -26,7 +26,7 @@
                                 </option>
                             @endforeach
                         </select>
-                
+                        
                         <select name="species" class="border-2 border-gray-300 rounded-md pr-8 py-2 focus:border-[#B17F5B] focus:ring-0">
                             <option value="">Select Species</option>
                             @foreach ($speciesList as $sp)
@@ -35,18 +35,34 @@
                                 </option>
                             @endforeach
                         </select>
-                >
-                        <select name="price" class="border-2 border-gray-300 rounded-md pr-8 py-2 focus:border-[#B17F5B] focus:ring-0">
-                            <option value="">Select Price</option>
-                            <option value="low" {{ old('price', $price) === 'low' ? 'selected' : '' }}>Lowest Price</option>
-                            <option value="high" {{ old('price', $price) === 'high' ? 'selected' : '' }}>Highest Price</option>
-                        </select>
+                        >
+                        <div class="flex items-center gap-2">
+                            <input
+                                type="number"
+                                name="price_min"
+                                placeholder="Min Price"
+                                value="{{ old('price_min', $price_min) }}"
+                                min="{{ $globalMinPrice }}"
+                                max="{{ $globalMaxPrice }}"
+                                class="border-2 border-gray-300 rounded-md pr-8 py-2 focus:border-[#B17F5B] focus:ring-0"
+                            />
+                
+                            <input
+                                type="number"
+                                name="price_max"
+                                placeholder="Max Price"
+                                value="{{ old('price_max', $price_max) }}"
+                                min="{{ $globalMinPrice }}"
+                                max="{{ $globalMaxPrice }}"
+                                class="border-2 border-gray-300 rounded-md pr-8 py-2 focus:border-[#B17F5B] focus:ring-0"
+                            />
+                        </div>
                 
                         <button type="submit" class="bg-[#B17F5B] hover:bg-[#96684A] text-white px-4 py-2 rounded-md font-medium text-sm">
                             Apply Filters
                         </button>
                     </div>
-            
+                
                     <div class="flex items-center gap-4">
                         <input
                             type="text"
@@ -59,19 +75,19 @@
                         <button type="submit" class="bg-[#B17F5B] hover:bg-[#96684A] text-white px-4 py-2 rounded-md font-medium text-sm">
                             Search
                         </button>
-                        
                     </div>
                 </form>
+                
                 
             </div>
             
             <div class="mx-auto px-6 max-w-7xl"> 
                 <div class="flex flex-wrap gap-6"> 
                     <!-- Card -->
-                    @foreach ($pethotels as $p)
+                     @foreach ($pethotels as $p)
                         <div class="w-[calc(25%-18px)] min-w-[250px] overflow-hidden rounded-lg border border-gray-200 bg-white shadow">
                             <div class="relative w-full h-0" style="padding-bottom: 75%;">
-                                <img src="{{ asset('img\petShop.png') }}" alt="Pet Shop"
+                                <img src="{{ asset('img/petShop.png') }}" alt="Pet Shop"
                                     class="absolute inset-0 w-full h-full object-cover rounded-t-lg">
                             </div>
                             <div class="p-4">
@@ -79,13 +95,11 @@
                                     <p class="text-md font-bold text-gray-800">{{ $p->name }}</p>
                                     <div class="flex gap-1">
                                         @for ($i = 0; $i < floor($p->reviews_avg_rating); $i++)
-                                        <img src="{{ asset('svg/star-filled.svg') }}" alt="Filled star" class="w-4 h-4">
+                                            <img src="{{ asset('svg/star-filled.svg') }}" alt="Filled star" class="w-4 h-4">
                                         @endfor
-                                    
                                         @if ($p->reviews_avg_rating - floor($p->reviews_avg_rating) >= 0.5)
                                             <img src="{{ asset('svg/star-half.svg') }}" alt="Half star" class="w-4 h-4">
                                         @endif
-                                    
                                         @for ($i = 0; $i < (5 - ceil($p->reviews_avg_rating)); $i++)
                                             <img src="{{ asset('svg/star-empty.svg') }}" alt="Empty star" class="w-4 h-4">
                                         @endfor
@@ -111,7 +125,6 @@
                                 </div>
                             </div>
                         </div>
-                        
                     @endforeach
 
 

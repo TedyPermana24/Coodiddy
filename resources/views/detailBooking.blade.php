@@ -1,4 +1,3 @@
-
 @extends('components.layout')
 
 @section('content')
@@ -13,11 +12,11 @@
                         <div class="flex items-start space-x-4">
                             <i class="fas fa-home text-gray-800 text-xl"></i>
                             <div>
-                                <p class="font-semibold text-gray-800">{{ $pethotels->name }}</p>
+                                <p class="font-semibold text-gray-800">{{ $petHotel->name }}</p>
                                 <p class="text-sm text-gray-600">
-                                    {{ $pethotels->address }}
+                                    {{ $petHotel->address }}
                                 </p>
-                                <p class="text-sm text-gray-600">{{ $pethotels->phone }}</p>
+                                <p class="text-sm text-gray-600">{{ $petHotel->phone }}</p>
                             </div>
                         </div>
                     </div>
@@ -28,7 +27,7 @@
                             Booking
                         </h2>
                         <p class="text-sm text-gray-600 mb-4">
-                            {{ $pethotels->description }}
+                            {{ $petHotel->description }}
                         </p>
                         <button onclick="openModal()" class="px-4 py-2 bg-gray-100 text-sm text-gray-600 rounded-lg">
                             Insert your plan
@@ -42,87 +41,89 @@
                         Payment Summary
                     </h2>
                     
-                    @if(session('bookingSummary'))
-                        <div class="space-y-3">
-                            <!-- Timer -->
-                            <div class="text-center mb-4" 
-                                x-data="timer({{ session('bookingSummary')['expiry_timestamp'] }})" 
-                                x-init="startTimer()">
-                                <p class="text-sm text-gray-600">Time remaining to pay:</p>
-                                <p class="font-bold text-xl" x-text="timeDisplay"></p>
-                            </div>
-
-                            <!-- Pet Information -->
-                            <div class="border-b pb-3">
-                                <p class="font-medium text-gray-700">{{ session('bookingSummary')['pet_name'] }}</p>
-                                <div class="text-sm text-gray-600">
-                                    <p>Check-in: {{ \Carbon\Carbon::parse(session('bookingSummary')['check_in_date'])->format('d M Y') }}</p>
-                                    <p>Check-out: {{ \Carbon\Carbon::parse(session('bookingSummary')['check_out_date'])->format('d M Y') }}</p>
-                                </div>
-                            </div>
-
-                            <!-- Base Price -->
-                            <div class="flex justify-between text-sm text-gray-600">
-                                <span>Base Price (per day)</span>
-                                <span>Rp. {{ number_format(session('bookingSummary')['price_per_day'], 0, ',', '.') }}</span>
-                            </div>
-                            <div class="flex justify-between text-sm text-gray-600">
-                                <span>Days</span>
-                                <span>{{ session('bookingSummary')['days'] }} days</span>
-                            </div>
-                            <div class="flex justify-between text-sm text-gray-600">
-                                <span>Subtotal</span>
-                                <span>Rp. {{ number_format(session('bookingSummary')['base_price'], 0, ',', '.') }}</span>
-                            </div>
-
-                            <!-- Additional Services -->
-                            @if(!empty(session('bookingSummary')['selected_services']))
-                                <div class="space-y-2">
-                                    <div class="text-sm font-medium text-gray-600">Additional Services:</div>
-                                    @foreach(session('bookingSummary')['selected_services'] as $service)
-                                        <div class="flex justify-between text-sm text-gray-600">
-                                            <span>{{ $service['name'] }}</span>
-                                            <span>Rp. {{ number_format($service['price'], 0, ',', '.') }}</span>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            @endif
-
-                            <!-- Delivery Fee -->
-                            <div class="flex justify-between text-sm text-gray-600">
-                                <span>{{ session('bookingSummary')['delivery_type'] }}</span>
-                                <span>Rp. {{ number_format(session('bookingSummary')['delivery_price'], 0, ',', '.') }}</span>
-                            </div>
-
-                            <!-- Total -->
-                            <div class="border-t border-gray-300 pt-3 mt-3">
-                                <div class="flex justify-between font-semibold text-gray-700">
-                                    <span>Total</span>
-                                    <span>Rp. {{ number_format(session('bookingSummary')['total_price'], 0, ',', '.') }}</span>
-                                </div>
+                @if($activeBooking)
+                    <div class="space-y-3">
+                        <!-- Timer -->
+                        <div class="text-center mb-4" 
+                             x-data="timer({{ $activeBooking['expiry_timestamp'] }})" 
+                             x-init="startTimer()">
+                            <p class="text-sm text-gray-600">Time remaining to pay:</p>
+                            <p class="font-bold text-xl" x-text="timeDisplay"></p>
+                        </div>
+            
+                        <!-- Pet Information -->
+                        <div class="border-b pb-3">
+                            <p class="font-medium text-gray-700">{{ $activeBooking['pet_name'] }}</p>
+                            <div class="text-sm text-gray-600">
+                                <p>Check-in: {{ \Carbon\Carbon::parse($activeBooking['created_at'])->format('d M Y') }}</p>
+                                <p>Check-out: {{ \Carbon\Carbon::parse($activeBooking['created_at'])->addDays($activeBooking['days'])->format('d M Y') }}</p>
                             </div>
                         </div>
-
-                        <button class="mt-4 w-full px-4 py-2 bg-amber-700 text-white rounded-lg hover:bg-amber-800">
-                            Pay Now
-                        </button>
-
-                        <form action="{{ route('booking.cancel', session('bookingSummary')['booking_id']) }}" 
-                                method="POST" 
-                                class=" border mt-4 w-full px-4 py-2 bg-gray-200 rounded-lg text-gray-600  text-center">
-                            @csrf
-                            @method('POST')
-                            <button type="submit" 
-                                    >
-                                Cancel Booking
+            
+                        <!-- Base Price -->
+                        <div class="flex justify-between text-sm text-gray-600">
+                            <span>Base Price (per day)</span>
+                            <span>Rp. {{ number_format($activeBooking['price_per_day'], 0, ',', '.') }}</span>
+                        </div>
+                        <div class="flex justify-between text-sm text-gray-600">
+                            <span>Days</span>
+                            <span>{{ $activeBooking['days'] }} days</span>
+                        </div>
+                        <div class="flex justify-between text-sm text-gray-600">
+                            <span>Subtotal</span>
+                            <span>Rp. {{ number_format($activeBooking['base_price'], 0, ',', '.') }}</span>
+                        </div>
+            
+                        <!-- Additional Services -->
+                        @if(!empty($activeBooking['selected_services']))
+                            <div class="space-y-2">
+                                <div class="text-sm font-medium text-gray-600">Additional Services:</div>
+                                @foreach($activeBooking['selected_services'] as $service)
+                                    <div class="flex justify-between text-sm text-gray-600">
+                                        <span>{{ $service['name'] }}</span>
+                                        <span>Rp. {{ number_format($service['price'], 0, ',', '.') }}</span>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endif
+            
+                        <!-- Delivery Fee -->
+                        <div class="flex justify-between text-sm text-gray-600">
+                            <span>{{ $activeBooking['delivery_type'] }}</span>
+                            <span>Rp. {{ number_format($activeBooking['delivery_price'], 0, ',', '.') }}</span>
+                        </div>
+            
+                        <!-- Total -->
+                        <div class="border-t border-gray-300 pt-3 mt-3">
+                            <div class="flex justify-between font-semibold text-gray-700">
+                                <span>Total</span>
+                                <span>Rp. {{ number_format($activeBooking['total_price'], 0, ',', '.') }}</span>
+                            </div>
+                        </div>
+            
+                        <!-- Action Buttons -->
+                        <div class="flex space-x-3">
+                            <form action="{{ route('booking.cancel', $activeBooking['booking_id']) }}" 
+                                  method="POST" 
+                                  class="w-1/2">
+                                @csrf
+                                @method('POST')
+                                <button type="submit" 
+                                        class="w-full px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
+                                    Cancel Booking
+                                </button>
+                            </form>
+                            
+                            <button id="pay-button" class="w-1/2 px-4 py-2 bg-amber-700 text-white rounded-lg hover:bg-amber-800">
+                                Pay Now
                             </button>
-                        </form>
-
-                    @else
-                        <div class="text-center text-gray-600 py-4">
-                            <p>No active booking</p>
                         </div>
-                    @endif
+                    </div>
+                @else
+                    <div class="text-center text-gray-600 py-4">
+                        <p>No active booking</p>
+                    </div>
+                @endif
                 </div>
 
                 @if(session('success'))
@@ -152,25 +153,13 @@
         
                 <!-- Scrollable Content -->
                 <div class="overflow-y-auto p-4" style="max-height: calc(80vh - 140px);">
-                    <form action="{{ route('booking.store', ['id' => $pethotels->id]) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('booking.store', ['id' => $petHotel->id]) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="space-y-6">
                             <!-- Bagian Pet -->
                             <h3 class="font-medium mb-4 text-lg">Pet</h3>
                             <div class="space-y-4">
-                                <!-- Pet Type -->
-                                {{-- <div class="flex items-start mb-4">
-                                    <label class="block text-sm font-medium text-gray-700 w-32">Pet Image</label>
-                                    <div class="border-2 border-dashed rounded-lg p-10 w-40 max-w-sm flex items-center justify-center">
-                                        <div class="text-gray-400 text-center">
-                                            <input type="file" name="pet_image" class="hidden" id="pet_image" accept="image/*">
-                                            <label for="pet_image" class="cursor-pointer block">Upload Pet Image</label>
-                                        </div>
-                                    </div>
-                                </div> --}}
 
-                                
-                    
                                 <!-- Input Pet Name -->
                                 <div class="flex items-center gap-4 mb-4">
                                     <label class="block text-sm font-medium text-gray-700 w-32">Pet Name</label>
@@ -186,7 +175,7 @@
                                     <label class="block text-sm font-medium text-gray-700 w-32">Pet Type</label>
                                     <select name="hotel_pricing_id" class="w-full p-2 border rounded-lg text-gray-500" required>
                                         <option value="">Select a pricing</option>
-                                        @foreach($pethotels->hotelPricings as $hotelPricing)
+                                        @foreach($petHotel->hotelPricings as $hotelPricing)
                                             <option value="{{ $hotelPricing->id }}">
                                                 {{ $hotelPricing->species }} - Rp.{{ number_format($hotelPricing->price_per_day ?? 0, 0, ',', '.') }}
                                             </option>
@@ -194,12 +183,6 @@
                                     </select>
                                 </div>
                     
-                                <!-- Phone Number -->
-                                {{-- <div class="flex items-center gap-4">
-                                    <label class="block text-sm font-medium text-gray-700 w-32">Phone Number</label>
-                                    <input type="tel" name="phone_number" placeholder="Insert your phone number here" class="w-full p-2 border rounded-lg" required>
-                                </div>
-                     --}}
                                 <!-- Alamat (Dropdown dari Contact) -->
                                 <div class="flex items-center gap-4">
                                     <label class="block text-sm font-medium text-gray-700 w-32">Address</label>
@@ -234,10 +217,10 @@
                     
                                     <!-- Additional Services -->
                                     <div>
-                                        @if($pethotels->additionalServices->isNotEmpty())
+                                        @if($petHotel->additionalServices->isNotEmpty())
                                         <label class="block text-sm font-medium text-gray-700 mb-2">Additional Services</label>
                                         <div class="space-y-2 pl-4">
-                                            @foreach($pethotels->additionalServices as $service)
+                                            @foreach($petHotel->additionalServices as $service)
                                                 <label class="flex items-center space-x-2">
                                                     <input type="checkbox" name="additional_services[]" value="{{ $service->service_name }}" class="rounded">
                                                     <span>{{ $service->service_name }} (Rp {{ number_format($service->price, 0, ',', '.') }})</span>
@@ -299,7 +282,7 @@
     });
 </script>
 
-<script>
+{{-- <script>
     function formatPrice(price) {
         return 'Rp. ' + price.toLocaleString('id-ID');
     }
@@ -396,7 +379,7 @@
             modal.classList.remove('flex');
         }
     }
-    </script>
+</script> --}}
 
 <script>
     function timer(expiryTimestamp) {
@@ -426,61 +409,80 @@
     }
 </script>
 
-{{-- <script>
-        function openAddAddressModal() {
-        document.getElementById('addAddressModal').classList.remove('hidden');
-    }
+<script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ config('services.midtrans.client_key') }}"></script>
+@if($activeBooking && isset($activeBooking['booking_id']))
+<script>
+    const payButton = document.querySelector('#pay-button');
+    if (payButton) {
+        payButton.addEventListener('click', async function(e) {
+            e.preventDefault();
+            
+            try {
+                const response = await fetch(`/payments/pay/{{ $activeBooking['booking_id'] }}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    }
+                });
+                
+                const data = await response.json();
 
-    // Fungsi untuk menutup modal
-    function closeAddAddressModal() {
-        document.getElementById('addAddressModal').classList.add('hidden');
-    }
-</script> --}}
-
-{{-- <script>
-    // Menghitung harga total berdasarkan layanan yang dipilih
-    function calculateTotal() {
-        const services = document.querySelectorAll('input[name="services[]"]:checked');
-        let totalPrice = 0;
-        
-        services.forEach(service => {
-            const price = parseInt(service.getAttribute('data-price'), 10);
-            totalPrice += price;
-        });
-        
-        // Menampilkan total harga pada Payment Summary
-        document.getElementById('totalAmount').innerText = `Rp. ${totalPrice.toLocaleString()}`;
-        
-        // Menyimpan total harga dalam hidden field untuk dikirim ke backend
-        document.getElementById('total_price').value = totalPrice;
-    }
-
-    // Menangani submit form untuk memasukkan data Pet dan Services
-    function submitForm() {
-        const form = document.querySelector('form');
-        const formData = new FormData(form);
-        
-        // Mengirim data ke backend untuk diproses
-        fetch('{{ route("pet.save") }}', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert('Booking submitted successfully!');
-                closeModal();
-            } else {
-                alert('There was an error saving your data.');
+                if (data.status === 'success') {
+                    window.snap.pay(data.snap_token, {
+                        onSuccess: async function(result) {
+                            console.log('Payment successful:', result);
+                            await handleCallback(result);
+                        },
+                        onPending: async function(result) {
+                            console.log('Payment pending:', result);
+                            await handleCallback(result);
+                        },
+                        onError: function(result) {
+                            console.error('Payment error:', result);
+                            alert('Payment failed. Please try again.');
+                        },
+                        onClose: function() {
+                            console.log('Payment popup closed without completing transaction');
+                        }
+                    });
+                } else {
+                    console.error('Payment initialization failed:', data);
+                    alert(data.message || 'Payment initialization failed');
+                }
+            } catch (error) {
+                console.error('Payment initialization error:', error);
+                alert('An error occurred. Please try again.');
             }
         });
-    }
 
-    // Menambahkan event listener untuk input checkbox
-    document.querySelectorAll('input[name="services[]"]').forEach(input => {
-        input.addEventListener('change', calculateTotal);
-    });
-</script> --}}
+        async function handleCallback(result) {
+            try {
+                const callbackResponse = await fetch('/payments/callback', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify(result)
+                });
+
+                const callbackData = await callbackResponse.json();
+                if (callbackData.status === 'success') {
+                    window.location.reload();
+                } else {
+                    console.error('Callback failed:', callbackData);
+                    alert(callbackData.message || 'Error processing payment');
+                }
+            } catch (error) {
+                console.error('Callback processing error:', error);
+                alert('Error processing payment. Please contact support.');
+            }
+        }
+    }
+</script>
+@endif
+
 @endsection
 
 

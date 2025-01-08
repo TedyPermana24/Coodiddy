@@ -24,11 +24,15 @@ class UpdateBookingStatus implements ShouldQueue
     public function handle()
     {
         $booking = Booking::find($this->bookingId);
-        
+
         if ($booking && $booking->status === 'pending') {
-            $hasPayment = Payment::where('booking_id', $this->bookingId)->exists();
-            
-            if (!$hasPayment) {
+            $payment = Payment::where('booking_id', $this->bookingId)
+                              ->where('status', 'paid')
+                              ->first();
+
+            if ($payment) {
+                $booking->update(['status' => 'paid']);
+            } else {
                 $booking->update(['status' => 'failed']);
             }
         }

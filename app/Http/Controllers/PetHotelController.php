@@ -14,48 +14,55 @@ class PetHotelController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->input('search'); // Input pencarian
-        $price = $request->input('price');   // Input filter harga
+        $search = $request->input('search');   // Input pencarian
         $species = $request->input('species'); // Input filter spesies
         $location = $request->input('location'); // Input filter lokasi
+        $price_min = $request->input('price_min'); // Input harga minimum
+        $price_max = $request->input('price_max'); // Input harga maksimum
 
-        // Query untuk mendapatkan daftar pet hotels
+        // Ambil minimum dan maksimum harga dari seluruh data
+        $globalMinPrice = HotelPricing::min('price_per_day');
+        $globalMaxPrice = HotelPricing::max('price_per_day');
+
+        // Query dasar untuk mendapatkan daftar pet hotels
         $pethotels = PetHotel::query()
-            ->with(['hotelPricings' => function ($query) use ($species) {
-                if ($species) {
-                    $query->where('species', $species);
-                }
-            }])
+            ->with(['hotelPricings']) // Relasi ke tabel hotel_pricings
             ->withAvg('reviews', 'rating') // Hitung rata-rata rating
             ->when($search, function ($query, $search) {
                 return $query->where('name', 'like', '%' . $search . '%');
             })
             ->when($location, function ($query, $location) {
+                // Aktifkan filter lokasi jika dipilih
                 return $query->where('location', $location);
-            })
-            ->when($price, function ($query, $price) {
-                if ($price === 'low') {
-                    $query->addSelect([
-                        'min_price' => HotelPricing::select('price_per_day')
-                            ->whereColumn('pet_hotels.id', 'hotel_pricings.hotel_id')
-                            ->orderBy('price_per_day', 'asc')
-                            ->limit(1),
-                    ])->orderBy('min_price', 'asc');
-                } elseif ($price === 'high') {
-                    $query->addSelect([
-                        'max_price' => HotelPricing::select('price_per_day')
-                            ->whereColumn('pet_hotels.id', 'hotel_pricings.hotel_id')
-                            ->orderBy('price_per_day', 'desc')
-                            ->limit(1),
-                    ])->orderBy('max_price', 'desc');
-                }
             })
             ->get();
 
-        // Gabungkan data spesies menjadi string dan hitung harga minimum
-        $pethotels->each(function ($hotel) {
+        // Proses data untuk menampilkan harga dan spesies
+        $pethotels->each(function ($hotel) use ($species, $price_min, $price_max) {
+            // Gabungkan semua spesies untuk ditampilkan di kartu
             $hotel->species = $hotel->hotelPricings->pluck('species')->unique()->implode(', ');
-            $hotel->min_price = $hotel->hotelPricings->min('price_per_day');
+
+            // Aktifkan filter spesies jika ada spesies yang dipilih
+            $filteredPricings = $species
+                ? $hotel->hotelPricings->where('species', $species)
+                : $hotel->hotelPricings;
+
+            // Filter berdasarkan range harga
+            if ($filteredPricings->isNotEmpty()) {
+                $filteredPricings = $filteredPricings->filter(function ($pricing) use ($price_min, $price_max) {
+                    return (!$price_min || $pricing->price_per_day >= $price_min) &&
+                        (!$price_max || $pricing->price_per_day <= $price_max);
+                });
+            }
+
+            $hotel->min_price = $filteredPricings->isNotEmpty()
+                ? $filteredPricings->min('price_per_day')
+                : null;
+        });
+
+        // Filter hotel berdasarkan harga valid
+        $pethotels = $pethotels->filter(function ($hotel) {
+            return $hotel->min_price !== null;
         });
 
         // Ambil daftar spesies unik dari tabel hotel_pricings
@@ -71,14 +78,16 @@ class PetHotelController extends Controller
         return view('dashboard', [
             'pethotels' => $pethotels,
             'search' => $search,
-            'price' => $price,
             'species' => $species,
             'location' => $location,
+            'price_min' => $price_min,
+            'price_max' => $price_max,
             'speciesList' => $speciesList,
             'locationList' => $locationList,
+            'globalMinPrice' => $globalMinPrice,
+            'globalMaxPrice' => $globalMaxPrice,
         ]);
     }
-
 
 
     public function detail($id)
