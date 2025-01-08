@@ -36,7 +36,7 @@
             />
         </div>
 
-        <div class="w-52 h-36 bg-white rounded-lg border border-[#d9d9d9] flex-col justify-start items-start gap-1 dropdown hidden border-solid" id="dropdown-menu">
+        <div class="w-52 h-40 bg-white rounded-lg border border-[#d9d9d9] flex-col justify-start items-start gap-1 dropdown hidden border-solid" id="dropdown-menu">
             <!-- User Info Section -->
             <div class="self-stretch h-16 p-2.5 border-b border-black flex-col justify-start items-start gap-2.5 flex">
                 <div class="self-stretch justify-center items-center gap-2.5 inline-flex">
@@ -54,6 +54,12 @@
         
             <!-- Menu Options Section -->
             <div class="self-stretch h-16 p-2.5 flex-col justify-start items-end gap-2.5 flex">
+                <div class="self-stretch justify-start items-center gap-2 inline-flex">
+                    <a href="{{ route('list') }}" class="w-32 h-4 text-black text-xs font-normal font-poppins flex items-center">
+                        <img src="{{ asset('svg/order.svg') }}" class="w-4 h-4 mr-2" alt="Order Icon">
+                        Booking
+                    </a>
+                </div> 
                 <!-- Settings Menu Item -->
                 <div class="self-stretch justify-start items-center gap-2 inline-flex">
                     <a href="{{ route('profile.edit') }}" class="w-32 h-4 text-black text-xs font-normal font-poppins flex items-center">
@@ -81,79 +87,6 @@
         @endauth
     </div>
 </nav>
-
-<script>
-    // Tunggu hingga seluruh DOM dimuat
-    document.addEventListener("DOMContentLoaded", function() {
-        // Fungsi untuk toggle dropdown dan ganti gambar arrow
-        function toggleDropdown() {
-            const dropdown = document.getElementById('dropdown-menu');
-            const arrowIcon = document.getElementById('arrow-icon');
-
-            // Pastikan dropdown ditemukan
-            if (!dropdown) {
-                console.error("Dropdown element with ID 'dropdown-menu' not found");
-                return;
-            }
-
-            // Pastikan arrowIcon ditemukan
-            if (!arrowIcon) {
-                console.error("Arrow Icon element with ID 'arrow-icon' not found");
-                return;
-            }
-
-            dropdown.classList.toggle('hidden');
-            
-            // // Debugging: Log status dropdown
-            // console.log("Dropdown hidden:", dropdown.classList.contains('hidden'));
-
-            // Cek apakah dropdown terlihat dan ganti gambar arrow sesuai
-            if (dropdown.classList.contains('hidden')) {
-                // console.log("Arrow pointing down");
-                // Ganti gambar arrow ke arah bawah
-                arrowIcon.src = arrowIcon.getAttribute('data-arrow-down');
-            } else {
-                // console.log("Arrow pointing up");
-                // Ganti gambar arrow ke arah atas
-                arrowIcon.src = arrowIcon.getAttribute('data-arrow-up');
-            }
-        }
-
-        // Menutup dropdown saat klik di luar
-        document.addEventListener('click', function(event) {
-            const dropdown = document.getElementById('dropdown-menu');
-            const profileImg = event.target.closest('img');
-            const arrowIcon = document.getElementById('arrow-icon');
-
-            // Pastikan dropdown ditemukan sebelum mencoba menggunakan contains
-            if (!dropdown) {
-                console.error("Dropdown element not found for outside click detection");
-                return;
-            }
-
-            // Cek apakah klik terjadi di luar dropdown atau gambar profil
-            if (!profileImg && !dropdown.contains(event.target) && event.target !== arrowIcon) {
-                dropdown.classList.add('hidden');
-                // Debugging: Log untuk menutup dropdown
-                // console.log("Closing dropdown and resetting arrow");
-                // Reset gambar arrow ke arah bawah
-                arrowIcon.src = arrowIcon.getAttribute('data-arrow-down');
-            }
-        });
-
-        // Bind fungsi toggleDropdown ke elemen gambar profil
-        const profileImg = document.getElementById('profile-img');
-        if (profileImg) {
-            profileImg.addEventListener('click', toggleDropdown);
-        } else {
-            console.error("Profile image element with ID 'profile-img' not found");
-        }
-    });
-</script>
-
-
-
-
   
 @yield('content')
   
@@ -228,6 +161,75 @@
          }
      });
   </script>
+
+<script>
+    // Tunggu hingga seluruh DOM dimuat
+    document.addEventListener("DOMContentLoaded", function() {
+        // Fungsi untuk toggle dropdown dan ganti gambar arrow
+        function toggleDropdown() {
+            const dropdown = document.getElementById('dropdown-menu');
+            const arrowIcon = document.getElementById('arrow-icon');
+
+            // Pastikan dropdown ditemukan
+            if (!dropdown) {
+                console.error("Dropdown element with ID 'dropdown-menu' not found");
+                return;
+            }
+
+            // Pastikan arrowIcon ditemukan
+            if (!arrowIcon) {
+                console.error("Arrow Icon element with ID 'arrow-icon' not found");
+                return;
+            }
+
+            dropdown.classList.toggle('hidden');
+            
+            // // Debugging: Log status dropdown
+            // console.log("Dropdown hidden:", dropdown.classList.contains('hidden'));
+
+            // Cek apakah dropdown terlihat dan ganti gambar arrow sesuai
+            if (dropdown.classList.contains('hidden')) {
+                // console.log("Arrow pointing down");
+                // Ganti gambar arrow ke arah bawah
+                arrowIcon.src = arrowIcon.getAttribute('data-arrow-down');
+            } else {
+                // console.log("Arrow pointing up");
+                // Ganti gambar arrow ke arah atas
+                arrowIcon.src = arrowIcon.getAttribute('data-arrow-up');
+            }
+        }
+
+        // Menutup dropdown saat klik di luar
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('dropdown-menu');
+            const profileImg = event.target.closest('img');
+            const arrowIcon = document.getElementById('arrow-icon');
+
+            // Pastikan dropdown ditemukan sebelum mencoba menggunakan contains
+            if (!dropdown) {
+                console.error("Dropdown element not found for outside click detection");
+                return;
+            }
+
+            // Cek apakah klik terjadi di luar dropdown atau gambar profil
+            if (!profileImg && !dropdown.contains(event.target) && event.target !== arrowIcon) {
+                dropdown.classList.add('hidden');
+                // Debugging: Log untuk menutup dropdown
+                // console.log("Closing dropdown and resetting arrow");
+                // Reset gambar arrow ke arah bawah
+                arrowIcon.src = arrowIcon.getAttribute('data-arrow-down');
+            }
+        });
+
+        // Bind fungsi toggleDropdown ke elemen gambar profil
+        const profileImg = document.getElementById('profile-img');
+        if (profileImg) {
+            profileImg.addEventListener('click', toggleDropdown);
+        } else {
+            console.error("Profile image element with ID 'profile-img' not found");
+        }
+    });
+</script>
 </body>
 </html>
 

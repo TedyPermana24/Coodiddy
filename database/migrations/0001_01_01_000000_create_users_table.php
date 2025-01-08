@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('phone_number')->nullable();
             $table->text('address')->nullable();
             $table->enum('role', ['user', 'vendor', 'admin']);
+            $table->integer('balance')->default(0);
             $table->timestamps();
         });
 

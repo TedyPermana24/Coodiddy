@@ -6,14 +6,11 @@ use App\Jobs\UpdateBookingStatus;
 use App\Models\Booking;
 use App\Models\Contact;
 use App\Models\HotelPricing;
-use App\Models\Payment;
 use App\Models\Pet;
 use App\Models\PetHotel;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
+
 
 class BookingController extends Controller
 {
@@ -122,12 +119,29 @@ class BookingController extends Controller
     public function cancel($id)
     {
         $booking = Booking::findOrFail($id);
+    
+        // Cek apakah booking statusnya 'paid'
+        if ($booking->status === 'paid') {
+            // Tambahkan total_price pada balance di tabel users
+            $user = $booking->user; // Ambil pengguna yang melakukan booking
+            
+            // Tambahkan total_price pada balance pengguna
+            $user->balance += $booking->total_price;
+            $user->save(); // Simpan perubahan balance
+            
+            // Update status booking menjadi 'cancelled'
+            $booking->update(['status' => 'cancelled']);
+            
+            return redirect()->back()->with('success', 'Booking cancelled and balance updated successfully.');
+        }
         
+        // Jika statusnya 'pending', hanya update statusnya menjadi 'cancelled'
         if ($booking->status === 'pending') {
             $booking->update(['status' => 'cancelled']);
             return redirect()->back()->with('success', 'Booking cancelled successfully.');
         }
-        
+
+        // Jika status booking bukan 'paid' atau 'pending'
         return redirect()->back()->with('error', 'Unable to cancel this booking.');
     }
 
@@ -150,6 +164,122 @@ class BookingController extends Controller
         return null;
     }
 
+    public function list(Request $request)
+    {
+        $filter = $request->get('status', 'all');
+        $search = $request->get('search');
+
+        $pendingCount = Booking::where('user_id', Auth::id())
+        ->where('status', 'pending')
+        ->count();
+    
+        $bookingsQuery = Booking::with(['pethotel', 'pet'])
+            ->where('user_id', Auth::id());
+    
+        // Tambahkan kondisi search
+        if ($search) {
+            $bookingsQuery->whereHas('pethotel', function($query) use ($search) {
+                $query->where('name', 'like', '%' . $search . '%');
+            })
+            ->orWhereHas('pet', function($query) use ($search) {
+                $query->where('pet_type', 'like', '%' . $search . '%');
+            })
+            ->orWhere('check_in_date', 'like', '%' . $search . '%')
+            ->orWhere('check_out_date', 'like', '%' . $search . '%')
+            ->orWhere('status', 'like', '%' . $search . '%')
+            ->orWhere('total_price', 'like', '%' . $search . '%');
+        }
+    
+        // Terapkan filter berdasarkan status
+        if ($filter !== 'all') {
+            $bookingsQuery->where('status', $filter);
+        }
+    
+        // Urutkan berdasarkan status dan check_in_date
+        $bookingsQuery->orderByRaw("
+            CASE 
+                WHEN status = 'pending' THEN 1
+                WHEN status = 'paid' THEN 2
+                WHEN status = 'completed' THEN 3
+                WHEN status = 'reviewed' THEN 4
+                WHEN status = 'cancelled' THEN 5
+                ELSE 6
+            END
+        ")->orderBy('check_in_date', 'desc');
+    
+        // Ambil data bookings
+        $bookings = $bookingsQuery->get();
+        
+    
+        // Map data untuk dikirim ke view
+        $data = $bookings->map(function ($booking) {
+            return [
+                'booking_id' => $booking->id,
+                'hotel_id' => $booking->pethotel->id,
+                'name' => $booking->pethotel->name,
+                'additional_service' => json_decode($booking->additional_services, true),
+                'pet_type' => $booking->pet->pet_type,
+                'duration' => $booking->check_in_date->diffInDays($booking->check_out_date),
+                'status' => $booking->status,
+                'check_in_date' => $booking->check_in_date->format('F j, Y'),
+                'total_price' => number_format($booking->total_price, 0, ',', '.'),
+                'check_out_date' => $booking->check_out_date->format('F j, Y'),
+            ];
+        });
+    
+        return view('listPembayaran', [
+            'bookings' => $data,
+            'filter' => $filter,
+            'pendingCount' => $pendingCount,
+            'search' => $search, // tambahkan search ke view
+        ]);
+    }
+
+    public function finishBooking($id)
+    {
+        $booking = Booking::where('id', $id)->where('status', 'processed')->first();
+
+        if (!$booking) {
+            return redirect()->back()->with('error', 'Booking not found or invalid status!');
+        }
+
+        $booking->update([
+            'status' => 'completed',
+        ]);
+
+        return redirect()->back()->with('success', 'Booking has been marked as completed!');
+    }
+
+    public function storeReview(Request $request)
+    {
+         // Validasi input
+        $validated = $request->validate([
+            'booking_id' => 'required|exists:bookings,id',
+            'rating' => 'required|integer|min:1|max:5',
+            'review' => 'required|string|max:255',
+        ]);
+
+        // Temukan booking dan hubungkan dengan pethotel
+        $booking = Booking::with('pethotel')->find($validated['booking_id']);
+        $pethotel = $booking->pethotel;
+
+        if (!$pethotel) {
+            return redirect()->back()->withErrors('Pet hotel not found.');
+        }
+
+        // Tambahkan review baru ke tabel reviews
+        $review = $pethotel->reviews()->create([
+            'rating' => $validated['rating'],
+            'review' => $validated['review'],
+            'user_id' => Auth::id(),
+        ]);
+
+        $booking->update(['status' => 'reviewed']);
+
+        return redirect()->back()->with('success', 'Review submitted successfully.');
+
+    }
+    
 
     /**
      * Display the specified resource.
