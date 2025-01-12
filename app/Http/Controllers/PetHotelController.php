@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AdditionalService;
 use App\Models\HotelPricing;
 use App\Models\PetHotel;
+use App\Models\PetHotelImages;
+use App\Models\RegistrationVendor;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class PetHotelController extends Controller
 {
@@ -26,7 +33,8 @@ class PetHotelController extends Controller
 
         // Query dasar untuk mendapatkan daftar pet hotels
         $pethotels = PetHotel::query()
-            ->with(['hotelPricings']) // Relasi ke tabel hotel_pricings
+            ->where('status', 'active') // Tambahkan kondisi untuk hanya mengambil pethotel dengan status active
+            ->with(['hotelPricings', 'petHotelImages']) // Relasi ke tabel hotel_pricings
             ->withAvg('reviews', 'rating') // Hitung rata-rata rating
             ->when($search, function ($query, $search) {
                 return $query->where('name', 'like', '%' . $search . '%');
@@ -90,17 +98,20 @@ class PetHotelController extends Controller
     }
 
 
+
     public function detail($id)
     {
         // Ambil data PetHotel dengan harga, rata-rata rating, dan review lengkap
         $pethotels = PetHotel::with([
-            'hotelPricings' => function ($query) {
-                $query->select('hotel_id', 'price_per_day', 'species');
-            },
-            'reviews.user' // Relasi ke tabel users melalui reviews
-        ])
-        ->withAvg('reviews', 'rating') // Ambil rata-rata rating dari review
-        ->findOrFail($id);
+                'hotelPricings' => function ($query) {
+                    $query->select('hotel_id', 'price_per_day', 'species');
+                },
+                'reviews.user', // Relasi ke tabel users melalui reviews
+                'petHotelImages', 
+            ])
+            ->withAvg('reviews', 'rating') // Ambil rata-rata rating dari review
+            ->where('status', 'active') // Tambahkan kondisi untuk hanya pethotel dengan status active
+            ->findOrFail($id);
     
         // Hitung jumlah review
         $totalReviews = $pethotels->reviews->count();
@@ -119,16 +130,156 @@ class PetHotelController extends Controller
         return view('detailVendor', compact('pethotels', 'totalReviews', 'reviews'));
     }
     
-
-
-    public function recommendation()
-    {
-        
-    }
-
     public function registerVendor()
     {
-        return view('registerVendor');
+        $registration = Auth::user()->registration;
+        
+        if (!$registration) {
+            return view('vendor-registration');
+        }
+
+        switch($registration->registration_status) {
+            case 'accepted':
+                return view('vendor-registration-accepted');
+            case 'pending':
+                return view('vendor-registration-pending');
+            case 'rejected':
+                return view('vendor-registration-rejected');
+            default:
+                return view('vendor-registration');
+        }
+    }
+
+    public function storeRegistration(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            
+            // Array to store uploaded file paths for potential cleanup
+            $uploadedFiles = [];
+            
+            try {
+                // Handle file uploads first
+                $idPhotoPath = $request->file('id_photo')->store('vendor/id_photos', 'public');
+                $uploadedFiles[] = $idPhotoPath;
+                
+                $ownerFacePath = $request->file('owner_face')->store('vendor/owner_faces', 'public');
+                $uploadedFiles[] = $ownerFacePath;
+                
+                // Store vendor photos
+                $mainImagePath = $request->file('vendor_photo_1')->store('vendor/hotels', 'public');
+                $uploadedFiles[] = $mainImagePath;
+                
+                $image1Path = $request->file('vendor_photo_2')->store('vendor/hotels', 'public');
+                $uploadedFiles[] = $image1Path;
+                
+                $image2Path = $request->file('vendor_photo_3')->store('vendor/hotels', 'public');
+                $uploadedFiles[] = $image2Path;
+                
+                $image3Path = $request->file('vendor_photo_4')->store('vendor/hotels', 'public');
+                $uploadedFiles[] = $image3Path;
+        
+            } catch (\Exception $e) {
+                throw new \Exception('Failed to upload images: ' . $e->getMessage());
+            }
+        
+            // Validate required data
+            if (!$request->filled(['vendor_name', 'phone', 'address', 'description', 'owner_name']) || 
+                !is_array($request->pet_types) || 
+                !is_array($request->additional_services)) {
+                throw new \Exception('Missing required fields');
+            }
+        
+            try {
+                // Create Pet Hotel
+                $petHotel = PetHotel::create([
+                    'owner_id' => Auth::id(),
+                    'name' => $request->vendor_name,
+                    'location' => $request->location,
+                    'phone' => $request->phone,
+                    'address' => $request->address,
+                    'description' => $request->description
+                ]);
+        
+                // Create Registration Vendor
+                $registrationVendor = RegistrationVendor::create([
+                    'hotel_id' => $petHotel->id,
+                    'user_id' => Auth::id(),
+                    'owner_name' => $request->owner_name,
+                    'id_photo' => $idPhotoPath,
+                    'user_photo' => $ownerFacePath,
+                    'status' => 'pending'
+                ]);
+        
+                // Create Pet Hotel Images
+                PetHotelImages::create([
+                    'hotel_id' => $petHotel->id,
+                    'main_image' => $mainImagePath,
+                    'image_1' => $image1Path,
+                    'image_2' => $image2Path,
+                    'image_3' => $image3Path
+                ]);
+        
+                // Validate and create Hotel Pricings
+                foreach ($request->pet_types as $petType) {
+                    if (!isset($petType['type']) || !isset($petType['price'])) {
+                        throw new \Exception('Invalid pet type data structure');
+                    }
+                    
+                    HotelPricing::create([
+                        'hotel_id' => $petHotel->id, // Changed from registrationVendor->id
+                        'species' => $petType['type'],
+                        'price_per_day' => $petType['price']
+                    ]);
+                }
+        
+                // Validate and create Additional Services
+                foreach ($request->additional_services as $service) {
+                    if (!isset($service['service_name']) || !isset($service['price'])) {
+                        throw new \Exception('Invalid additional service data structure');
+                    }
+                    
+                    AdditionalService::create([
+                        'hotel_id' => $petHotel->id, // Changed from registrationVendor->id
+                        'service_name' => $service['service_name'],
+                        'price' => $service['price']
+                    ]);
+                }
+        
+                DB::commit();
+                return redirect()->route('vendor.registration')->with('success', 'Vendor registration successful!');
+        
+            } catch (\Exception $e) {
+                throw new \Exception('Failed to save data: ' . $e->getMessage());
+            }
+        
+        } catch (\Exception $e) {
+            DB::rollBack();
+            
+            // Clean up uploaded files if any part of the transaction failed
+            foreach ($uploadedFiles as $filePath) {
+                if (Storage::disk('public')->exists($filePath)) {
+                    Storage::disk('public')->delete($filePath);
+                }
+            }
+        
+            // Log the error for debugging
+            Log::error('Vendor Registration Error: ' . $e->getMessage());
+            
+            // Return with specific error message based on the exception
+            if (str_contains($e->getMessage(), 'Missing required fields')) {
+                return back()->with('error', 'Please fill in all required fields.');
+            } elseif (str_contains($e->getMessage(), 'Failed to upload images')) {
+                return back()->with('error', 'Failed to upload images. Please try again.');
+            } elseif (str_contains($e->getMessage(), 'Invalid pet type')) {
+                return back()->with('error', 'Invalid pet type information provided.');
+            } elseif (str_contains($e->getMessage(), 'Invalid additional service')) {
+                return back()->with('error', 'Invalid additional service information provided.');
+            }
+            
+            return back()->with('error', 'Registration failed. Please try again. Error: ' . $e->getMessage())
+                ->withInput();
+        }
     }
 
     /**

@@ -8,23 +8,23 @@
             <img
                 alt="Pet shop front view"
                 class="w-full rounded-lg h-64 object-cover"
-                src="{{ asset('img/IMG_1142-e1490899405898 2 (2).png') }}"
+                src="{{ Storage::url($pethotels->petHotelImages->first()->main_image) }}"
             />
             <div class="mt-4 flex space-x-4">
                 <img
                     alt="Pet shop interior view 1"
                     class="w-1/3 h-24 object-cover rounded-lg"
-                    src="{{ asset('img/kandang kucing 1.png') }}"
+                    src="{{ Storage::url($pethotels->petHotelImages->first()->image_1) }}"
                 />
                 <img
                     alt="Pet shop interior view 2"
                     class="w-1/3 h-24 object-cover rounded-lg"
-                    src="{{ asset('img/kandang kucing2 1.png') }}"
+                    src="{{ Storage::url($pethotels->petHotelImages->first()->image_2) }}"
                 />
                 <img
                     alt="Pet shop interior view 3"
                     class="w-1/3 h-24 object-cover rounded-lg"
-                    src="{{ asset('img/kandang kucing 1.png') }}"
+                    src="{{ Storage::url($pethotels->petHotelImages->first()->image_3) }}"
                 />
             </div>
         </div>

@@ -135,7 +135,7 @@
             @foreach ($pethotels as $p)
                 <div class="w-1/4 flex-shrink-0 bg-white rounded-2xl shadow-md">
                     <div class="relative w-full h-0" style="padding-bottom: 75%;">
-                        <img src="{{ asset('img/communication.jpg') }}" alt="Pet Shop"
+                        <img src="{{ Storage::url($p->petHotelImages->first()->main_image) }}" alt="Pet Shop"
                             class="absolute inset-0 w-full h-full object-cover rounded-t-2xl">
                     </div>
                     <div class="p-4">
