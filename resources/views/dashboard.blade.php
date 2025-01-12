@@ -87,7 +87,7 @@
                     @foreach ($pethotels as $p)
                     <div class="w-[calc(25%-18px)] min-w-[250px] overflow-hidden rounded-lg border border-gray-200 bg-white shadow">
                         <div class="relative w-full h-0" style="padding-bottom: 75%;">
-                            <img src="{{ asset('img/petShop.png') }}" alt="Pet Shop"
+                            <img src="{{ Storage::url($p->petHotelImages->first()->main_image) }}" alt="Pet Shop"
                                 class="absolute inset-0 w-full h-full object-cover rounded-t-lg">
                         </div>
                         <div class="p-4">

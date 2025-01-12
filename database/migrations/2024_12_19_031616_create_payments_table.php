@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('order_id')->unique();
             $table->string('transaction_id')->unique()->nullable();
             $table->decimal('amount', 10, 2);
-            $table->enum('status', ['paid', 'failed', 'pending']);
+            $table->string('status');
             $table->string('payment_type')->nullable();
             $table->timestamp('paid_at')->nullable();
             $table->timestamps();

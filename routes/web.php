@@ -47,7 +47,8 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
-    Route::get('/registerVendor', [PetHotelController::class, 'registerVendor'])->name('registerVendor');
+    Route::get('/registerVendor', [PetHotelController::class, 'registerVendor'])->name('vendor.registration');
+    Route::post('/registerVendor/create', [PetHotelController::class, 'storeRegistration'])->name('vendor.registration.store');
     Route::get('/booking', [BookingController::class, 'list'])->name('list');
 
     Route::post('/payments/pay/{booking}', [PaymentController::class, 'pay'])->name('payments.pay');
@@ -56,6 +57,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/booking/finish/{id}', [BookingController::class, 'finishBooking'])->name('booking.finish');
     Route::post('/booking/review', [BookingController::class, 'storeReview'])->name('booking.review');
 
+    Route::get('/pets', [ProfileController::class, 'pets']);
+    Route::get('/contacts', [ProfileController::class, 'contacts']);
     
 });
 
