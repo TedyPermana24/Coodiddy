@@ -163,6 +163,7 @@
                       @for ($i = 0; $i < (5 - ceil($p->reviews_avg_rating)); $i++)
                         <img src="{{ asset('svg/star-empty.svg') }}" alt="Empty star" class="w-6 h-6">
                       @endfor
+
                     </div>
                   </div>
                   @php

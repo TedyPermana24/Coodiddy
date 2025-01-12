@@ -15,7 +15,7 @@
         <a href="{{ route('home') }}" class="hover:text-[#6B4423] text-3xl font-bold">Coodiddy</a>
     </div>
     <div class="flex items-center space-x-8 mr-16">
-        <p><a href="{{ route('registerVendor') }}" class="text-gray-800 hover:text-[#6B4423] font-poppins font-normal text-base">Register as Vendor?</a></p>
+        <p><a href="{{ route('vendor.registration') }}" class="text-gray-800 hover:text-[#6B4423] font-poppins font-normal text-base">Register as Vendor?</a></p>
         <p><a href="{{ route('vendor') }}" class="text-gray-800 hover:text-[#6B4423] font-poppins font-normal text-base">Vendor</a></p>
 
         @auth
@@ -47,7 +47,11 @@
                 <div class="self-stretch justify-start items-center inline-flex">
                     <img src="{{ asset('svg/vendor.svg') }}" class="w-4 h-4 mr-2" alt="No Vendor Icon">
                     <div class="w-32 h-4 text-black text-xs font-normal font-poppins">
-                        {{ Auth::user()->vendor_name ?? 'No Vendor' }}
+                        @if (Auth::user()->petHotels && Auth::user()->petHotels->status === 'active')
+                        {{ Auth::user()->petHotels->name }} <!-- Nama pet hotel jika status aktif -->
+                        @else
+                            No Vendor
+                        @endif
                     </div>
                 </div>
             </div>

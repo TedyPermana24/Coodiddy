@@ -17,9 +17,9 @@ return new class extends Migration
             $table->string('name');
             $table->text('location');
             $table->text('description')->nullable();
-            $table->string('image')->nullable();
             $table->string('address')->nullable();
             $table->string('phone')->nullable();
+            $table->enum('status', ['active', 'non-active'])->default('non-active');;
             $table->timestamps();
         });
     }

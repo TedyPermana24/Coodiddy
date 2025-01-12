@@ -9,7 +9,11 @@ class HotelPricing extends Model
 {
     use HasFactory;
 
-    
+    protected $fillable = [
+        'hotel_id',
+        'species',
+        'price_per_day'
+    ];
 
     public function PetHotel()
     {
