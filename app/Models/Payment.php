@@ -10,19 +10,27 @@ class Payment extends Model
     use HasFactory;
 
     protected $fillable = [
-        'hotel_id',
-        'species',
-        'price_per_day',
-        'additional_service',
-        'service_price',
-        'created_at',
-        'updated_at',
+        'booking_id',
+        'order_id',
+        'amount',
+        'status',
+        'payment_type',
+        'transaction_id',
+        'paid_at',
     ];
 
-    /**
-     * Relasi ke tabel Bookings
-     * Satu pembayaran terhubung dengan satu booking
-     */
+    protected $dates = [
+        'paid_at',
+        'expired_at',
+        'created_at',
+        'updated_at'
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function booking()
     {
         return $this->belongsTo(Booking::class);

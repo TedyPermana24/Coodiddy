@@ -1,13 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-  <g clip-path="url(#clip0)">
-    <!-- Bintang penuh abu-abu -->
-    <path d="M8 11.2503L11.8625 13.5815L10.8375 9.18779L14.25 6.23154L9.75625 5.85029L8 1.70654L6.24375 5.85029L1.75 6.23154L5.1625 9.18779L4.1375 13.5815L8 11.2503Z" fill="#90A3BF"/>
-    <!-- Setengah bintang (emas) -->
-    <path d="M8 1.70654L9.75625 5.85029L14.25 6.23154L10.8375 9.18779L8 11.2503L8 1.70654" fill="#FFD700"/>
+  <g clip-path="url(#clip0_4001_2627)">
+    <path d="M8 1.70654L6.24375 5.85029L1.75 6.23154L5.1625 9.18779L4.1375 13.5815L8 11.2503V1.70654Z" fill="#FBAD39"/>
+    <path d="M8 1.70654L9.75625 5.85029L14.25 6.23154L10.8375 9.18779L11.8625 13.5815L8 11.2503V1.70654Z" fill="#E0E0E0"/>
   </g>
   <defs>
-    <clipPath id="clip0">
-      <rect width="16" height="16" fill="none"/>
+    <clipPath id="clip0_4001_2627">
+      <rect width="15" height="15" fill="white" transform="translate(0.5 0.456543)"/>
     </clipPath>
   </defs>
 </svg>
