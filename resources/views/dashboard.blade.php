@@ -1,5 +1,6 @@
 @extends('components.layout')
 
+
 @section('content')
     <div class="banner">
         <img

@@ -143,7 +143,7 @@
           <div id="slider" class="flex gap-6 transition-transform duration-500 ease-in-out">
             <!-- Cards -->
             @foreach ($pethotels as $p)
-              <div class="w-1/4 flex-shrink-0 bg-white rounded-2xl shadow-md">
+              <div class="flex-shrink-0 bg-white rounded-2xl shadow-md">
                 <div class="relative w-full h-0" style="padding-bottom: 75%;">
                   <img src="{{ asset('img/communication.jpg') }}" alt="Pet Shop"
                     class="absolute inset-0 w-full h-full object-cover rounded-t-2xl">
@@ -178,7 +178,7 @@
                     <img src="{{ asset('svg/location-icon.svg') }}" alt="Location icon" class="w-5 h-5">
                     <span class="text-xl font-medium text-[#0071FF]">{{ $p->location }}</span>
                   </div>
-                  <div class="flex items-center justify-between mt-2">
+                  <div class="flex items-center justify-between mt-2 gap-3">
                     @php
                       $minPrice = $p->hotelPricings->min('price_per_day');
                     @endphp
