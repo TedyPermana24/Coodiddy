@@ -66,8 +66,8 @@
                 </div> 
                 <!-- Settings Menu Item -->
                 <div class="self-stretch justify-start items-center gap-2 inline-flex">
-                    <a href="{{ route('profile.edit') }}" class="w-32 h-4 text-black text-xs font-normal font-poppins flex items-center">
-                        <img src="{{ asset('svg/settings.svg') }}" class="w-4 h-4 mr-2" alt="Settings Icon">
+                    <a href="#" class="w-32 h-4 text-black text-xs font-normal font-poppins flex items-center"> {{-- routenya arahkan ke profile/edit jadi di profile ada views  --}}
+                        <img src="{{ asset('svg/settings.svg') }}" class="w-4 h-4 mr-2" alt="Settings Icon"> {{-- profile, pets, contact terhubung masuk ke settings, jadi ntar perbaiki lagi urg simpen layoutna views--}}
                         Settings
                     </a>
                 </div>
