@@ -159,45 +159,45 @@
   
 
   <!-- Footer -->
-<footer class="bg-[#FFF5E0] w-full pt-20 pb-4">
+  <footer class="bg-[#FFF5E0] w-full pt-8 sm:pt-12 md:pt-16 lg:pt-20 pb-4">
     <div class="container mx-auto px-4">
         <!-- Footer Content -->
-        <div class="flex justify-between mb-8">
+        <div class="flex flex-col lg:flex-row lg:justify-between gap-8 lg:gap-0 mb-8">
             <!-- Brand Section -->
-            <div class="w-1/3">
-                <h2 class="text-4xl font-bold text-[#4A3B32] mb-8">Coodiddy</h2>
-                <p class="text-gray-600 mb-20 text-lg">Our mission is to connect pet owners with trusted caregivers, making pet care services accessible, convenient, and reliable for everyone.</p>
+            <div class="w-full lg:w-1/3">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-[#4A3B32] mb-4 sm:mb-6 lg:mb-8 text-center lg:text-left">Coodiddy</h2>
+                <p class="text-sm sm:text-base md:text-lg text-gray-600 mb-8 lg:mb-20 text-center lg:text-left">Our mission is to connect pet owners with trusted caregivers, making pet care services accessible, convenient, and reliable for everyone.</p>
             </div>
   
             <!-- Navigation Sections -->
-            <div class="flex gap-20">
+            <div class="flex flex-col sm:flex-row gap-8 sm:gap-12 md:gap-16 lg:gap-20 justify-center lg:justify-end">
                 <!-- Pages Section -->
-                <div>
-                    <h3 class="text-2xl font-semibold text-[#4A3B32] mb-8">Page</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-600 mb-20 text-lg footer-nav hover:footer-nav">Register as a vendor?</a></li>
-                        <li><a href="#" class="text-gray-600 mb-20 text-lg footer-nav hover:footer-nav">Vendor</a></li>
+                <div class="text-center sm:text-left">
+                    <h3 class="text-xl sm:text-2xl font-semibold text-[#4A3B32] mb-4 sm:mb-6 lg:mb-8">Page</h3>
+                    <ul class="space-y-2 sm:space-y-3">
+                        <li><a href="#" class="text-sm sm:text-base md:text-lg text-gray-600 footer-nav hover:footer-nav">Register as a vendor?</a></li>
+                        <li><a href="#" class="text-sm sm:text-base md:text-lg text-gray-600 footer-nav hover:footer-nav">Vendor</a></li>
                     </ul>
                 </div>
   
                 <!-- Community Section -->
-                <div>
-                    <h3 class="text-2xl font-semibold text-[#4A3B32] mb-8 footer-nav hover:footer-nav">Community</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-600 mb-20 text-lg footer-nav hover:footer-nav">Events</a></li>
-                        <li><a href="#" class="text-gray-600 mb-20 text-lg footer-nav hover:footer-nav">Blog</a></li>
-                        <li><a href="#" class="text-gray-600 mb-20 text-lg footer-nav hover:footer-nav">Article</a></li>
+                <div class="text-center sm:text-left">
+                    <h3 class="text-xl sm:text-2xl font-semibold text-[#4A3B32] mb-4 sm:mb-6 lg:mb-8 footer-nav hover:footer-nav">Community</h3>
+                    <ul class="space-y-2 sm:space-y-3">
+                        <li><a href="#" class="text-sm sm:text-base md:text-lg text-gray-600 footer-nav hover:footer-nav">Events</a></li>
+                        <li><a href="#" class="text-sm sm:text-base md:text-lg text-gray-600 footer-nav hover:footer-nav">Blog</a></li>
+                        <li><a href="#" class="text-sm sm:text-base md:text-lg text-gray-600 footer-nav hover:footer-nav">Article</a></li>
                     </ul>
                 </div>
   
                 <!-- Socials Section -->
-                <div>
-                    <h3 class="text-2xl font-semibold text-[#4A3B32] mb-8">Socials</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-600 mb-20 text-lg footer-nav hover:footer-nav">Discord</a></li>
-                        <li><a href="#" class="text-gray-600 mb-20 text-lg footer-nav hover:footer-nav">Instagram</a></li>
-                        <li><a href="#" class="text-gray-600 mb-20 text-lg footer-nav hover:footer-nav">Twitter</a></li>
-                        <li><a href="#" class="text-gray-600 mb-20 text-lg footer-nav hover:footer-nav">Facebook</a></li>
+                <div class="text-center sm:text-left">
+                    <h3 class="text-xl sm:text-2xl font-semibold text-[#4A3B32] mb-4 sm:mb-6 lg:mb-8">Socials</h3>
+                    <ul class="space-y-2 sm:space-y-3">
+                        <li><a href="#" class="text-sm sm:text-base md:text-lg text-gray-600 footer-nav hover:footer-nav">Discord</a></li>
+                        <li><a href="#" class="text-sm sm:text-base md:text-lg text-gray-600 footer-nav hover:footer-nav">Instagram</a></li>
+                        <li><a href="#" class="text-sm sm:text-base md:text-lg text-gray-600 footer-nav hover:footer-nav">Twitter</a></li>
+                        <li><a href="#" class="text-sm sm:text-base md:text-lg text-gray-600 footer-nav hover:footer-nav">Facebook</a></li>
                     </ul>
                 </div>
             </div>
@@ -205,10 +205,10 @@
   
         <!-- Copyright -->
         <div class="border-t-2 border-gray-300 pt-4">
-            <p class="text-xl font-semibold text-[#4A3B32]">&copy;2024 Coodiddy, All rights reserved</p>
+            <p class="text-base sm:text-lg md:text-xl font-semibold text-[#4A3B32] text-center lg:text-left">&copy;2024 Coodiddy, All rights reserved</p>
         </div>
     </div>
-  </footer>
+</footer>
 
   @yield('script')
 

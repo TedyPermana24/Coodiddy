@@ -1,5 +1,6 @@
 @extends('components.layout')
 
+
 @section('content')
         <div class="banner">
             <img
@@ -66,7 +67,7 @@
             </div>
             
             <div class="mx-auto px-6 max-w-7xl"> 
-                <div class="flex flex-wrap gap-6"> 
+                <div class="flex flex-wrap gap-6 justify-center "> 
                     <!-- Card -->
                     @foreach ($pethotels as $p)
                         <div class="w-[calc(25%-18px)] min-w-[250px] overflow-hidden rounded-lg border border-gray-200 bg-white shadow">
@@ -93,19 +94,19 @@
                                 </div>
                                 <div class="flex items-center gap-2 mb-2">
                                     <img src="{{ asset('svg/pet-icon.svg') }}" alt="Pet icon" class="w-5 h-5">
-                                    <span class="text-sm font-medium text-[#8B5E3C]">{{ $p->species }}</span>
+                                    <span class="text-base font-medium text-[#8B5E3C]">{{ $p->species }}</span>
                                 </div>
                                 <div class="flex items-center gap-2">
                                     <img src="{{ asset('svg/location-icon.svg') }}" alt="Location icon" class="w-5 h-5">
-                                    <span class="text-sm font-medium text-[#0071FF]">{{ $p->location }}</span>
+                                    <span class="text-base font-medium text-[#0071FF]">{{ $p->location }}</span>
                                 </div>
                                 <div class="flex items-center justify-between mt-2">
-                                    <p class="text-sm">
+                                    <p class="text-base">
                                         <span class="font-bold">Rp{{ number_format($p->min_price, 0, ',', '.') }}/</span>
                                         <span class="font-bold text-gray-500">day</span>
                                     </p>
                                     <a href="{{ route('vendor.detail', ['id' => $p->id]) }}" 
-                                        class="bg-[#B17F5B] hover:bg-[#96684A] text-white px-3 py-1 rounded-md font-medium text-sm">
+                                        class="bg-[#B17F5B] hover:bg-[#96684A] text-white px-3 py-1 rounded-md font-medium text-base w-1/3 text-center ">
                                         Detail
                                     </a>
                                 </div>
