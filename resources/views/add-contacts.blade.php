@@ -1,5 +1,7 @@
 @extends('components.layout')
-<div class="min-h-screen mb-20 mx-64 mt-40">
+
+@section('content')
+<div class="min-h-auto mb-20 mx-64 mt-40">
 
     <!-- Header 2 -->
     <header class="bg-white shadow mx-20">
@@ -57,9 +59,7 @@
                         </div>
                         <div class="flex justify-end mb-4">
                             <button id="edit-profile-btn" class="text-blue-600 hover:text-blue-800" onclick="toggleEditProfile()">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                    <path d="M17.414 2.586a2 2 0 010 2.828l-9.9 9.9a1 1 0 01-.393.242l-4 1a1 1 0 01-1.212-1.212l1-4a1 1 0 01.242-.393l9.9-9.9a2 2 0 012.828 0zm-1.414 1.414L5.414 14H4v1.414L14 4.414 16 2.414a1 1 0 10-1.414-1.414z" />
-                                </svg>
+                                <img src="{{ asset('svg/edit-pen.svg') }}" alt="Edit Icon" class="h-5 w-5">
                             </button>
                         </div>
                         <div id="profile-display">
@@ -106,7 +106,7 @@
 
                     <!-- Delete Account Section -->
                     <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                        <h3 class="text-lg font-bold text-gray-800 mb-4 text-red-600">Delete Account</h3>
+                        <h3 class="text-lg font-bold mb-4 text-red-600">Delete Account</h3>
                         <p class="text-gray-700 mb-4"><span class="text-red-600">Warning:</span> Deleting your account is irreversible. Please proceed with caution.</p>
                         <button class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700" onclick="openModal()">Delete Account</button>
                     </div>
@@ -116,8 +116,6 @@
         </div>
     </main>
 </div>
-
-@section('content')
 
 <!-- Modal for Delete Confirmation -->
 <div id="deleteModal" class="hidden fixed z-10 inset-0 bg-gray-800 bg-opacity-75 overflow-y-auto">
@@ -132,7 +130,9 @@
         </div>
     </div>
 </div>
+@endsection
 
+@section('script')
 <script>
     let isEditingImage = false;
 
