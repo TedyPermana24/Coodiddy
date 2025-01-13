@@ -62,30 +62,34 @@ class User extends Authenticatable
         return $this->role === 'customer';
     }
 
-    /**
-     * Relasi ke tabel Pets
-     * Satu pengguna dapat memiliki banyak hewan peliharaan
-     */
+    
     public function pets()
     {
         return $this->hasMany(Pet::class);
     }
-
-    /**
-     * Relasi ke tabel Bookings
-     * Satu pengguna dapat membuat banyak booking
-     */
+   
     public function bookings()
     {
         return $this->hasMany(Booking::class);
     }
 
-    /**
-     * Relasi ke tabel Reviews
-     * Satu pengguna dapat membuat banyak ulasan/review
-     */
     public function reviews()
     {
         return $this->hasMany(Review::class);
+    }
+
+    public function contacts()
+    {
+        return $this->hasMany(Contact::class); 
+    }
+
+    public function registration()
+    {
+        return $this->hasOne(RegistrationVendor::class, 'user_id');
+    }
+
+    public function petHotels()
+    {
+        return $this->hasOne(PetHotel::class, 'owner_id');
     }
 }

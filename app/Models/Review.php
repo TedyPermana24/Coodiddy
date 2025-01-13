@@ -13,7 +13,7 @@ class Review extends Model
         'user_id',
         'pet_hotel_id',
         'rating',
-        'comment',
+        'review',
     ];
 
     /**

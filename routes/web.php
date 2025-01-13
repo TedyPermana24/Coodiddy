@@ -1,13 +1,12 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PetHotelController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
-
 
 
 Route::get('/', function () {
@@ -29,6 +28,11 @@ Route::get('/test', function () {
 
 Route::get('/', [LandingPageController::class, 'index'])->name('home');
 
+Route::get('/list', function () {
+    return view('listPembayaran');
+});
+
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -37,12 +41,25 @@ Route::middleware('auth')->group(function () {
     
     Route::get('/vendors', [PetHotelController::class, 'index'])->name('vendor');
     Route::get('/vendors/{id}', [PetHotelController::class, 'detail'])->name('vendor.detail');
-    Route::get('/booking', [PaymentController::class, 'index'])->name('booking');
+    Route::get('/vendors/{id}/booking', [BookingController::class, 'index'])->name('booking');
+    Route::post('/vendors/{id}/booking/store', [BookingController::class, 'store'])->name('booking.store');
+    Route::post('/vendors/{id}/booking/cancel', [BookingController::class, 'cancel'])->name('booking.cancel');
 
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
-    Route::get('/registerVendor', [PetHotelController::class, 'registerVendor'])->name('registerVendor');
+    Route::get('/registerVendor', [PetHotelController::class, 'registerVendor'])->name('vendor.registration');
+    Route::post('/registerVendor/create', [PetHotelController::class, 'storeRegistration'])->name('vendor.registration.store');
+    Route::get('/booking', [BookingController::class, 'list'])->name('list');
 
+    Route::post('/payments/pay/{booking}', [PaymentController::class, 'pay'])->name('payments.pay');
+    Route::post('/payments/callback', [PaymentController::class, 'callback'])->name('payments.callback');
+
+    Route::post('/booking/finish/{id}', [BookingController::class, 'finishBooking'])->name('booking.finish');
+    Route::post('/booking/review', [BookingController::class, 'storeReview'])->name('booking.review');
+
+    Route::get('/pets', [ProfileController::class, 'pets']);
+    Route::get('/contacts', [ProfileController::class, 'contacts']);
+    
 });
 
 require __DIR__.'/auth.php';

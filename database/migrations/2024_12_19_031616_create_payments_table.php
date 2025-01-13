@@ -12,19 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('payments', function (Blueprint $table) {
-            $table->id(); 
-            $table->foreignId('booking_id')->constrained('bookings')->onDelete('cascade'); 
-            $table->string('transaction_id')->nullable();
-            $table->enum('gateway_name', ['midtrans', 'xendit', 'stripe', 'paypal', 'lainnya'])->default('lainnya');
-            $table->text('payment_url')->nullable();
-            $table->enum('callback_status', ['pending', 'success', 'failed'])->default('pending');
-            $table->string('currency', 10)->default('IDR');
-            $table->json('response_data')->nullable(); 
-            $table->dateTime('expired_at')->nullable(); 
-            $table->string('signature_key')->nullable(); 
-            $table->enum('payment_status', ['pending', 'berhasil', 'gagal'])->default('pending'); 
-            $table->decimal('total_amount', 10, 2); 
+            $table->id();
+            $table->unsignedBigInteger('booking_id');
+            $table->string('order_id')->unique();
+            $table->string('transaction_id')->unique()->nullable();
+            $table->decimal('amount', 10, 2);
+            $table->string('status');
+            $table->string('payment_type')->nullable();
+            $table->timestamp('paid_at')->nullable();
             $table->timestamps();
+            $table->foreign('booking_id')->references('id')->on('bookings')->onDelete('cascade');
         });
     }
 
