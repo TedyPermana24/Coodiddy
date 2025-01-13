@@ -238,7 +238,7 @@
           ${newPetType} - Rp.${newPrice}
           <input type="hidden" name="pet_types[${petTypeCount}][type]" value="${newPetType}">
           <input type="hidden" name="pet_types[${petTypeCount}][price]" value="${newPrice}">
-          <button type="button" class="text-red-500 ml-2" onclick="removePetType(this)">Cancel</button>
+          <button type="button" class="text-gray ml-2" onclick="removePetType(this)">X</button>
         </div>
       `);
       
@@ -290,7 +290,7 @@
           ${newService} - Rp.${newPrice}
           <input type="hidden" name="additional_services[${serviceCount}][service_name]" value="${newService}">
           <input type="hidden" name="additional_services[${serviceCount}][price]" value="${newPrice}">
-          <button type="button" class="text-red-500 ml-2" onclick="removeService(this)">Cancel</button>
+          <button type="button" class="text-gray ml-2" onclick="removeService(this)">X</button>
         </div>
       `);
       
