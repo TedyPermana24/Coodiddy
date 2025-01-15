@@ -13,7 +13,7 @@ class Contact extends Model
         'user_id', 
         'phone_number', 
         'address', 
-        'email'
+        'city'
     ];
 
     public function user()

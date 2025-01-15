@@ -10,7 +10,7 @@
                 <div class="text-center mb-6">
                     <h2 class="text-xl font-bold">Daypet Care</h2>
                     <div class="flex gap-1 items-center justify-center">
-                        @for ($i = 0; $i < floor($p->reviews_avg_rating); $i++)
+                        {{-- @for ($i = 0; $i < floor($p->reviews_avg_rating); $i++)
                         <img src="{{ asset('svg/star-filled.svg') }}" alt="Filled star" class="w-4 h-4">
                         @endfor
                     
@@ -20,7 +20,7 @@
                     
                         @for ($i = 0; $i < (5 - ceil($p->reviews_avg_rating)); $i++)
                             <img src="{{ asset('svg/star-empty.svg') }}" alt="Empty star" class="w-4 h-4">
-                        @endfor
+                        @endfor --}}
                     </div>   
                 </div>
 

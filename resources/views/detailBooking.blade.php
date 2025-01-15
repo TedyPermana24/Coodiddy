@@ -189,7 +189,7 @@
                                     <select name="address_id" class="w-full p-2 border rounded-lg text-gray-500" required>
                                         <option value="">Choose an address</option>
                                         @foreach($contacts as $contact)
-                                            <option value="{{ $contact->id }}">{{ $contact->city }} | {{ $contact->phone_number }} | {{ $contact->address }}</option>
+                                            <option value="{{ $contact->id }}">{{ $contact->address }}</option>
                                         @endforeach
                                     </select>
                                 </div>
