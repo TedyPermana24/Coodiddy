@@ -14,17 +14,14 @@ class VendorController extends Controller
         return view('dashboardVendor');
     }
 
-    public function indexOrder(){
+    public function order(){
         return view('vendorOrder');
     }
 
-    public function detailOrder(){
+    public function detail(){
         return view('detailOrder');
     }
 
-    public function registration(){
-        return view('registrationVendor');
-    }
     /**
      * Show the form for creating a new resource.
      */

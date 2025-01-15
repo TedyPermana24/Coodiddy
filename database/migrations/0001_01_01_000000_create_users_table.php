@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('phone_number')->nullable();
             $table->enum('role', ['user', 'vendor', 'admin']);
             $table->integer('balance')->default(0);
+            $table->string('image')->nullable();
             $table->timestamps();
         });
 
