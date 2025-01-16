@@ -64,7 +64,7 @@
                         @endif
                         <div class="flex items-center border border-gray-300 rounded-lg overflow-hidden">
                             <input
-                                class="p-2 border-none text-gray-500 w-full focus:outline-none"
+                                class="p-2 border-none text-gray-500 w-full focus:border-[#B17F5B] focus:ring-0"
                                 type="text"
                                 name="search"
                                 placeholder="Search here"

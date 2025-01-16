@@ -1,10 +1,10 @@
-@extends('components.layout')
+@extends('components.layoutVendor')
 
 @section('content')
     <!-- Main Content -->
     <div class="flex flex-1">
         <!-- Sidebar -->
-        <aside class="w-64 bg-[#f8f0e3] py-6 px-4 flex flex-col h-screen">
+        <aside class="w-64 bg-[#f8f0e3] py-6 px-4 flex flex-col h-auto">
             <div class="flex-1">
                 <!-- Vendor Name -->
                 <div class="text-center mb-6">
@@ -50,13 +50,11 @@
                         <img src="{{ asset('svg/settings.svg') }}" alt="Settings" class="w-4 h-4">
                         <a href="#" class="text-black">Settings</a>
                     </div>
+                    <div class="flex items-center gap-2 pt-4">
+                        <img src="{{ asset('svg/back.svg') }}" alt="Back" class="w-4 h-4">
+                        <a href="#" class="text-black">Back to Coodiddy</a>
+                    </div>
                 </nav>
-            </div>
-
-            <!-- Back Link -->
-            <div class="flex items-center gap-2 pt-4">
-                <img src="{{ asset('svg/back.svg') }}" alt="Back" class="w-4 h-4">
-                <a href="#" class="text-black">Back to Coodiddy</a>
             </div>
         </aside>
 

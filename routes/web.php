@@ -75,9 +75,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/contacts/{contact}', [ContactController::class, 'update'])->name('contacts.update');
     Route::delete('/contacts/{contact}', [ContactController::class, 'destroy'])->name('contacts.destroy');
 
-    Route::get('/dashboard/vendor', [VendorController::class, 'index']);
-    Route::get('/dashboard/vendor/order', [VendorController::class, 'order']);
-    Route::get('/dashboard/vendor/order/detail', [VendorController::class, 'detail']);
+    Route::get('/dashboard/vendor', [VendorController::class, 'index'])->name('dashboard.vendor');
+    Route::get('/dashboard/vendor/order', [VendorController::class, 'order'])->name('dashboard.vendor.order');
+    Route::get('/dashboard/vendor/order/detail', [VendorController::class, 'detail'])->name('dashboard.vendor.order.detail');
 
  
 });

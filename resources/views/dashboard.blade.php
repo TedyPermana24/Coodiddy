@@ -19,7 +19,7 @@
         <div class="container-filter">
             <form action="{{ route('vendor') }}" method="GET" class="mb-4 flex flex-wrap items-center justify-between gap-4">
                 <div class="flex items-center gap-4">
-                    <select name="location" class="border border-gray-300 rounded-md pr-8 py-2">
+                    <select name="location" class="border border-gray-300 rounded-md pr-8 py-2 focus:border-[#B17F5B] focus:ring-0">
                         <option value="">Select Location</option>
                         @foreach ($locationList as $loc)
                             <option value="{{ $loc }}" {{ old('location', $location) === $loc ? 'selected' : '' }}>
