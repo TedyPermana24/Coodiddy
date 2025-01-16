@@ -36,8 +36,17 @@ Route::get('/test', function () {
 
 Route::get('/', [LandingPageController::class, 'index'])->name('home');
 
-Route::get('/list', function () {
-    return view('listPembayaran');
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/admin/registration', [AdminController::class, 'index'])->name('admin.registration');
+    Route::get('/admin/registration/{id}', [AdminController::class, 'detail'])->name('admin.registration.detail');
+    Route::get('/admin/registration/{id}/accept', [AdminController::class, 'accept'])->name('admin.registration.accept');;
+    Route::get('/admin/registration/{id}/reject', [AdminController::class, 'reject'])->name('admin.registration.reject');;
+});
+
+Route::middleware(['auth', 'role:vendor'])->group(function () {
+    Route::get('/dashboard/vendor', [VendorController::class, 'index'])->name('dashboard.vendor.order');
+    Route::get('/dashboard/vendor/detail/{id}', [VendorController::class, 'detail'])->name('dashboard.vendor.order.detail');
+    Route::post('/dashboard/vendor/detail/{id}/processed', [VendorController::class, 'processed'])->name('vendor.processed');
 });
 
 
@@ -74,16 +83,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/contacts', [ContactController::class, 'store'])->name('contacts.store');
     Route::patch('/contacts/{contact}', [ContactController::class, 'update'])->name('contacts.update');
     Route::delete('/contacts/{contact}', [ContactController::class, 'destroy'])->name('contacts.destroy');
-
-    Route::get('/dashboard/vendor', [VendorController::class, 'index'])->name('dashboard.vendor');
-    Route::get('/dashboard/vendor/order', [VendorController::class, 'order'])->name('dashboard.vendor.order');
-    Route::get('/dashboard/vendor/order/detail', [VendorController::class, 'detail'])->name('dashboard.vendor.order.detail');
-
  
 });
 
-Route::get('/admin/registration', [AdminController::class, 'index'])->name('admin.registration');
-Route::get('/admin/registration/{id}', [AdminController::class, 'detail'])->name('admin.registration.detail');
-Route::get('/admin/registration/{id}/accept', [AdminController::class, 'accept'])->name('admin.registration.accept');
-Route::get('/admin/registration/{id}/reject', [AdminController::class, 'reject'])->name('admin.registration.reject');
+
 require __DIR__.'/auth.php';

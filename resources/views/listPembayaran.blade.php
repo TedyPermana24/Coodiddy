@@ -116,7 +116,7 @@
                                         <img
                                             alt="Pet shop image"
                                             class="w-24 h-24 rounded-lg"
-                                            src="https://storage.googleapis.com/a1aa/image/Zo7u0SdtGQb5B5RwreTWnfcCZXpsuFB5LBgsAp6YNZo8EMenA.jpg"
+                                            src="{{Storage::url($booking['images'])}}"
                                         />
                                         <div class="flex flex-col gap-2">
                                             <p>

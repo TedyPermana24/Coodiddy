@@ -19,7 +19,8 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('address')->nullable();
             $table->string('phone')->nullable();
-            $table->enum('status', ['active', 'non-active'])->default('non-active');;
+            $table->integer('balance')->nullable()->default(0);
+            $table->enum('status', ['active', 'non-active'])->default('non-active');
             $table->timestamps();
         });
     }

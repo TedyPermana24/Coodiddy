@@ -45,15 +45,19 @@
                     </div>
                 </div>
                 <div class="self-stretch justify-start items-center inline-flex">
-                    <img src="{{ asset('svg/vendor.svg') }}" class="w-4 h-4 mr-2" alt="No Vendor Icon">
+    <!-- Link utama ke dashboard vendor order -->
+                <a href="{{ route('dashboard.vendor.order') }}" class="flex items-center">
+                    <img src="{{ asset('svg/vendor.svg') }}" class="w-4 h-4 mr-2" alt="Vendor Icon">
                     <div class="w-32 h-4 text-black text-xs font-normal font-poppins">
                         @if (Auth::user()->petHotels && Auth::user()->petHotels->status === 'active')
-                        {{ Auth::user()->petHotels->name }} <!-- Nama pet hotel jika status aktif -->
+                            {{ Auth::user()->petHotels->name }} <!-- Nama pet hotel jika status aktif -->
                         @else
                             No Vendor
                         @endif
                     </div>
-                </div>
+                </a>
+            </div>
+
             </div>
         
             <!-- Menu Options Section -->

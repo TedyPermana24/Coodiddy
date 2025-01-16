@@ -97,8 +97,6 @@ class PetHotelController extends Controller
         ]);
     }
 
-
-
     public function detail($id)
     {
         // Ambil data PetHotel dengan harga, rata-rata rating, dan review lengkap

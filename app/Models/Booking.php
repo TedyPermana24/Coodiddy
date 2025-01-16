@@ -44,7 +44,7 @@ class Booking extends Model
      */
     public function pet()
     {
-        return $this->belongsTo(Pet::class);
+        return $this->belongsTo(Pet::class, );
     }
 
     /**
@@ -53,7 +53,7 @@ class Booking extends Model
      */
     public function petHotel()
     {
-        return $this->belongsTo(PetHotel::class);
+        return $this->belongsTo(PetHotel::class, 'pet_hotel_id');
     }
 
     public function hotelPricing()
@@ -72,7 +72,7 @@ class Booking extends Model
      */
     public function payments()
     {
-        return $this->hasMany(Payment::class);
+        return $this->hasOne(Payment::class);
     }
 
     // Mengakses layanan tambahan (dari JSON)
