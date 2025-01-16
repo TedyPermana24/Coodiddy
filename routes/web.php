@@ -79,9 +79,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard/vendor/order', [VendorController::class, 'order']);
     Route::get('/dashboard/vendor/order/detail', [VendorController::class, 'detail']);
 
-    
-    
+ 
 });
 
-Route::get('/admin', [AdminController::class, 'index']);
+Route::get('/admin/registration', [AdminController::class, 'index'])->name('admin.registration');
+Route::get('/admin/registration/{id}', [AdminController::class, 'detail'])->name('admin.registration.detail');
+Route::get('/admin/registration/{id}/accept', [AdminController::class, 'accept'])->name('admin.registration.accept');
+Route::get('/admin/registration/{id}/reject', [AdminController::class, 'reject'])->name('admin.registration.reject');
 require __DIR__.'/auth.php';

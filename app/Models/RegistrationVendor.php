@@ -25,6 +25,6 @@ class RegistrationVendor extends Model
 
     public function petHotel()
     {
-        return $this->belongsTo(PetHotel::class, 'pet_hotel_id');
+        return $this->belongsTo(PetHotel::class, 'hotel_id');
     }
 }

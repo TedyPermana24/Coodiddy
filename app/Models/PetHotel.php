@@ -47,6 +47,6 @@ class PetHotel extends Model
 
     public function registrationVendor()
     {
-        return $this->hasMany(RegistrationVendor::class, 'pet_hotel_id');
+        return $this->hasMany(RegistrationVendor::class, 'hotel_id');
     }
 }
