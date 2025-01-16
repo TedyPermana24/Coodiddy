@@ -148,7 +148,7 @@
                     <img
                         alt="Reviewer avatar"
                         class="w-12 h-12 rounded-full object-cover"
-                        src="https://ui-avatars.com/api/?name={{ urlencode($review['name']) }}"
+                        src="{{ $review['image'] ? Storage::url($review['image']) : asset('img/kucing-kosan-hendra.jpg') }}" alt="Review Image"
                     />
                     <div class="flex-1">
                        

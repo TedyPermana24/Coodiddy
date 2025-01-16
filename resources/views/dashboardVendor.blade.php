@@ -1,16 +1,16 @@
-@extends('components.layout')
+@extends('components.layoutVendor')
 
 @section('content')
     <!-- Main Content -->
     <div class="flex flex-1">
         <!-- Sidebar -->
-        <aside class="w-64 bg-[#f8f0e3] py-6 px-4 flex flex-col h-screen">
+        <aside class="w-64 bg-[#f8f0e3] py-6 px-4 flex flex-col h-auto">
             <div class="flex-1">
                 <!-- Vendor Name -->
                 <div class="text-center mb-6">
                     <h2 class="text-xl font-bold">Daypet Care</h2>
                     <div class="flex gap-1 items-center justify-center">
-                        @for ($i = 0; $i < floor($p->reviews_avg_rating); $i++)
+                        {{-- @for ($i = 0; $i < floor($p->reviews_avg_rating); $i++)
                         <img src="{{ asset('svg/star-filled.svg') }}" alt="Filled star" class="w-4 h-4">
                         @endfor
                     
@@ -20,7 +20,7 @@
                     
                         @for ($i = 0; $i < (5 - ceil($p->reviews_avg_rating)); $i++)
                             <img src="{{ asset('svg/star-empty.svg') }}" alt="Empty star" class="w-4 h-4">
-                        @endfor
+                        @endfor --}}
                     </div>   
                 </div>
 
@@ -50,13 +50,11 @@
                         <img src="{{ asset('svg/settings.svg') }}" alt="Settings" class="w-4 h-4">
                         <a href="#" class="text-black">Settings</a>
                     </div>
+                    <div class="flex items-center gap-2 pt-4">
+                        <img src="{{ asset('svg/back.svg') }}" alt="Back" class="w-4 h-4">
+                        <a href="#" class="text-black">Back to Coodiddy</a>
+                    </div>
                 </nav>
-            </div>
-
-            <!-- Back Link -->
-            <div class="flex items-center gap-2 pt-4">
-                <img src="{{ asset('svg/back.svg') }}" alt="Back" class="w-4 h-4">
-                <a href="#" class="text-black">Back to Coodiddy</a>
             </div>
         </aside>
 

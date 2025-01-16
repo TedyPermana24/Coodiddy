@@ -169,7 +169,7 @@
     <h2 class="text-xl font-semibold mb-4">Add Pet Type</h2>
     <div class="mb-4">
       <label for="petTypeDropdown" class="block text-lg font-medium mb-2">Select Pet Type</label>
-      <select id="petTypeDropdown" class="w-full p-2 border rounded">
+      <select id="petTypeDropdown" class="w-full p-2 border rounded focus:ring focus:ring-[#d4a573] focus:outline-none">
         <option value="" disabled selected>Choose a pet type</option>
         <option value="Cat">Cat</option>
         <option value="Dog">Dog</option>
@@ -177,7 +177,7 @@
     </div>
     <div class="mb-4">
       <label for="petTypePrice" class="block text-lg font-medium mb-2">Price</label>
-      <input type="number" id="petTypePrice" placeholder="Enter price" class="w-full p-2 border rounded">
+      <input type="number" id="petTypePrice" placeholder="Enter price" class="w-full p-2 border rounded focus:ring focus:ring-[#d4a573] focus:outline-none">
     </div>
     <div class="flex justify-end gap-4">
       <button type="button" id="closePetTypeModal" class="px-4 py-2 bg-gray-300 rounded-lg">Cancel</button>
@@ -193,11 +193,11 @@
     <h2 class="text-xl font-semibold mb-4">Add Additional Service</h2>
     <div>
       <label for="serviceName" class="block text-lg font-medium mb-2">Service Name</label>
-      <input type="text" id="serviceName" placeholder="Service Name" class="w-full mb-4 p-2 border rounded">
+      <input type="text" id="serviceName" placeholder="Service Name" class="w-full mb-4 p-2 border rounded focus:ring focus:ring-[#d4a573] focus:outline-none">
     </div>
     <div>
       <label for="servicePrice" class="block text-lg font-medium mb-2">Price</label>
-      <input type="number" id="servicePrice" placeholder="Price" class="w-full mb-4 p-2 border rounded">
+      <input type="number" id="servicePrice" placeholder="Price" class="w-full mb-4 p-2 border rounded focus:ring focus:ring-[#d4a573] focus:outline-none">
     </div>
     <div class="flex justify-end gap-4">
       <button type="button" id="closeServiceModal" class="px-4 py-2 bg-gray-300 rounded-lg">Cancel</button>

@@ -11,7 +11,7 @@
                     <img
                         alt="User profile picture"
                         class="rounded-full w-16 h-16 mx-auto mb-4"
-                        src="https://storage.googleapis.com/a1aa/image/FKf0W74pUD2f9UsWv0ohlbNM4f9aQ33W2GckmMoWzc93JY8nA.jpg"
+                        src="{{ Auth::user()->image ? asset(Storage::url(Auth::user()->image)) : asset('img/kucing-kosan-hendra.jpg') }}" 
                     />
                     <p class="text-center font-regular text-lg">{{ Auth::user()->name }}</p>
                     <p class="text-center font-regular text-sm">Balance : Rp {{ number_format(Auth::user()->balance, 0, ',', '.') }}</p>
@@ -64,7 +64,7 @@
                         @endif
                         <div class="flex items-center border border-gray-300 rounded-lg overflow-hidden">
                             <input
-                                class="p-2 border-none text-gray-500 w-full focus:outline-none"
+                                class="p-2 border-none text-gray-500 w-full focus:border-[#B17F5B] focus:ring-0"
                                 type="text"
                                 name="search"
                                 placeholder="Search here"

@@ -120,6 +120,7 @@ class PetHotelController extends Controller
         $reviews = $pethotels->reviews->map(function ($review) {
             return [
                 'name' => $review->user->name, // Ambil nama dari relasi user
+                'image' => $review->user->image,
                 'date' => Carbon::parse($review->created_at)->translatedFormat('j F Y'), // Format tanggal
                 'review' => $review->review, // Isi review
                 'rating' => $review->rating, // Tambahkan rating jika ada
