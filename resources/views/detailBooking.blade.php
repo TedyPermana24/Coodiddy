@@ -110,11 +110,11 @@
                                 @method('POST')
                                 <button type="submit" 
                                         class="w-full px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
-                                    Cancel Booking
+                                    Cancel
                                 </button>
                             </form>
                             
-                            <button id="pay-button" class="w-1/2 px-4 py-2 bg-amber-700 text-white rounded-lg hover:bg-amber-800">
+                            <button id="pay-button" class="w-1/2 px-4 py-2 bg-[#B17F5B] text-white rounded-lg hover:bg-[#96684A]">
                                 Pay Now
                             </button>
                         </div>
@@ -163,7 +163,7 @@
                                 <!-- Input Pet Name -->
                                 <div class="flex items-center gap-4 mb-4">
                                     <label class="block text-sm font-medium text-gray-700 w-32">Pet Name</label>
-                                    <select name="pet_id" class="w-full p-2 border rounded-lg text-gray-500" required>
+                                    <select name="pet_id" class="w-full p-2 border rounded-lg text-gray-500 focus:border-[#B17F5B] focus:ring-0" required>
                                         <option value="">Select your pet</option>
                                         @foreach($pets as $pet)
                                             <option value="{{ $pet->id }}">{{ $pet->pet_name }}</option>
@@ -173,7 +173,7 @@
 
                                 <div class="flex items-center gap-4 mb-4">
                                     <label class="block text-sm font-medium text-gray-700 w-32">Pet Type</label>
-                                    <select name="hotel_pricing_id" class="w-full p-2 border rounded-lg text-gray-500" required>
+                                    <select name="hotel_pricing_id" class="w-full p-2 border rounded-lg text-gray-500 focus:border-[#B17F5B] focus:ring-0" required>
                                         <option value="">Select a pricing</option>
                                         @foreach($petHotel->hotelPricings as $hotelPricing)
                                             <option value="{{ $hotelPricing->id }}">
@@ -186,7 +186,7 @@
                                 <!-- Alamat (Dropdown dari Contact) -->
                                 <div class="flex items-center gap-4">
                                     <label class="block text-sm font-medium text-gray-700 w-32">Address</label>
-                                    <select name="address_id" class="w-full p-2 border rounded-lg text-gray-500" required>
+                                    <select name="address_id" class="w-full p-2 border rounded-lg text-gray-500 focus:border-[#B17F5B] focus:ring-0" required>
                                         <option value="">Choose an address</option>
                                         @foreach($contacts as $contact)
                                             <option value="{{ $contact->id }}">{{ $contact->address }}</option>
@@ -202,13 +202,13 @@
                                     <!-- Day Sitting -->
                                     <div class="flex items-center gap-4">
                                         <label class="block text-sm font-medium text-gray-700 w-32">Day Sitting</label>
-                                        <input type="number" name="days" placeholder="Insert the number of days" class="w-full p-2 border rounded-lg" required>
+                                        <input type="number" name="days" placeholder="Insert the number of days" class="w-full p-2 border rounded-lg focus:border-[#B17F5B] focus:ring-0" required>
                                     </div>
                     
                                     <!-- Pick-Up/Drop-Off -->
                                     <div class="flex items-center gap-4">
                                         <label class="block text-sm font-medium text-gray-700 w-32">Pick-Up/Drop-Off</label>
-                                        <select name="pickup_dropoff" class="w-full p-2 border rounded-lg text-gray-500" required>
+                                        <select name="pickup_dropoff" class="w-full p-2 border rounded-lg text-gray-500 focus:border-[#B17F5B] focus:ring-0" required>
                                             <option value="">Choose pick-up or drop-off</option>
                                             <option value="Pick Up">Pick-up</option>
                                             <option value="Drop Off">Drop-off</option>
@@ -281,105 +281,6 @@
         }
     });
 </script>
-
-{{-- <script>
-    function formatPrice(price) {
-        return 'Rp. ' + price.toLocaleString('id-ID');
-    }
-    
-    function updatePaymentSummary() {
-        // Get selected pricing
-        const pricingSelect = document.querySelector('[name="hotel_pricing_id"]');
-        const selectedOption = pricingSelect?.options[pricingSelect.selectedIndex];
-        let pricePerDay = 0;
-        
-        if (selectedOption?.value) {
-            const priceText = selectedOption.text.split('Rp.')[1].trim();
-            pricePerDay = parseInt(priceText.replace(/\./g, '')) || 0;
-        }
-    
-        // Get number of days
-        const daysInput = document.querySelector('[name="days"]');
-        const days = parseInt(daysInput?.value) || 0;
-    
-        // Calculate base price
-        const basePrice = pricePerDay * days;
-    
-        // Get additional services
-        const serviceCheckboxes = document.querySelectorAll('[name="additional_services[]"]:checked');
-        const additionalServices = Array.from(serviceCheckboxes).map(checkbox => {
-            const priceText = checkbox.parentElement.querySelector('span').textContent;
-            const price = parseInt(priceText.match(/Rp ([\d,\.]+)/)[1].replace(/\./g, '')) || 0;
-            return {
-                name: checkbox.value,
-                price: price
-            };
-        });
-    
-        // Calculate delivery fee
-        const pickupDropoff = document.querySelector('[name="pickup_dropoff"]');
-        const deliveryFee = pickupDropoff?.value === 'Pick Up' ? 10000 : 0;
-    
-        // Update the display
-        document.getElementById('basePricePerDay').textContent = formatPrice(pricePerDay);
-        document.getElementById('numberOfDays').textContent = `${days} days`;
-        document.getElementById('subtotal').textContent = formatPrice(basePrice);
-        document.getElementById('deliveryFee').textContent = formatPrice(deliveryFee);
-    
-        // Update additional services
-        const additionalServicesContainer = document.getElementById('additionalServicesContainer');
-        const additionalServicesList = document.getElementById('additionalServicesList');
-        
-        if (additionalServices.length > 0) {
-            additionalServicesContainer.classList.remove('hidden');
-            additionalServicesList.innerHTML = additionalServices.map(service => `
-                <div class="flex justify-between text-sm text-gray-600">
-                    <span>${service.name}</span>
-                    <span>${formatPrice(service.price)}</span>
-                </div>
-            `).join('');
-        } else {
-            additionalServicesContainer.classList.add('hidden');
-            additionalServicesList.innerHTML = '';
-        }
-    
-        // Calculate and update total
-        const servicesTotal = additionalServices.reduce((sum, service) => sum + service.price, 0);
-        const total = basePrice + servicesTotal + deliveryFee;
-        document.getElementById('totalPrice').textContent = formatPrice(total);
-    }
-    
-    // Add event listeners
-    document.addEventListener('DOMContentLoaded', function() {
-        const form = document.querySelector('form');
-        if (form) {
-            const inputs = form.querySelectorAll('select, input');
-            inputs.forEach(input => {
-                input.addEventListener('change', updatePaymentSummary);
-            });
-    
-            // Initial calculation
-            updatePaymentSummary();
-        }
-    });
-    
-    // Add event listeners for modal
-    function openModal() {
-        const modal = document.getElementById('petModal');
-        if (modal) {
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-        }
-    }
-    
-    function closeModal() {
-        const modal = document.getElementById('petModal');
-        if (modal) {
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-        }
-    }
-</script> --}}
 
 <script>
     function timer(expiryTimestamp) {

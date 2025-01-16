@@ -142,7 +142,7 @@
           <!-- Slider yang berisi cards -->
           <div id="slider" class="flex gap-6 transition-transform duration-500 ease-in-out">
             <!-- Cards -->
-            @foreach ($pethotels as $p)
+            @foreach ($pethotels->take(3) as $p)
               <div class="flex-shrink-0 bg-white rounded-2xl shadow-md">
                 <div class="relative w-full h-0" style="padding-bottom: 75%;">
                   <img src="{{ asset('img/communication.jpg') }}" alt="Pet Shop"

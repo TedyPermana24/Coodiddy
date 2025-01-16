@@ -369,7 +369,7 @@
                     </div>
                     <div class="flex justify-end space-x-4">
                         <button class="bg-gray-300 px-4 py-2 rounded-md hover:bg-gray-400" onclick="closeAddPetModal()">Cancel</button>
-                        <button type="submit" class="bg-[#8B5E3C] text-white px-4 py-2 rounded-md hover:bg-[#6B4423]">Save</button>
+                        <button type="submit" class="bg-[#8B5E3C] text-white px-6 py-2 rounded-md hover:bg-[#6B4423]">Save</button>
                     </div>
                 </div>
                 </form>
@@ -416,7 +416,7 @@
                         </div>
                         <div class="flex justify-end space-x-4">
                             <button type="button" class="bg-gray-300 px-4 py-2 rounded-md hover:bg-gray-400" onclick="closeAddContactModal()">Cancel</button>
-                            <button type="submit" class="bg-[#8B5E3C] text-white px-4 py-2 rounded-md hover:bg-[#6B4423]">Save</button>
+                            <button type="submit" class="bg-[#8B5E3C] text-white px-6 py-2 rounded-md hover:bg-[#6B4423]">Save</button>
                         </div>
                     </div>
                 </form>

@@ -120,7 +120,7 @@
                                     <span class="font-bold text-gray-500">day</span>
                                 </p>
                                 <a href="{{ route('vendor.detail', ['id' => $p->id]) }}" 
-                                    class="bg-[#B17F5B] hover:bg-[#96684A] text-white px-3 py-1 rounded-md font-medium text-sm">
+                                    class="bg-[#B17F5B] hover:bg-[#96684A] text-white px-6 py-2 rounded-md font-medium text-sm">
                                     Detail
                                 </a>
                             </div>
