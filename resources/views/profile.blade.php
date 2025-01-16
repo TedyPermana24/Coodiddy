@@ -150,7 +150,7 @@
                     <!-- Contacts Section -->
                     <div id="contacts-content" class="content-section hidden">
                         <!-- Add Contact Section -->
-                        <div class="p-2 sm:p-4 bg-white shadow sm:rounded-lg" id="contact-section">
+                        <div class="p-2 sm:p-4 bg-white shadow sm:rounded-lg -mt-6" id="contact-section">
                             <div class="flex justify-between items-center">
                                 <h3 class="text-lg font-bold text-gray-800">Your Contacts</h3>
                                 <button class="bg-[#8B5E3C] text-white px-4 py-2 rounded-md hover:bg-[#6B4423]" onclick="openAddContactModal()">+ Add Contact</button>
@@ -160,7 +160,7 @@
                         <!-- Contact Cards -->
                         <div class="grid grid-cols-1 mt-4 gap-6">
                         @if($contacts->isEmpty())
-                            <p>No data available.</p> 
+                            <p class="text-gray-500 text-center justify-center mt-6">No data available.</p> 
                         @else
                             @foreach ($contacts as $contact)
                                 <div class="bg-white shadow-lg rounded-lg p-4">
@@ -187,19 +187,23 @@
                                                 <p class="box-border border-2 mt-1 mb-4 rounded-md p-2">{{ $contact->address }}</p>
                                             </div>
                                             <div class="contact-edit hidden">
+                                                <form action="{{ route('contacts.update', $contact->id) }}" method="POST">
+                                                @csrf
+                                                @method('PATCH')
                                                 <div class="mb-4">
                                                     <label class="block text-m font-medium text-gray-700">Phone Number</label>
-                                                    <input type="text" value="{{ $contact->phone_number }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-[#d4a573] focus:outline-none">
+                                                    <input name="phone_number" type="text" value="{{ $contact->phone_number }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-[#d4a573] focus:outline-none">
                                                 </div>
                                                 <div class="mb-4">
                                                     <label class="block text-m font-medium text-gray-700">City</label>
-                                                    <input type="text" value="{{ $contact->city }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-[#d4a573] focus:outline-none">
+                                                    <input name="city" type="text" value="{{ $contact->city }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-[#d4a573] focus:outline-none">
                                                 </div>
                                                 <div class="mb-4">
                                                     <label class="block text-m font-medium text-gray-700">Address</label>
-                                                    <input type="text" value="{{ $contact->address }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-[#d4a573] focus:outline-none">
+                                                    <input name="address" type="text" value="{{ $contact->address }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-[#d4a573] focus:outline-none">
                                                 </div>
-                                                <button class="bg-[#8B5E3C] text-white px-4 py-2 rounded-md hover:bg-[#6B4423]">Save Changes</button>
+                                                <button type="submit" class="bg-[#8B5E3C] text-white px-4 py-2 rounded-md hover:bg-[#6B4423]">Save Changes</button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
@@ -212,7 +216,7 @@
                     <!-- Pets Section -->
                     <div id="pets-content" class="content-section hidden">
                         <!-- Add Pet Section -->
-                        <div class="p-2 sm:p-4 bg-white shadow sm:rounded-lg" id="pet-section">
+                        <div class="p-2 sm:p-4 bg-white shadow sm:rounded-lg -mt-6" id="pet-section">
                             <div class="flex justify-between items-center">
                                 <h3 class="text-lg font-bold text-gray-800">Your Pets</h3>
                                 <button class="bg-[#8B5E3C] text-white px-4 py-2 rounded-md hover:bg-[#6B4423]" onclick="openAddPetModal()">+ Add Pet</button>
@@ -222,7 +226,7 @@
                         <!-- Pet Cards -->
                         <div class="grid grid-cols-1 mt-4 gap-6">
                             @if($pets->isEmpty())
-                                <p>No data available.</p> 
+                                <p class="text-gray-500 text-center justify-center mt-6">No data available.</p> 
                             @else
                             @foreach ($pets as $pet)
                                 <div class="bg-white shadow-lg rounded-lg p-4">
@@ -267,10 +271,10 @@
                                             
                                                     <!-- Pet Type -->
                                                     <div class="mb-4">
-                                                        <label class="block text-m font-medium text-gray-700">Pet Type</label>
+                                                        <label class="block text-m font-medium text-gray-700 ">Pet Type</label>
                                                         <select 
                                                             name="pet_type" 
-                                                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                                                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-[#d4a573] focus:outline-none">
                                                             <option value="Cat" {{ old('pet_type', $pet->pet_type) == 'Cat' ? 'selected' : '' }}>Cat</option>
                                                             <option value="Dog" {{ old('pet_type', $pet->pet_type) == 'Dog' ? 'selected' : '' }}>Dog</option>
                                                         </select>
@@ -346,22 +350,22 @@
                 <div class="space-y-4">
                     <div>
                         <label class="block text-sm font-medium text-gray-700">Pet Image</label>
-                        <input name="image" type="file" id="pet-img-input" accept="image/*" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                        <input name="image" type="file" id="pet-img-input" accept="image/*" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-[#d4a573] focus:outline-none">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700">Pet Name</label>
-                        <input name="pet_name" type="text" id="pet-name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                        <input name="pet_name" type="text" id="pet-name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-[#d4a573] focus:outline-none">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700">Pet Type</label>
-                        <select id="pet-type" name="pet_type" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                        <select id="pet-type" name="pet_type" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-[#d4a573] focus:outline-none">
                             <option value="Cat">Cat</option>
                             <option value="Dog">Dog</option>
                         </select>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700">Breed</label>
-                        <input type="text" id="pet-breed" name="breed" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                        <input type="text" id="pet-breed" name="breed" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-[#d4a573] focus:outline-none">
                     </div>
                     <div class="flex justify-end space-x-4">
                         <button class="bg-gray-300 px-4 py-2 rounded-md hover:bg-gray-400" onclick="closeAddPetModal()">Cancel</button>
@@ -400,15 +404,15 @@
                     <div class="space-y-4">
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Phone Number</label>
-                            <input name="phone_number" type="text" id="phone-number" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required>
+                            <input name="phone_number" type="text" id="phone-number" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-[#d4a573] focus:outline-none" required>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700">City</label>
-                            <input name="city" type="text" id="city" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required>
+                            <input name="city" type="text" id="city" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-[#d4a573] focus:outline-none" required>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Address</label>
-                            <input name="address" type="text" id="address" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required>
+                            <input name="address" type="text" id="address" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-[#d4a573] focus:outline-none" required>
                         </div>
                         <div class="flex justify-end space-x-4">
                             <button type="button" class="bg-gray-300 px-4 py-2 rounded-md hover:bg-gray-400" onclick="closeAddContactModal()">Cancel</button>
