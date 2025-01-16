@@ -3,36 +3,53 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coodiddy</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <title>@yield('title', 'My App')</title>
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-neutral-50 font-poppins overscroll-none">
+<body class="h-screen flex overflow-hidden">
 
-<!-- Navbar -->
-<nav class="bg-[#F8F0E3] w-full z-20 flex justify-between items-center py-7 px-16 font-poppins transition-all duration-300 ease-in-out mb-20">
-    <div class="ml-16">
-        <!-- SVG Logo for Coodiddy -->
-        <a href="{{ route('home') }}">
-            <img src="{{ asset('svg/coodiddy-vendor.svg') }}" alt="Coodiddy Logo" class="w-36">
-        </a>
+  <!-- Sidebar -->
+  <aside class="w-64 bg-gray-800 text-white flex-shrink-0">
+    <div class="p-4 border-b border-gray-700">
+      <h2 class="text-2xl font-bold">My App</h2>
     </div>
-    <div class="flex items-center space-x-8 mr-16">
-        <p><a href="{{ route('registerVendor') }}" class="text-gray-800 hover:text-[#6B4423] font-poppins font-normal text-base">Register as Vendor?</a></p>
-        <p><a href="{{ route('vendor') }}" class="text-gray-800 hover:text-[#6B4423] font-poppins font-normal text-base">Vendor</a></p>
+    <nav class="flex-1 p-4 overflow-y-auto">
+      <ul>
+        <li class="mb-2">
+          <a href="#" class="block p-2 rounded hover:bg-gray-700">Dashboard</a>
+        </li>
+        <li class="mb-2">
+          <a href="#" class="block p-2 rounded hover:bg-gray-700">Profile</a>
+        </li>
+        <li class="mb-2">
+          <a href="#" class="block p-2 rounded hover:bg-gray-700">Settings</a>
+        </li>
+        <li class="mb-2">
+          <a href="#" class="block p-2 rounded hover:bg-gray-700">Logout</a>
+        </li>
+      </ul>
+    </nav>
+  </aside>
 
-        <!-- User is logged in, no login option -->
-        <a href="{{ route('profile.edit') }}" class="bg-[#A5724C] text-white py-2 px-8 rounded-xl hover:bg-[#4A3B32] font-poppins font-normal text-base">Profile</a>
-        <form method="POST" action="{{ route('logout') }}" class="ml-4">
-            @csrf
-            <button type="submit" class="bg-[#ea2424] text-white py-2 px-8 rounded-xl hover:bg-[#4A3B32] font-poppins font-normal text-base">
-                Logout
-            </button>
-        </form>
-    </div>
-</nav>
-
-@yield('content')
+  <!-- Main Content -->
+  <div class="flex-1 flex flex-col overflow-y-auto">
+    <!-- Navbar -->
+    <header class="bg-white shadow p-4 flex justify-between items-center">
+      <h1 class="text-lg font-bold text-gray-800">Dashboard</h1>
+      <div>
+        <button class="p-2 bg-gray-200 rounded-full hover:bg-gray-300">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+          </svg>
+        </button>
+      </div>
+    </header>
+    
+    <!-- Main Content Area -->
+    <main class="flex-1 p-6 overflow-y-auto">
+      @yield('content')
+    </main>
+  </div>
 
 </body>
 </html>
