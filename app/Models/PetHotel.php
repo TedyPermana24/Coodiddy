@@ -17,7 +17,6 @@ class PetHotel extends Model
         'description',
         'address',
         'phone',
-        'rating',
     ];
 
     public function hotelPricings()
@@ -47,6 +46,6 @@ class PetHotel extends Model
 
     public function registrationVendor()
     {
-        return $this->hasMany(RegistrationVendor::class, 'hotel_id');
+        return $this->hasOne(RegistrationVendor::class, 'hotel_id');
     }
 }

@@ -133,14 +133,14 @@
             </div>
         </div>
         
-        <div class="flex justify-center mt-12 mb-12">
+        <!-- <div class="flex justify-center mt-12 mb-12">
             <button class="bg-[#B17F5B] text-white py-2 px-4 rounded-full">
                 Show more vendor
                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8" fill="none" class="inline-block">
                     <path d="M6 7.6998L0 1.6998L1.4 0.299805L6 4.8998L10.6 0.299805L12 1.6998L6 7.6998Z" fill="white"/>
                 </svg>
             </button>
-        </div>
+        </div> -->
     </div>
 @endsection
 

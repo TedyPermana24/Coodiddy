@@ -17,7 +17,7 @@
                 <!-- Order Table -->
                 <div class="flex flex-col justify-between items-start w-auto overflow-x-auto">
                     <!-- Order Header -->
-                    <div class="flex justify-start items-center pl-6 pr-6 bg-[#a4724c] w-auto gap-7 mb-4">
+                    <div class="flex justify-start items-center pl-6 pr-6 bg-[#a4724c] w-full gap-7 mb-4">
                         <div class="flex items-center justify-center gap-2 w-[160px] text-white">
                             <h1 class="py-3 px-4 text-center text-sm">Name Pet</h1>
                         </div>
@@ -41,81 +41,64 @@
                         </div>
                     </div>
 
-                    <!-- Card 1 -->
+                    @foreach ($booking as $b)
+                        <!-- Card 1 -->
                     <div class=" w-full border-0 shadow-xl mb-9">
                         <div class="flex justify-between items-center w-full gap-7 bg-[#F8F0E3] p-4 pl-11 pr-11">
                             <div class="flex items-center justify-between gap-2 w-full text-black">
                                 <div class="flex gap-6 items-center">
-                                    <img src="{{ asset('img/vendor-information.jpg') }}" alt="Avatar" class=" w-10 h-10 rounded-full object-cover">
-                                    <p class="font-medium">Fathurrahman Pratama Putra</p>                                
+                                    <img src="{{ $b->user->images ? Storage::url($b->user->images) : asset('img/kucing-kosan-hendra.jpg')}}" alt="Avatar" class=" w-10 h-10 rounded-full object-cover">
+                                    <p class="font-medium">{{$b->user->name}}</p>                                
                                 </div>
                                 
-                                <p class="font-medium">No. Order 2SDF32413212</p>
+                                <p class="font-medium">No. {{$b->payments->order_id}}</p>
                             </div>
                         </div>
                         
                         <div class="flex justify-between items-center pl-6 pr-6 w-full gap-7 pt-4 pb-4">
                             <div class="flex items-center justify-left gap-2 w-[160px] text-black">
-                                <h1 class="py-3 px-4 text-left font-medium">Khaleed Kashmiri</h1>
+                                <h1 class="py-3 px-4 text-left font-medium">{{$b->pet->pet_name}}</h1>
                             </div>
                             <div class="flex items-center justify-center gap-2 w-[160px] text-black">
-                                <h1 class="py-3 px-4 text-left font-medium">Cat</h1>
+                                <h1 class="py-3 px-4 text-left font-medium">{{$b->pet->pet_type}}</h1>
                             </div>
                             <div class="flex items-center justify-center gap-2 w-[160px] text-black">
-                                <h1 class="py-3 px-4 text-left font-medium">2 Days</h1>
+                                <h1 class="py-3 px-4 text-left font-medium">{{$b->days_difference}} day</h1>
                             </div>
                             <div class="flex items-center justify-center gap-2 w-[160px] text-black">
-                                <h1 class="py-3 px-4 text-left font-medium">Grooming</h1>
+                                <h1 class="py-3 px-4 text-left font-medium">
+                                    @if (!empty($b->additional_services) && is_string($b->additional_services) && json_decode($b->additional_services, true))
+                                        {{ implode(', ', json_decode($b->additional_services, true)) }}
+                                    @else
+                                        -
+                                    @endif
+                                </h1>
                             </div>
                             <div class="flex items-center justify-center gap-2 w-[160px] text-black">
-                                <h1 class="py-3 px-4 text-left font-medium">Pick Up</h1>
+                                <h1 class="py-3 px-4 text-left font-medium">{{$b->delivery}}</h1>
                             </div>
                             <div class="flex items-center justify-center gap-2 w-[160px] text-yellow-500">
-                                <h1 class="py-3 px-4 text-left font-medium">On Progress</h1>
+                                @if ($b->status === 'paid')
+                                    <h1 class="py-3 px-4 text-left font-medium text-blue-500">Order Received</h1>
+                                @elseif ($b->status === 'processed')
+                                    <h1 class="py-3 px-4 text-left font-medium text-yellow-500">Processed</h1>
+                                @elseif ($b->status === 'completed')
+                                    <h1 class="py-3 px-4 text-left font-medium text-green-500">Completed</h1>
+                                @elseif ($b->status === 'reviewed')
+                                    <h1 class="py-3 px-4 text-left font-medium text-blue-500">Reviewed</h1>
+                                @else
+                                    <h1 class="py-3 px-4 text-left font-medium text-gray-500">Unknown Status</h1>
+                                @endif
                             </div>
                             <div class="flex items-center justify-center gap-2 w-[160px] text-blue-500 mr-16 ml-16">
-                                <a href="{{ route('dashboard.vendor.order.detail') }}" class="py-3 px-4 text-center font-medium cursor-pointer hover:text-[#a4724c]">See Details</a>
+                                <a href="{{ route('dashboard.vendor.order.detail', ['id' => $b->id]) }}" class="py-3 px-4 text-center font-medium cursor-pointer hover:text-[#a4724c]">See Details</a>
                             </div>
                         </div>
                     </div>
+                    @endforeach
+                    
 
-                    <!-- Card 2 -->
-                    <div class="w-full border-0 shadow-xl mb-9">
-                        <div class="flex justify-between items-center w-full gap-7 bg-[#F8F0E3] p-4 pl-11 pr-11">
-                            <div class="flex items-center justify-between gap-2 w-full text-black">
-                                <div class="flex gap-6 items-center">
-                                    <img src="{{ asset('img/vendor-information.jpg') }}" alt="Avatar" class=" w-10 h-10 rounded-full object-cover">
-                                    <p class="font-medium">Fathurrahman Pratama Putra</p>                                
-                                </div>
-                                
-                                <p class="font-medium">No. Order 2SDF32413212</p>
-                            </div>
-                        </div>
-                        
-                        <div class="flex justify-between items-center pl-6 pr-6 w-full gap-7 pt-4 pb-4">
-                            <div class="flex items-center justify-left gap-2 w-[160px] text-black">
-                                <h1 class="py-3 px-4 text-left font-medium">Khidir Karawita</h1>
-                            </div>
-                            <div class="flex items-center justify-center gap-2 w-[160px] text-black">
-                                <h1 class="py-3 px-4 text-left font-medium">Cat</h1>
-                            </div>
-                            <div class="flex items-center justify-center gap-2 w-[160px] text-black">
-                                <h1 class="py-3 px-4 text-left font-medium">3 Days</h1>
-                            </div>
-                            <div class="flex items-center justify-center gap-2 w-[160px] text-black">
-                                <h1 class="py-3 px-4 text-left font-medium">Grooming, Pedicure</h1>
-                            </div>
-                            <div class="flex items-center justify-center gap-2 w-[160px] text-black">
-                                <h1 class="py-3 px-4 text-left font-medium">Drop Off</h1>
-                            </div>
-                            <div class="flex items-center justify-center gap-2 w-[160px] text-green-500">
-                                <h1 class="py-3 px-4 text-left font-medium">Completed</h1>
-                            </div>
-                            <div class="flex items-center justify-center gap-2 w-[160px] text-blue-500 mr-16 ml-16">
-                                <a href="#" class="py-3 px-4 text-center font-medium cursor-pointer hover:text-[#a4724c]">See Details</a>
-                            </div>
-                        </div>
-                    </div>
+                
 
                     <!-- mangga tambah card na -->
                     <!-- for each na ge pang set keun -->

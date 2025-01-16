@@ -173,7 +173,7 @@ class BookingController extends Controller
         ->where('status', 'pending')
         ->count();
     
-        $bookingsQuery = Booking::with(['pethotel', 'pet'])
+        $bookingsQuery = Booking::with(['pethotel', 'pet', 'petHotel.PetHotelImages'])
             ->where('user_id', Auth::id());
     
         // Tambahkan kondisi search
@@ -215,6 +215,7 @@ class BookingController extends Controller
         $data = $bookings->map(function ($booking) {
             return [
                 'booking_id' => $booking->id,
+                'images' => $booking->pethotel->pethotelimages->first()->main_image,
                 'hotel_id' => $booking->pethotel->id,
                 'name' => $booking->pethotel->name,
                 'additional_service' => json_decode($booking->additional_services, true),
@@ -226,7 +227,7 @@ class BookingController extends Controller
                 'check_out_date' => $booking->check_out_date->format('F j, Y'),
             ];
         });
-    
+
         return view('listPembayaran', [
             'bookings' => $data,
             'filter' => $filter,
@@ -237,18 +238,27 @@ class BookingController extends Controller
 
     public function finishBooking($id)
     {
+        // Cari booking berdasarkan ID dan pastikan statusnya 'processed'
         $booking = Booking::where('id', $id)->where('status', 'processed')->first();
 
         if (!$booking) {
             return redirect()->back()->with('error', 'Booking not found or invalid status!');
         }
 
+        // Perbarui status booking menjadi 'completed'
         $booking->update([
             'status' => 'completed',
         ]);
 
-        return redirect()->back()->with('success', 'Booking has been marked as completed!');
+        // Periksa apakah booking memiliki relasi dengan PetHotel
+        if ($booking->petHotel) {
+            // Tambahkan total_price ke balance PetHotel
+            $booking->petHotel->increment('balance', $booking->total_price);
+        }
+
+        return redirect()->back()->with('success', 'Booking has been marked as completed and balance updated!');
     }
+
 
     public function storeReview(Request $request)
     {
