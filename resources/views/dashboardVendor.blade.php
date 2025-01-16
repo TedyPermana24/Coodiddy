@@ -1,62 +1,7 @@
 @extends('components.layoutVendor')
 
 @section('content')
-    <!-- Main Content -->
-    <div class="flex flex-1">
-        <!-- Sidebar -->
-        <aside class="w-64 bg-[#f8f0e3] py-6 px-4 flex flex-col h-auto">
-            <div class="flex-1">
-                <!-- Vendor Name -->
-                <div class="text-center mb-6">
-                    <h2 class="text-xl font-bold">Daypet Care</h2>
-                    <div class="flex gap-1 items-center justify-center">
-                        {{-- @for ($i = 0; $i < floor($p->reviews_avg_rating); $i++)
-                        <img src="{{ asset('svg/star-filled.svg') }}" alt="Filled star" class="w-4 h-4">
-                        @endfor
-                    
-                        @if ($p->reviews_avg_rating - floor($p->reviews_avg_rating) >= 0.5)
-                            <img src="{{ asset('svg/star-half.svg') }}" alt="Half star" class="w-4 h-4">
-                        @endif
-                    
-                        @for ($i = 0; $i < (5 - ceil($p->reviews_avg_rating)); $i++)
-                            <img src="{{ asset('svg/star-empty.svg') }}" alt="Empty star" class="w-4 h-4">
-                        @endfor --}}
-                    </div>   
-                </div>
 
-                <!-- Balance Info -->
-                <div class="border-y border-gray-400 py-4 mb-6 space-y-2">
-                    <div class="flex justify-between text-sm">
-                        <span>Balance:</span>
-                        <span>Rp. 1,234,000</span>
-                    </div>
-                    <div class="flex justify-between text-sm">
-                        <span>Total Transaction:</span>
-                        <span>20</span>
-                    </div>
-                </div>
-
-                <!-- Navigation -->
-                <nav class="space-y-4">
-                    <div class="flex items-center gap-2">
-                        <img src="{{ asset('svg/home.svg') }}" alt="Home" class="w-4 h-4">
-                        <a href="#" class="text-black">Home</a>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <img src="{{ asset('svg/order.svg') }}" alt="Order" class="w-4 h-4">
-                        <a href="#" class="text-black">Order</a>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <img src="{{ asset('svg/settings.svg') }}" alt="Settings" class="w-4 h-4">
-                        <a href="#" class="text-black">Settings</a>
-                    </div>
-                    <div class="flex items-center gap-2 pt-4">
-                        <img src="{{ asset('svg/back.svg') }}" alt="Back" class="w-4 h-4">
-                        <a href="#" class="text-black">Back to Coodiddy</a>
-                    </div>
-                </nav>
-            </div>
-        </aside>
 
         <!-- Main Dashboard -->
         <main class="flex-1 p-16">
@@ -105,7 +50,6 @@
                 </div>
             </div>
         </main>
-    </div>
 @endsection
 
 @section('script')

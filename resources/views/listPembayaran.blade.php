@@ -7,7 +7,7 @@
         <div class="w-full max-w-6xl flex space-x-6">
             <!-- Sidebar -->
             <aside class="w-1/4 bg-white rounded-lg shadow-md p-6" style="height: 400px; overflow-y: auto;">
-                <div class="mb-6">
+                <div class="mb-4">
                     <img
                         alt="User profile picture"
                         class="rounded-full w-16 h-16 mx-auto mb-4"
@@ -16,17 +16,18 @@
                     <p class="text-center font-regular text-lg">{{ Auth::user()->name }}</p>
                     <p class="text-center font-regular text-sm">Balance : Rp {{ number_format(Auth::user()->balance, 0, ',', '.') }}</p>
                 </div>
-                <div class="mb-6">
-                    <h2 class="font-bold text-gray-500 mb-2">Payment</h2>
-                    <p class="text-gray-700 pb-2">
+                <div class="mb-5">
+                    <p class="w-full text-center text-gray-800 font-bold mb-4 border-b-2 p-2 border-black">Payment</p>
+                    <p class="text-gray-700 hover:scale-95 hover:text-[#d4a573] transition-all duration-100 pl-2">
                         <a href="{{ route('list', ['status' => 'all']) }}" 
-                           class="{{ request('status') == 'all' ? 'font-bold' : '' }}">
+                           class="{{ request('status') == 'all' ? 'font-bold text-[#d4a573]' : '' }}">
                            All Transactions
                         </a>
+                        <p class="mx-1 border-b-2 mb-2"></p>
                     </p>
-                    <p class="text-gray-700 pb-2">
+                    <p class="text-gray-700 hover:scale-95 hover:text-[#d4a573] transition-all duration-100 pl-2">
                         <a href="{{ route('list', ['status' => 'pending']) }}" 
-                            class="{{ request('status') == 'pending' ? 'font-bold' : '' }}">
+                            class="{{ request('status') == 'pending' ? 'font-bold text-[#d4a573]' : '' }}">
                              Waiting for Payment
                              @if($pendingCount > 0)
                                 <span class="bg-[#A97142] text-white text-sm ml-2 px-2 rounded-full">
@@ -34,18 +35,21 @@
                                 </span>
                              @endif
                          </a>
+                         <p class="mx-1 border-b-2 mb-2"></p>
                     </p>
-                    <p class="text-gray-700 pb-2">
-                        <a href="{{ route('list', ['status' => 'paid']) }}" 
-                           class="{{ request('status') == 'paid' ? 'font-bold' : '' }}">
+                    <p class="text-gray-700 hover:scale-95 hover:text-[#d4a573] transition-all duration-100 pl-2">
+                        <a href="{{ route('list', ['status' => 'processed']) }}" 
+                           class="{{ request('status') == 'processed' ? 'font-bold text-[#d4a573]' : '' }}">
                            On Process
                         </a>
+                        <p class="mx-1 border-b-2 mb-2"></p>
                     </p>
-                    <p class="text-gray-700">
+                    <p class="text-gray-700 hover:scale-95 hover:text-[#d4a573] transition-all duration-100 pl-2">
                         <a href="{{ route('list', ['status' => 'completed']) }}" 
-                           class="{{ request('status') == 'completed' ? 'font-bold' : '' }}">
+                           class="{{ request('status') == 'completed' ? 'font-bold text-[#d4a573]' : '' }}">
                            Finished
                         </a>
+                        <p class="mx-1 border-b-2 mb-2"></p>
                     </p>
                 </div>
             </aside>
@@ -136,7 +140,7 @@
                                                     @csrf
                                                     <button 
                                                         type="submit" 
-                                                        class="bg-red-200 px-4 py-2 rounded-lg hover:text-white hover:bg-red-500 transition duration-100">
+                                                        class="bg-red-600 px-4 py-2 rounded-lg text-white hover:bg-red-700 transition duration-100">
                                                         Cancel
                                                     </button>
                                                 </form>
@@ -145,16 +149,16 @@
                                                     @csrf
                                                     <button 
                                                         type="submit" 
-                                                        class="bg-gray-200 px-4 py-2 rounded-lg hover:text-white hover:bg-[#A5724C] transition duration-100">
+                                                        class="bg-[#B17F5B] px-6 py-2 rounded-lg text-white hover:bg-[#96684A] transition duration-100">
                                                         Finish
                                                     </button>
                                                 </form>
                                             @elseif($booking['status'] == 'pending')
-                                                <a class="bg-green-200 px-4 py-2 rounded-lg hover:text-white hover:bg-green-500 transition duration-100" href="{{ route('booking', ['id' => $booking['hotel_id']]) }}">
+                                                <a class="bg-[#B17F5B] px-8 py-2 rounded-lg text-white hover:bg-[#96684A] transition duration-100" href="{{ route('booking', ['id' => $booking['hotel_id']]) }}">
                                                     Pay
                                                 </a>
                                             @elseif($booking['status'] == 'completed')
-                                                <button class="bg-blue-200 px-4 py-2 rounded-lg hover:text-white hover:bg-blue-500 transition duration-100"
+                                                <button class="bg-[#B17F5B] px-4 py-2 rounded-lg text-white hover:bg-[#96684A] transition duration-100"
                                                 data-id="{{ $booking['booking_id'] }}" 
                                                 data-hotel="{{ $booking['name'] }}" 
                                                 onclick="openReviewModal(this)">
@@ -207,12 +211,12 @@
 
                 <!-- Review Text -->
                 <label for="review" class="block font-regular">Review</label>
-                <textarea name="review" id="review" rows="4" class="border border-gray-300 rounded-lg p-2 w-full mb-4" required></textarea>
+                <textarea name="review" id="review" rows="4" class="border border-gray-300 rounded-lg p-2 w-full mb-4 focus:border-[#d4a573] focus:ring-0" required></textarea>
                 
                 <!-- Submit Buttons -->
                 <div class="flex justify-end space-x-4">
                     <button type="button" class="bg-gray-300 px-4 py-2 rounded-lg" onclick="closeReviewModal()">Cancel</button>
-                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg">Submit</button>
+                    <button type="submit" class="bg-[#B17F5B] px-4 py-2 rounded-lg text-white hover:bg-[#96684A] transition duration-100">Submit</button>
                 </div>
             </form>
         </div>
