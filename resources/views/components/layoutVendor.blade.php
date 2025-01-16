@@ -12,9 +12,6 @@
 <!-- Navbar -->
 <nav class="bg-[#F8F0E3] w-full z-20 top-0 left-0 flex justify-between items-center py-7 px-16 font-poppins transition-all duration-300 ease-in-out">
     <div class="text-2xl font-bold text-gray-800 ml-16">
-        {{-- <a href="{{ route('home') }}" class="hover:text-[#6B4423] text-3xl font-bold">
-            <img src="{{ asset('svg/coodiddy-vendor.svg') }}" alt="Coodiddy" class="w-full h-full object-contain">
-          </a> --}}
           <a href="{{ route('home') }}" class="hover:text-[#6B4423] text-3xl font-bold flex ">
             Coodiddy 
             <span class="text-lg"> Vendor</span>
