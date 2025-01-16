@@ -3,7 +3,7 @@
 @section('content')
     <!-- Main Content -->
         <!-- Main Dashboard -->
-        <main class="flex-1 p-16">
+        <main class="flex-1 p-16 overflow-y-auto">
             <!-- Welcome Section -->
             <div class="mb-6">
                 <h1 class="text-3xl font-bold text-black mb-2">Welcome to Coodiddy</h1>
@@ -11,11 +11,11 @@
             </div>
 
             <!-- Orders Section -->
-            <div class="p-8 bg-white rounded-2xl shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
+            <div class="pt-8 pl-8 pr-8 bg-white rounded-2xl shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
                 <h2 class="text-2xl font-bold text-[#a4724c] mb-6">Order</h2>
 
                 <!-- Order Table -->
-                <div class="flex flex-col justify-between items-start mb-6 w-auto">
+                <div class="flex flex-col justify-between items-start w-auto overflow-x-auto">
                     <!-- Order Header -->
                     <div class="flex justify-start items-center pl-6 pr-6 bg-[#a4724c] w-auto gap-7 mb-4">
                         <div class="flex items-center justify-center gap-2 w-[160px] text-white">
@@ -42,13 +42,14 @@
                     </div>
 
                     <!-- Card 1 -->
-                    <div class="card w-full border-0 shadow-xl mb-9">
+                    <div class=" w-full border-0 shadow-xl mb-9">
                         <div class="flex justify-between items-center w-full gap-7 bg-[#F8F0E3] p-4 pl-11 pr-11">
-                            <div class="flex items-center gap-2 w-1/2 text-black">
-                                <img src="../../public/img/cat-login-long.jpg" alt="Avatar" class="w-7 h-7 rounded-full mr-3">
-                                <p class="font-medium">Fathurrahman Pratama Putra</p>
-                            </div>
-                            <div class="flex items-center gap-2 w-1/2 text-black justify-end">
+                            <div class="flex items-center justify-between gap-2 w-full text-black">
+                                <div class="flex gap-6 items-center">
+                                    <img src="{{ asset('img/vendor-information.jpg') }}" alt="Avatar" class=" w-10 h-10 rounded-full object-cover">
+                                    <p class="font-medium">Fathurrahman Pratama Putra</p>                                
+                                </div>
+                                
                                 <p class="font-medium">No. Order 2SDF32413212</p>
                             </div>
                         </div>
@@ -79,13 +80,14 @@
                     </div>
 
                     <!-- Card 2 -->
-                    <div class="card w-full border-0 shadow-xl mb-9">
+                    <div class="w-full border-0 shadow-xl mb-9">
                         <div class="flex justify-between items-center w-full gap-7 bg-[#F8F0E3] p-4 pl-11 pr-11">
-                            <div class="flex items-center gap-2 w-1/2 text-black">
-                                <img src="../../public/img/cat-login-long.jpg" alt="Avatar" class="w-7 h-7 rounded-full mr-3">
-                                <p class="font-medium">Fathurrahman Pratama Putra</p>
-                            </div>
-                            <div class="flex items-center gap-2 w-1/2 text-black justify-end">
+                            <div class="flex items-center justify-between gap-2 w-full text-black">
+                                <div class="flex gap-6 items-center">
+                                    <img src="{{ asset('img/vendor-information.jpg') }}" alt="Avatar" class=" w-10 h-10 rounded-full object-cover">
+                                    <p class="font-medium">Fathurrahman Pratama Putra</p>                                
+                                </div>
+                                
                                 <p class="font-medium">No. Order 2SDF32413212</p>
                             </div>
                         </div>
