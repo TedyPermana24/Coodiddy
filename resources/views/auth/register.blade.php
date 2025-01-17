@@ -9,19 +9,19 @@
 <body class="flex items-center justify-center min-h-screen bg-gradient-to-r from-[#6b4423] to-[#c8a279] via-[#c8a279] font-poppins overscroll-none" style="font-family: 'Poppins', sans-serif;">
     <div class="flex w-full max-w-4xl bg-white rounded-3xl shadow-lg overflow-hidden">
 
-        {{-- right section --}}
+        {{-- left section --}}
         <div class="w-1/2 h-full flex items-center justify-center p-4">
             <img src="{{ asset('img/dog-register.jpg') }}" alt="Cat" class="w-full h-full object-cover scale-110">
         </div>
 
-        <!-- Left Section -->
+        <!-- right Section -->
         <div class="w-1/2 p-8 flex flex-col justify-between">
             <div class="flex justify-end">
-                <button type="button" onclick="if (document.referrer) { window.location.href='{{ url()->previous() }}'; }" class="text-gray-500 hover:text-gray-700 mr-2" id="backButton">
+                <a href="{{ route('login') }}" class="text-gray-500 hover:text-gray-700 mr-2" id="backButton">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
-                </button>
+                </a>
             </div>
             <h1 class="text-2xl font-bold text-center mb-4 mt-3" style="font-family: 'Poppins', sans-serif; font-size: 30px;">Create account</h1>
 
@@ -71,14 +71,6 @@
         </div>
     </div>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const backButton = document.getElementById('backButton');
-            if (!document.referrer) {
-                backButton.style.pointerEvents = 'none'; // Menonaktifkan interaksi
-                backButton.classList.add('opacity-50', 'cursor-not-allowed'); // Menambahkan kelas untuk tampilan non-aktif
-            }
-        });
-
         function togglePasswordVisibility() {
             const passwordInput = document.getElementById('password');
             const passwordIcon = document.querySelector('img[alt="Toggle Password"]');

@@ -13,14 +13,18 @@ return new class extends Migration
     {
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('hotel_id')->constrained('pet_hotels')->onDelete('cascade');
-            $table->foreignId('pet_id')->constrained('pets')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Relasi dengan users
+            $table->foreignId('pet_id')->constrained()->onDelete('cascade'); // Relasi dengan pets
+            $table->foreignId('pet_hotel_id')->constrained()->onDelete('cascade'); // Relasi dengan pet_hotels
+            $table->foreignId('hotel_pricing_id')->constrained()->onDelete('cascade'); // Relasi dengan hotel_pricings
+            $table->foreignId('contact_id')->constrained()->onDelete('cascade'); // Relasi dengan contacts
+            $table->json('additional_services')->nullable(); // Layanan tambahan dalam format JSON
             $table->date('check_in_date');
             $table->date('check_out_date');
-            $table->decimal('total_price', 10, 2);
-            $table->enum('status', ['pending', 'dikonfirmasi', 'dibatalkan'])->default('pending');
-            $table->timestamps();
+            $table->enum('delivery', ['Pick Up', 'Drop Off']);
+            $table->decimal('total_price', 10, 2); // Total harga (harga dasar + layanan tambahan)
+            $table->enum('status', ['pending', 'paid', 'failed', 'completed', 'cancelled', 'processed', 'reviewed'])->default('pending'); // Status pemesanan
+            $table->timestamps(); // Tanggal pembuatan dan pembaruan
         });
     }
 

@@ -11,17 +11,26 @@ class Payment extends Model
 
     protected $fillable = [
         'booking_id',
+        'order_id',
+        'amount',
+        'status',
+        'payment_type',
         'transaction_id',
-        'gateway_name',
-        'payment_url',
-        'payment_status',
-        'total_amount',
+        'paid_at',
     ];
 
-    /**
-     * Relasi ke tabel Bookings
-     * Satu pembayaran terhubung dengan satu booking
-     */
+    protected $dates = [
+        'paid_at',
+        'expired_at',
+        'created_at',
+        'updated_at'
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function booking()
     {
         return $this->belongsTo(Booking::class);

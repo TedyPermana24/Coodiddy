@@ -1,5 +1,30 @@
 @extends('components.layout')
 
+@section('style')
+  <style>
+    /* Navigation buttons positioned outside cards */
+    #prevBtn, #nextBtn {
+        z-index: 10;
+        width: 48px;
+        height: 48px;
+    }
+
+    #prevBtn {
+        left: -56px; /* Position it slightly outside the slider */
+    }
+
+    #nextBtn {
+        right: -56px; /* Position it slightly outside the slider */
+    }
+
+    /* Ensure smooth carousel behavior */
+    #slider {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+    }
+  </style>
+@endsection
+
 @section('content')
   <!-- Hero Section -->
   <section class="bg-[#F8F0E3] h-screen mt-0 bg-cover bg-center transition-all duration-300 ease-in-out" style="background-image: url('{{ asset('img/hero-bg.png') }}'); background-size: 100%;">
@@ -15,7 +40,7 @@
         <p class="mt-4 mb-12 text-gray-600 max-w-2xl mx-auto md:ml-0 text-lg">
             "We understand that your pets are family. That's why we're committed to providing exceptional care services with genuine love and attention to detail. Our certified vendors ensure your beloved companions receive the best possible care, making every day special for them while you're away."
         </p>
-        <a href="#" class="text-xl bg-[#2E2C2C] text-white py-4 px-16 rounded-3xl hover:bg-[#6B4423] font-poppins font-semibold">
+        <a href="{{ route('vendor') }}" class="text-xl bg-[#2E2C2C] text-white py-4 px-16 rounded-3xl hover:bg-[#6B4423] font-poppins font-semibold">
           Search For Vendors
         </a>
       </div>
@@ -30,321 +55,246 @@
 
   <!-- ... existing code ... -->
   <!-- Services Section -->
-  <section class="h-screen bg-white transition-all duration-300 ease-in-out">
-  <div class="container mx-auto px-4 text-center transition-all duration-300 ease-in-out">
-    <h1 class="text-5xl font-bold text-[#4A3B32] pt-12 mb-8">Our Services</h1>
-    <p class="text-gray-600 mb-20 text-lg">"Your One-Stop Solution for Professional Pet Care Services and Booking Management"</p>
-    
-    <!-- Top Row Services -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-      <div class="bg-[#F8F0E3] hover:bg-gradient-to-br from-[#8B5E3C] to-[#4A3B32] p-8 rounded-xl shadow-xl transition-all duration-300 group">
-          <div class="w-16 h-16 bg-white rounded-full mx-auto mb-4 flex items-center justify-center overflow-hidden border-2 border-[#6B4423]">
-              <img src="{{ asset('img/pet-search.jpg') }}" alt="Pet Care Search" class="w-full h-full object-cover">
-          </div>
-        <h3 class="text-xl font-semibold mb-4 text-gray-800 transition-colors duration-300 group-hover:text-white">Pet Care Search</h3>
-        <p class="text-lg text-gray-600 transition-colors duration-300 group-hover:text-white">This website allows users to search for services, animal sitting by Location, Reviews users, prices, and types of services offered.</p>
-      </div>
+  <section class="h-screen bg-white transition-all duration-300 ease-in-out pt-20">
+    <div class="container mx-auto px-4 text-center transition-all duration-300 ease-in-out">
+      <h1 class="text-5xl font-bold text-[#4A3B32] pt-12 mb-8">Our Services</h1>
+      <p class="text-gray-600 mb-20 text-lg">"Your One-Stop Solution for Professional Pet Care Services and Booking Management"</p>
+      
+      <!-- Top Row Services -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
         <div class="bg-[#F8F0E3] hover:bg-gradient-to-br from-[#8B5E3C] to-[#4A3B32] p-8 rounded-xl shadow-xl transition-all duration-300 group">
-          <div class="w-16 h-16 bg-white rounded-full mx-auto mb-4 flex items-center justify-center overflow-hidden border-2 border-[#6B4423]">
-              <img src="{{ asset('img/vendor-information.jpg') }}" alt="Service and Pricing Information" class="w-full h-full object-cover">
-          </div>
-        <h3 class="text-xl font-semibold mb-4 text-gray-800 transition-colors duration-300 group-hover:text-white">Service and Pricing Information</h3>
-        <p class="text-lg text-gray-600 transition-colors duration-300 group-hover:text-white">Provides complete information about facilities, service quality, and custody fees, so pet owners can make informed decisions.</p>
+            <div class="w-16 h-16 bg-white rounded-full mx-auto mb-4 flex items-center justify-center overflow-hidden border-2 border-[#6B4423]">
+                <img src="{{ asset('img/pet-search.jpg') }}" alt="Pet Care Search" class="w-full h-full object-cover">
+            </div>
+          <h3 class="text-xl font-semibold mb-4 text-gray-800 transition-colors duration-300 group-hover:text-white">Pet Care Search</h3>
+          <p class="text-lg text-gray-600 transition-colors duration-300 group-hover:text-white">This website allows users to search for services, animal sitting by Location, Reviews users, prices, and types of services offered.</p>
+        </div>
+          <div class="bg-[#F8F0E3] hover:bg-gradient-to-br from-[#8B5E3C] to-[#4A3B32] p-8 rounded-xl shadow-xl transition-all duration-300 group">
+            <div class="w-16 h-16 bg-white rounded-full mx-auto mb-4 flex items-center justify-center overflow-hidden border-2 border-[#6B4423]">
+                <img src="{{ asset('img/vendor-information.jpg') }}" alt="Service and Pricing Information" class="w-full h-full object-cover">
+            </div>
+          <h3 class="text-xl font-semibold mb-4 text-gray-800 transition-colors duration-300 group-hover:text-white">Service and Pricing Information</h3>
+          <p class="text-lg text-gray-600 transition-colors duration-300 group-hover:text-white">Provides complete information about facilities, service quality, and custody fees, so pet owners can make informed decisions.</p>
+        </div>
+          <div class="bg-[#F8F0E3] hover:bg-gradient-to-br from-[#8B5E3C] to-[#4A3B32] p-8 rounded-xl shadow-xl transition-all duration-300 group">
+            <div class="w-16 h-16 bg-white rounded-full mx-auto mb-4 flex items-center justify-center overflow-hidden border-2 border-[#6B4423]">
+                <img src="{{ asset('img/online-book.jpg') }}" alt="Online Booking and Payment" class="w-full h-full object-cover">
+            </div>
+          <h3 class="text-xl font-semibold mb-4 text-gray-800 transition-colors duration-300 group-hover:text-white">Online Booking and Payment</h3>
+          <p class="text-lg text-gray-600 transition-colors duration-300 group-hover:text-white">Simplify the process of ordering daycare services through online booking features and secure and convenient digital payments.</p>
+        </div>
       </div>
+        <!-- Bottom Row Services -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <div class="bg-[#F8F0E3] hover:bg-gradient-to-br from-[#8B5E3C] to-[#4A3B32] p-8 rounded-xl shadow-xl transition-all duration-300 group">
-          <div class="w-16 h-16 bg-white rounded-full mx-auto mb-4 flex items-center justify-center overflow-hidden border-2 border-[#6B4423]">
-              <img src="{{ asset('img/online-book.jpg') }}" alt="Online Booking and Payment" class="w-full h-full object-cover">
-          </div>
-        <h3 class="text-xl font-semibold mb-4 text-gray-800 transition-colors duration-300 group-hover:text-white">Online Booking and Payment</h3>
-        <p class="text-lg text-gray-600 transition-colors duration-300 group-hover:text-white">Simplify the process of ordering daycare services through online booking features and secure and convenient digital payments.</p>
+            <div class="w-16 h-16 bg-white rounded-full mx-auto mb-4 flex items-center justify-center overflow-hidden border-2 border-[#6B4423]">
+                <img src="{{ asset('img/vendor-profile.jpg') }}" alt="Vendor Profile and Reviews" class="w-full h-full object-cover">
+            </div>
+          <h3 class="text-xl font-semibold mb-4 text-gray-800 transition-colors duration-300 group-hover:text-white">Vendor Profile and Reviews</h3>
+          <p class="text-lg text-gray-600 transition-colors duration-300 group-hover:text-white">Displays a complete vendors profile with reviews and ratings from previous users, helping pet owners choose a place they trust.</p>
+        </div>
+          <div class="bg-[#F8F0E3] hover:bg-gradient-to-br from-[#8B5E3C] to-[#4A3B32] p-8 rounded-xl shadow-xl transition-all duration-300 group">
+            <div class="w-16 h-16 bg-white rounded-full mx-auto mb-4 flex items-center justify-center overflow-hidden border-2 border-[#6B4423]">
+                <img src="{{ asset('img/scheduling.jpg') }}" alt="Scheduling and Reminders" class="w-full h-full object-cover">
+            </div>
+          <h3 class="text-xl font-semibold mb-4 text-gray-800 transition-colors duration-300 group-hover:text-white">Scheduling and Reminders</h3>
+          <p class="text-lg text-gray-600 transition-colors duration-300 group-hover:text-white">Allows users to schedule animal daycare within a specific period of time, with automatic reminders to prepare for daycare or pick up animals.</p>
+        </div>
+          <div class="bg-[#F8F0E3] hover:bg-gradient-to-br from-[#8B5E3C] to-[#4A3B32] p-8 rounded-xl shadow-xl transition-all duration-300 group">
+            <div class="w-16 h-16 bg-white rounded-full mx-auto mb-4 flex items-center justify-center overflow-hidden border-2 border-[#6B4423]">
+                <img src="{{ asset('img/communication.jpg') }}" alt="Communication with Providers Service" class="w-full h-full object-cover">
+            </div>
+          <h3 class="text-xl font-semibold mb-4 text-gray-800 transition-colors duration-300 group-hover:text-white">Communication with Providers Service</h3>
+          <p class="text-lg text-gray-600 transition-colors duration-300 group-hover:text-white">Facilitates direct communication between owners and service providers via messages or calls</p>
+        </div>
       </div>
     </div>
-      <!-- Bottom Row Services -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="bg-[#F8F0E3] hover:bg-gradient-to-br from-[#8B5E3C] to-[#4A3B32] p-8 rounded-xl shadow-xl transition-all duration-300 group">
-          <div class="w-16 h-16 bg-white rounded-full mx-auto mb-4 flex items-center justify-center overflow-hidden border-2 border-[#6B4423]">
-              <img src="{{ asset('img/vendor-profile.jpg') }}" alt="Vendor Profile and Reviews" class="w-full h-full object-cover">
-          </div>
-        <h3 class="text-xl font-semibold mb-4 text-gray-800 transition-colors duration-300 group-hover:text-white">Vendor Profile and Reviews</h3>
-        <p class="text-lg text-gray-600 transition-colors duration-300 group-hover:text-white">Displays a complete vendors profile with reviews and ratings from previous users, helping pet owners choose a place they trust.</p>
-      </div>
-        <div class="bg-[#F8F0E3] hover:bg-gradient-to-br from-[#8B5E3C] to-[#4A3B32] p-8 rounded-xl shadow-xl transition-all duration-300 group">
-          <div class="w-16 h-16 bg-white rounded-full mx-auto mb-4 flex items-center justify-center overflow-hidden border-2 border-[#6B4423]">
-              <img src="{{ asset('img/scheduling.jpg') }}" alt="Scheduling and Reminders" class="w-full h-full object-cover">
-          </div>
-        <h3 class="text-xl font-semibold mb-4 text-gray-800 transition-colors duration-300 group-hover:text-white">Scheduling and Reminders</h3>
-        <p class="text-lg text-gray-600 transition-colors duration-300 group-hover:text-white">Allows users to schedule animal daycare within a specific period of time, with automatic reminders to prepare for daycare or pick up animals.</p>
-      </div>
-        <div class="bg-[#F8F0E3] hover:bg-gradient-to-br from-[#8B5E3C] to-[#4A3B32] p-8 rounded-xl shadow-xl transition-all duration-300 group">
-          <div class="w-16 h-16 bg-white rounded-full mx-auto mb-4 flex items-center justify-center overflow-hidden border-2 border-[#6B4423]">
-              <img src="{{ asset('img/communication.jpg') }}" alt="Communication with Providers Service" class="w-full h-full object-cover">
-          </div>
-        <h3 class="text-xl font-semibold mb-4 text-gray-800 transition-colors duration-300 group-hover:text-white">Communication with Providers Service</h3>
-        <p class="text-lg text-gray-600 transition-colors duration-300 group-hover:text-white">Facilitates direct communication between owners and service providers via messages or calls</p>
-      </div>
-    </div>
-  </div>
   </section>
 
 
   <!-- Image Section -->
-  <section class="w-full h-auto">
+  <section class="w-full h-auto pt-60">
     <img src="{{ asset('img/img-section.png') }}" alt="Pet Care" 
         class="w-full object-cover">
   </section>
 
 <!-- Vendor Section -->
-<div class="w-full overflow-hidden relative h-auto">
-  <div class="container mx-auto px-4">
-    <!-- Title Section -->
-    <div class="text-center mb-8">
-      <h2 class="text-5xl font-bold text-[#4A3B32] pt-12 mb-8">Vendor</h2>
-      <p class="text-gray-600 mb-20 text-lg">Recommendations for trusted vendors</p>
-    </div>
-
-    <!-- Slider Container -->
-    <div class="relative overflow-hidden">
-      <!-- Slider Wrapper -->
-      <div id="slider" class="flex justify-center gap-8 transition-transform duration-500 ease-in-out">
-
-        <!-- Card 1 -->
-        <div class="w-1/3 bg-white rounded-2xl shadow-[0_3px_10px_rgb(0,0,0,0.2)] mb-8">
-          <!-- Image Container -->
-          <div class="w-full relative" style="padding-bottom: 75%;">
-            <img src="{{ asset('img/communication.jpg') }}" alt="Pet Shop" class="absolute top-0 left-0 w-full h-full object-cover rounded-t-xl">
-          </div>
-          <!-- Content Container -->
-          <div class="p-4">
-            <div class="flex items-center justify-between mb-8">
-              <h3 class="text-2xl font-bold">DayPet Care</h3>
-              <div class="flex items-center gap-1">
-                <!-- Rating stars -->
-                @for ($i = 0; $i < 4; $i++)
-                  <img src="{{ asset('svg/star-filled.svg') }}" alt="Filled star" class="h-6 w-6">
-                @endfor
-                <img src="{{ asset('svg/star-empty.svg') }}" alt="Empty star" class="h-6 w-6">
-              </div>
-            </div>
-            <div class="flex items-center gap-2 mb-1">
-              <img src="{{ asset('svg/pet-icon.svg') }}" alt="Pet icon" class="h-5 w-5">
-              <span class="text-xl font-medium text-[#8B5E3C]">All Pets</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <img src="{{ asset('svg/location-icon.svg') }}" alt="Location icon" class="h-5 w-5">
-              <span class="text-xl font-medium text-[#0071FF]">Bandung</span>
-            </div>
-            <div class="flex items-center justify-between mt-1">
-              <p class="text-xl">
-                <span class="font-bold">Rp 200.000/</span>
-                <span class="font-bold text-gray-500">day</span>
-              </p>
-              <a href="{{ route('vendor.detail') }}" class="bg-[#B17F5B] text-white px-8 py-2 rounded-md font-bold text-lg -mt-8">
-                Contact
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 1 -->
-        <div class="w-1/3 bg-white rounded-2xl shadow-[0_3px_10px_rgb(0,0,0,0.2)] mb-8">
-          <!-- Image Container -->
-          <div class="w-full relative" style="padding-bottom: 75%;">
-            <img src="{{ asset('img/communication.jpg') }}" alt="Pet Shop" class="absolute top-0 left-0 w-full h-full object-cover rounded-t-xl">
-          </div>
-          <!-- Content Container -->
-          <div class="p-4">
-            <div class="flex items-center justify-between mb-8">
-              <h3 class="text-2xl font-bold">DayPet Care</h3>
-              <div class="flex items-center gap-1">
-                <!-- Rating stars -->
-                @for ($i = 0; $i < 4; $i++)
-                  <img src="{{ asset('svg/star-filled.svg') }}" alt="Filled star" class="h-6 w-6">
-                @endfor
-                <img src="{{ asset('svg/star-empty.svg') }}" alt="Empty star" class="h-6 w-6">
-              </div>
-            </div>
-            <div class="flex items-center gap-2 mb-1">
-              <img src="{{ asset('svg/pet-icon.svg') }}" alt="Pet icon" class="h-5 w-5">
-              <span class="text-xl font-medium text-[#8B5E3C]">All Pets</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <img src="{{ asset('svg/location-icon.svg') }}" alt="Location icon" class="h-5 w-5">
-              <span class="text-xl font-medium text-[#0071FF]">Bandung</span>
-            </div>
-            <div class="flex items-center justify-between mt-1">
-              <p class="text-xl">
-                <span class="font-bold">Rp 200.000/</span>
-                <span class="font-bold text-gray-500">day</span>
-              </p>
-              <a href="{{ route('vendor.detail') }}" class="bg-[#B17F5B] text-white px-8 py-2 rounded-md font-bold text-lg -mt-8">
-                Contact
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 1 -->
-        <div class="w-1/3 bg-white rounded-2xl shadow-[0_3px_10px_rgb(0,0,0,0.2)] mb-8">
-          <!-- Image Container -->
-          <div class="w-full relative" style="padding-bottom: 75%;">
-            <img src="{{ asset('img/communication.jpg') }}" alt="Pet Shop" class="absolute top-0 left-0 w-full h-full object-cover rounded-t-xl">
-          </div>
-          <!-- Content Container -->
-          <div class="p-4">
-            <div class="flex items-center justify-between mb-8">
-              <h3 class="text-2xl font-bold">DayPet Care</h3>
-              <div class="flex items-center gap-1">
-                <!-- Rating stars -->
-                @for ($i = 0; $i < 4; $i++)
-                  <img src="{{ asset('svg/star-filled.svg') }}" alt="Filled star" class="h-6 w-6">
-                @endfor
-                <img src="{{ asset('svg/star-empty.svg') }}" alt="Empty star" class="h-6 w-6">
-              </div>
-            </div>
-            <div class="flex items-center gap-2 mb-1">
-              <img src="{{ asset('svg/pet-icon.svg') }}" alt="Pet icon" class="h-5 w-5">
-              <span class="text-xl font-medium text-[#8B5E3C]">All Pets</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <img src="{{ asset('svg/location-icon.svg') }}" alt="Location icon" class="h-5 w-5">
-              <span class="text-xl font-medium text-[#0071FF]">Bandung</span>
-            </div>
-            <div class="flex items-center justify-between mt-1">
-              <p class="text-xl">
-                <span class="font-bold">Rp 200.000/</span>
-                <span class="font-bold text-gray-500">day</span>
-              </p>
-              <a href="{{ route('vendor.detail') }}" class="bg-[#B17F5B] text-white px-8 py-2 rounded-md font-bold text-lg -mt-8">
-                Contact
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 1 -->
-        <div class="w-1/3 bg-white rounded-2xl shadow-[0_3px_10px_rgb(0,0,0,0.2)] mb-8">
-          <!-- Image Container -->
-          <div class="w-full relative" style="padding-bottom: 75%;">
-            <img src="{{ asset('img/communication.jpg') }}" alt="Pet Shop" class="absolute top-0 left-0 w-full h-full object-cover rounded-t-xl">
-          </div>
-          <!-- Content Container -->
-          <div class="p-4">
-            <div class="flex items-center justify-between mb-8">
-              <h3 class="text-2xl font-bold">DayPet Care</h3>
-              <div class="flex items-center gap-1">
-                <!-- Rating stars -->
-                @for ($i = 0; $i < 4; $i++)
-                  <img src="{{ asset('svg/star-filled.svg') }}" alt="Filled star" class="h-6 w-6">
-                @endfor
-                <img src="{{ asset('svg/star-empty.svg') }}" alt="Empty star" class="h-6 w-6">
-              </div>
-            </div>
-            <div class="flex items-center gap-2 mb-1">
-              <img src="{{ asset('svg/pet-icon.svg') }}" alt="Pet icon" class="h-5 w-5">
-              <span class="text-xl font-medium text-[#8B5E3C]">All Pets</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <img src="{{ asset('svg/location-icon.svg') }}" alt="Location icon" class="h-5 w-5">
-              <span class="text-xl font-medium text-[#0071FF]">Bandung</span>
-            </div>
-            <div class="flex items-center justify-between mt-1">
-              <p class="text-xl">
-                <span class="font-bold">Rp 200.000/</span>
-                <span class="font-bold text-gray-500">day</span>
-              </p>
-              <a href="{{ route('vendor.detail') }}" class="bg-[#B17F5B] text-white px-8 py-2 rounded-md font-bold text-lg -mt-8">
-                Contact
-              </a>
-            </div>
-          </div>
-        </div>
-        <!-- Additional Cards -->
-        <!-- Repeat the above card format as needed -->
+  <div class="w-full overflow-hidden relative h-auto py-20">
+    <div class="container mx-auto px-4">
+      <!-- Title Section -->
+      <div class="text-center mb-8">
+        <h2 class="text-5xl font-bold text-[#4A3B32] pt-12 mb-8">Vendor</h2>
+        <p class="text-gray-600 mb-20 text-lg">Recommendations for trusted vendors</p>
       </div>
+      
+      <!-- Slider Container -->
+      <div class="relative ">
+        <!-- Wrapper untuk tombol dan slider -->
+        <div class="flex items-center justify-between">
+          <!-- Tombol prev -->
+          <div class="overflow-hidden">
+            <button id="prevBtn"
+            class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-[#B17F5B] text-white w-12 h-12 rounded-full shadow-lg z-50 flex items-center justify-center cursor-pointer">
+            <img src="{{ asset('svg/arrow-left.svg') }}" alt="Previous" class="w-6 h-6">
+          </button>
+          </div>
+     
+          <!-- Slider yang berisi cards -->
+          <div id="slider" class="flex gap-6 transition-transform duration-500 ease-in-out">
+            <!-- Cards -->
+            @foreach ($pethotels->take(3) as $p)
+              <div class="flex-shrink-0 bg-white rounded-2xl shadow-md">
+                <div class="relative w-full h-0" style="padding-bottom: 75%;">
+                  <img src="{{ Storage::url($p->petHotelImages->first()->main_image) }}" alt="Pet Shop"
+                    class="absolute inset-0 w-full h-full object-cover rounded-t-2xl">
+                </div>
+                <div class="p-4">
+                  <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-2xl font-bold">{{ $p->name }}</h3>
+                    <div class="flex gap-1">
+                      @for ($i = 0; $i < floor($p->reviews_avg_rating); $i++)
+                        <img src="{{ asset('svg/star-filled.svg') }}" alt="Filled star" class="w-6 h-6">
+                      @endfor
 
-      <!-- Navigation Buttons -->
-      <button id="prevBtn" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-[#B17F5B] text-white p-4 w-16 h-16 rounded-full shadow-lg flex items-center justify-center">
-        <img src="{{ asset('svg/arrow-left.svg') }}" alt="Previous" class="w-6 h-6">
-      </button>
-      <button id="nextBtn" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-[#B17F5B] text-white p-4 w-16 h-16 rounded-full shadow-lg flex items-center justify-center">
-        <img src="{{ asset('svg/arrow-right.svg') }}" alt="Next" class="w-6 h-6 ml-1">
-      </button>
+                      @if ($p->reviews_avg_rating - floor($p->reviews_avg_rating) >= 0.5)
+                        <img src="{{ asset('svg/star-half.svg') }}" alt="Half star" class="w-6 h-6">
+                      @endif
 
-      <!-- Dots Navigation -->
-      <div class="flex justify-center gap-2 mt-6 mb-24">
-        <button class="w-4 h-4 rounded-full bg-[#B17F5B] transition-all duration-300" id="dot-0"></button>
-        <button class="w-4 h-4 rounded-full bg-[#D9D9D9] transition-all duration-300" id="dot-1"></button>
-        <button class="w-4 h-4 rounded-full bg-[#D9D9D9] transition-all duration-300" id="dot-2"></button>
+                      @for ($i = 0; $i < (5 - ceil($p->reviews_avg_rating)); $i++)
+                        <img src="{{ asset('svg/star-empty.svg') }}" alt="Empty star" class="w-6 h-6">
+                      @endfor
+
+                    </div>
+                  </div>
+                  @php
+                    $species = $p->hotelPricings->pluck('species')->unique();
+                    $displaySpecies = $species->implode(', ');
+                  @endphp
+                  <div class="flex items-center gap-2 mb-2">
+                    <img src="{{ asset('svg/pet-icon.svg') }}" alt="Pet icon" class="w-5 h-5">
+                    <span class="text-xl font-medium text-[#8B5E3C]">{{ $displaySpecies }}</span>
+                  </div>
+                  <div class="flex items-center gap-2 mb-2">
+                    <img src="{{ asset('svg/location-icon.svg') }}" alt="Location icon" class="w-5 h-5">
+                    <span class="text-xl font-medium text-[#0071FF]">{{ $p->location }}</span>
+                  </div>
+                  <div class="flex items-center justify-between mt-2 gap-3">
+                    @php
+                      $minPrice = $p->hotelPricings->min('price_per_day');
+                    @endphp
+                    <p class="text-xl">
+                      <span class="font-bold">Rp{{ number_format($minPrice, 0, ',', '.') }}/</span>
+                      <span class="font-bold text-gray-500">day</span>
+                    </p>
+                    <a href="{{ route('vendor.detail', ['id' => $p->id]) }}" 
+                      class="bg-[#B17F5B] text-white px-4 py-2 rounded-md font-bold text-lg">
+                      Contact
+                    </a>
+                  </div>
+                </div>
+              </div>
+            @endforeach
+          </div>
+
+          <!-- Tombol next -->
+          <div>
+            <button id="nextBtn"
+            class="right-0 top-1/2 transform -translate-y-1/2 bg-[#B17F5B] text-white w-12 h-12 rounded-full shadow-lg z-50 flex items-center justify-center cursor-pointer">
+            <img src="{{ asset('svg/arrow-right.svg') }}" alt="Next" class="w-6 h-6">
+          </button>
+          </div>
+        </div>
+
+
       </div>
+        <!-- Dots Navigation -->
+        <div id="dotsNav" class="flex justify-center gap-2 mt-12"></div>
+
     </div>
   </div>
-</div>
 
 @endsection
 
 @section('script')
-
 <script>
+  document.addEventListener('DOMContentLoaded', () => {
     const slider = document.getElementById('slider');
-  const prevBtn = document.getElementById('prevBtn');
-  const nextBtn = document.getElementById('nextBtn');
-  const dots = Array.from(document.querySelectorAll('[id^="dot-"]'));
-  let currentIndex = 0;
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const dotsNav = document.getElementById('dotsNav');
+    const cards = Array.from(slider.children);
+    const cardsPerPage = 3; // Jumlah kartu per halaman
+    const totalPages = Math.ceil(cards.length / cardsPerPage);
+    let currentIndex = 0;
+    let cardWidth = cards[0].getBoundingClientRect().width;
 
-  // Calculate total number of vendor cards inside the slider
-  const totalCards = slider.querySelectorAll('.w-1/3').length;
+    // Membuat dots berdasarkan jumlah total halaman
+    function createDots() {
+      dotsNav.innerHTML = '';
+      for (let i = 0; i < totalPages; i++) {
+        const dot = document.createElement('button');
+        dot.classList.add(
+          'w-4', 'h-4', 'rounded-full',
+          'transition-all', 'duration-300',
+          i === 0 ? 'bg-[#B17F5B]' : 'bg-[#D9D9D9]'
+        );
+        dot.dataset.index = i;
+        dotsNav.appendChild(dot);
+      }
+    }
 
-  // Set to always show 3 cards
-  const cardsToShow = 3;
+    // Pindah ke halaman tertentu
+    function moveToPage(pageIndex) {
+      const offset = -(pageIndex * cardsPerPage * cardWidth); // Geser berdasarkan 3 kartu
+      slider.style.transform = `translateX(${offset}px)`;
+      currentIndex = pageIndex;
+      updateNavigation();
+    }
 
-  function updateSlider() {
-    // Adjust the translateX calculation to always display 3 cards
-    slider.style.transform = `translateX(-${(currentIndex * 100) / cardsToShow}%)`;
-    updateDots();
-    updateButtons();
-  }
+    // Update navigasi (dots dan tombol)
+    function updateNavigation() {
+      Array.from(dotsNav.children).forEach((dot, i) => {
+        dot.classList.toggle('bg-[#B17F5B]', i === currentIndex);
+        dot.classList.toggle('bg-[#D9D9D9]', i !== currentIndex);
+      });
+      prevBtn.disabled = currentIndex === 0;
+      nextBtn.disabled = currentIndex === totalPages - 1;
+    }
 
-  function updateDots() {
-    dots.forEach((dot, index) => {
-      if (index === Math.floor(currentIndex / cardsToShow)) {
-        dot.classList.add('bg-[#B17F5B]');
-        dot.classList.remove('bg-[#D9D9D9]');
-      } else {
-        dot.classList.add('bg-[#D9D9D9]');
-        dot.classList.remove('bg-[#B17F5B]');
+    // Event listener untuk navigasi
+    prevBtn.addEventListener('click', () => {
+      if (currentIndex > 0) moveToPage(currentIndex - 1);
+    });
+
+    nextBtn.addEventListener('click', () => {
+      if (currentIndex < totalPages - 1) moveToPage(currentIndex + 1);
+    });
+
+    dotsNav.addEventListener('click', (e) => {
+      const target = e.target;
+      if (target.tagName === 'BUTTON') {
+        moveToPage(parseInt(target.dataset.index, 10));
       }
     });
-  }
 
-  function updateButtons() {
-    prevBtn.disabled = currentIndex === 0;
-    nextBtn.disabled = currentIndex + cardsToShow >= totalCards;
-  }
+    // Inisialisasi carousel
+    createDots();
+    moveToPage(0);
 
-  nextBtn.addEventListener('click', () => {
-    if (currentIndex + cardsToShow < totalCards) {
-      currentIndex++;
-      updateSlider();
-    }
+    // Sesuaikan lebar kartu saat resize (debounced untuk mengoptimalkan kinerja)
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        const newCardWidth = cards[0].getBoundingClientRect().width;
+        if (cardWidth !== newCardWidth) {
+          cardWidth = newCardWidth;
+          slider.style.transform = `translateX(-${currentIndex * cardsPerPage * cardWidth}px)`;
+        }
+      }, 100); // Delay resize untuk mengoptimalkan kinerja
+    });
   });
-
-  prevBtn.addEventListener('click', () => {
-    if (currentIndex > 0) {
-      currentIndex--;
-      updateSlider();
-    }
-  });
-
-  window.addEventListener('resize', () => {
-    // No longer need to adjust cardsToShow since it's always 3
-    updateSlider();
-  });
-
-  updateSlider();
-
 </script>
-
-
 
   
 @endsection

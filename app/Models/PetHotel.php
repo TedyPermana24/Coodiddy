@@ -8,38 +8,44 @@ use Illuminate\Database\Eloquent\Model;
 class PetHotel extends Model
 {
     use HasFactory;
-
+    
+    protected $table = 'pet_hotels';
     protected $fillable = [
+        'owner_id',
         'name',
         'location',
         'description',
-        'rating',
+        'address',
+        'phone',
     ];
 
-    /**
-     * Relasi ke tabel HotelPricing
-     * Satu hotel memiliki banyak harga layanan
-     */
-    public function pricings()
+    public function hotelPricings()
     {
-        return $this->hasMany(HotelPricing::class);
+        return $this->hasMany(HotelPricing::class, 'hotel_id', 'id');
     }
 
-    /**
-     * Relasi ke tabel Bookings
-     * Satu hotel memiliki banyak booking
-     */
     public function bookings()
     {
         return $this->hasMany(Booking::class);
     }
 
-    /**
-     * Relasi ke tabel Reviews
-     * Satu hotel memiliki banyak ulasan
-     */
     public function reviews()
     {
-        return $this->hasMany(Review::class);
+        return $this->hasMany(Review::class, 'hotel_id', 'id');
+    }
+
+    public function additionalServices()
+    {
+        return $this->hasMany(AdditionalService::class, 'hotel_id');
+    }
+
+    public function petHotelImages()
+    {
+        return $this->hasMany(PetHotelImages::class, 'hotel_id');
+    }
+
+    public function registrationVendor()
+    {
+        return $this->hasOne(RegistrationVendor::class, 'hotel_id');
     }
 }

@@ -12,11 +12,11 @@
         <div class="w-1/2 p-8 flex flex-col justify-between">
             <div>
                 {{-- X Button --}}
-                <button type="button" onclick="if (document.referrer) { window.location.href='{{ url()->previous() }}'; }" class="text-gray-500 hover:text-gray-700 mr-2" id="backButton">
+                <a href="{{ url('/') }}" class="text-gray-500 hover:text-gray-700 mr-2" id="backButton">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
-                </button>
+                </a>
                 <h1 class="text-2xl font-bold text-center mb-4 mt-3" style="font-family: 'Poppins', sans-serif; font-size: 30px;">Sign in</h1>
                 <div class="flex justify-center space-x-4 mb-10">
                     <button class="w-10 h-10 rounded-full flex items-center justify-center">
@@ -68,19 +68,11 @@
 
         <!-- Right Section -->
         <div class="w-1/2 h-full flex items-center justify-center p-4">
-            <img src="{{ asset('img/cat-login.jpg') }}" alt="Cat" class="w-full h-full object-cover scale-110">
+            <img src="{{ asset('img/cat-login-long.jpg') }}" alt="Cat" class="w-full h-full object-cover scale-110">
         </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const backButton = document.getElementById('backButton');
-            if (!document.referrer) {
-                backButton.style.pointerEvents = 'none'; // Menonaktifkan interaksi
-                backButton.classList.add('opacity-50', 'cursor-not-allowed'); // Menambahkan kelas untuk tampilan non-aktif
-            }
-        });
-
         function togglePasswordVisibility() {
             const passwordInput = document.getElementById('password');
             const passwordIcon = document.querySelector('img[alt="Toggle Password"]');

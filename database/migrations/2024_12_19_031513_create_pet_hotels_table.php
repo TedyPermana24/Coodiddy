@@ -17,8 +17,10 @@ return new class extends Migration
             $table->string('name');
             $table->text('location');
             $table->text('description')->nullable();
-            $table->text('facilities')->nullable();
-            $table->string('image')->nullable();
+            $table->string('address')->nullable();
+            $table->string('phone')->nullable();
+            $table->integer('balance')->nullable()->default(0);
+            $table->enum('status', ['active', 'non-active'])->default('non-active');
             $table->timestamps();
         });
     }
